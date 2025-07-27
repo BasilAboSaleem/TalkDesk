@@ -59,11 +59,15 @@ liveReloadServer.server.once("connection", () => {
   setTimeout(() => liveReloadServer.refresh("/"), 100);
 });
 
-/* Routers
+// Routers
 const coreRoute = require('./routes/coreRoute');
+
+app.use(coreRoute);
+/* Routers
+
 const authRoute = require('./routes/authRoute');
 const reviewRoute = require('./routes/reviewRoute');
-app.use(coreRoute);
+
 app.use(authRoute);
 app.use(reviewRoute);
 /*
