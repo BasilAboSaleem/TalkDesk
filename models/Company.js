@@ -4,7 +4,24 @@ const companySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    unique: true, // اسم الشركة لازم يكون فريد
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+  },
+
+  subdomain: {
+    type: String,
+    required: true,
+    unique: true,  // اسم النطاق الفرعي لازم يكون فريد
+    lowercase: true,
+    trim: true,
   },
 
   logo: {
@@ -32,6 +49,11 @@ const companySchema = new mongoose.Schema({
     type: String,
     enum: ['light', 'dark'],
     default: 'light'
+  },
+
+  isActive: {
+    type: Boolean,
+    default: true,  // يتم تفعيله بعد التأكد من البيانات أو عبر الأدمن
   },
 
   settings: {
