@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
+const companyAuthController = require('../controllers/auth/companyAuthController');
 
-// Routes for authentication
 
+router.get('/register-company', companyAuthController.registerCompany_get);
 
 
 module.exports = router;

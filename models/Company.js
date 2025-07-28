@@ -53,7 +53,7 @@ const companySchema = new mongoose.Schema({
 
   isActive: {
     type: Boolean,
-    default: true,  // يتم تفعيله بعد التأكد من البيانات أو عبر الأدمن
+    default: false,  // يتم تفعيله بعد التأكد من البيانات أو عبر الأدمن
   },
 
   settings: {

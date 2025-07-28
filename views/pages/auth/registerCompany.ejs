@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/head') %>
+<style>
+      .logo {
+  width: 200px; 
+  height: auto; 
+}
+  
+</style>
+
+<body>
+  <div id="app">
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="login-brand">
+              <img src="/assets/logo.png" alt="TalkDesk Logo" class="logo mb-4">
+            </div>
+
+            <div class="card card-primary">
+              <div class="card-header"><h4>Register Your Company</h4></div>
+
+              <div class="card-body">
+                <form method="POST" action="/register-company" enctype="multipart/form-data">
+                  
+                  <!-- Company Info -->
+                  <div class="form-divider">Company Information</div>
+                  <div class="form-group">
+                    <label for="company_name">Company Name</label>
+                    <input id="company_name" type="text" class="form-control" name="company[name]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="company_email">Company Email</label>
+                    <input id="company_email" type="email" class="form-control" name="company[email]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="subdomain">Subdomain</label>
+                    <input id="subdomain" type="text" class="form-control" name="company[subdomain]" required placeholder="e.g. mycompany">
+                    <small class="text-muted">Your workspace will be accessed via: <strong>subdomain.talkdesk.com</strong></small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <input id="industry" type="text" class="form-control" name="company[industry]">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="description">Company Description</label>
+                    <textarea id="description" class="form-control" name="company[description]" rows="3"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="logo">Company Logo</label>
+                    <input id="logo" type="file" class="form-control-file" name="company[logo]">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="language">Default Language</label>
+                    <select class="form-control" name="company[defaultLanguage]">
+                      <option value="en">English</option>
+                      <option value="ar">Arabic</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="theme">Default Theme</label>
+                    <select class="form-control" name="company[defaultTheme]">
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                    </select>
+                  </div>
+
+                  <!-- Admin Info -->
+                  <div class="form-divider">Admin User Information</div>
+                  <div class="form-group">
+                    <label for="admin_name">Admin Name</label>
+                    <input id="admin_name" type="text" class="form-control" name="admin[name]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="admin_email">Admin Email</label>
+                    <input id="admin_email" type="email" class="form-control" name="admin[email]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="admin_password">Password</label>
+                    <input id="admin_password" type="password" class="form-control" name="admin[password]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="admin_password2">Confirm Password</label>
+                    <input id="admin_password2" type="password" class="form-control" name="admin[confirmPassword]" required>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="agree" class="custom-control-input" id="agree" required>
+                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Register Company
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <%- include('../../partials/script') %>
+</body>
+</html>
