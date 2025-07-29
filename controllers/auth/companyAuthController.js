@@ -67,20 +67,29 @@ exports.registerCompany_post = async (req, res) => {
       return res.status(400).json({ errors });
     }
 
-    // إذا كان هناك لوجو، ارفعه إلى Cloudinary
     let logoUrl = null;
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'TalkDesk/CompanyLogos',
-        use_filename: true,
-        unique_filename: false,
-      });
-      logoUrl = result.secure_url;
-    
-      // حذف الملف المؤقت
-  fs.unlink(req.file.path, (err) => {
-    if (err) console.error('Failed to delete temp file:', err);
-  });
+
+if (req.file) {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'TalkDesk/CompanyLogos',
+      use_filename: true,
+      unique_filename: false,
+    });
+
+    logoUrl = result.secure_url;
+  } catch (uploadError) {
+    console.error('Error uploading to Cloudinary:', uploadError);
+  } finally {
+    // حذف الملف المؤقت دائمًا حتى لو صار خطأ في الرفع
+    fs.unlink(req.file.path, (err) => {
+      if (err) {
+        console.error('Failed to delete temp file:', err);
+      } else {
+        console.log('Temp file deleted successfully.');
+      }
+    });
+  }
 }
 
 
