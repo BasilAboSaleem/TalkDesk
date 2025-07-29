@@ -3,11 +3,16 @@
 
 <%- include('../../partials/head') %>
 <style>
-      .logo {
-  width: 200px; 
-  height: auto; 
-}
-  
+  .logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: -100px;
+    margin-top: -80px;
+  }
+  .text-danger {
+    font-size: 0.85rem;
+
+  }
 </style>
 
 <body>
@@ -20,11 +25,11 @@
               <img src="/assets/logo.png" alt="TalkDesk Logo" class="logo mb-4">
             </div>
 
-            <div class="card card-primary">
-              <div class="card-header"><h4>Register Your Company</h4></div>
+            <div class="card card-primary" style="margin-top: -100px;">
+              <div class="card-header"><h4><span style="color: rgb(75, 97, 221);">Register Your Company</span></h4></div>
 
               <div class="card-body">
-                <form method="POST" action="/register-company" enctype="multipart/form-data">
+                <form id="registerCompanyForm" method="post" enctype="multipart/form-data">
                   
                   <!-- Company Info -->
                   <div class="form-divider">Company Information</div>
@@ -36,12 +41,14 @@
                   <div class="form-group">
                     <label for="company_email">Company Email</label>
                     <input id="company_email" type="email" class="form-control" name="company[email]" required>
+                    <span class="text-danger" id="error_company_email"></span>
                   </div>
 
                   <div class="form-group">
                     <label for="subdomain">Subdomain</label>
                     <input id="subdomain" type="text" class="form-control" name="company[subdomain]" required placeholder="e.g. mycompany">
                     <small class="text-muted">Your workspace will be accessed via: <strong>subdomain.talkdesk.com</strong></small>
+                    <span class="text-danger" id="error_company_subdomain"></span>
                   </div>
 
                   <div class="form-group">
@@ -56,7 +63,7 @@
 
                   <div class="form-group">
                     <label for="logo">Company Logo</label>
-                    <input id="logo" type="file" class="form-control-file" name="company[logo]">
+                    <input id="logo" type="file" class="form-control-file" name="logo">
                   </div>
 
                   <div class="form-group">
@@ -79,23 +86,42 @@
                   <div class="form-divider">Admin User Information</div>
                   <div class="form-group">
                     <label for="admin_name">Admin Name</label>
-                    <input id="admin_name" type="text" class="form-control" name="admin[name]" required>
+                    <input id="admin_name" type="text" class="form-control" name="user[name]" required>
                   </div>
 
                   <div class="form-group">
                     <label for="admin_email">Admin Email</label>
-                    <input id="admin_email" type="email" class="form-control" name="admin[email]" required>
+                    <input id="admin_email" type="email" class="form-control" name="user[email]" required>
+                    <span class="text-danger" id="error_user_email"></span>
                   </div>
 
                   <div class="form-group">
-                    <label for="admin_password">Password</label>
-                    <input id="admin_password" type="password" class="form-control" name="admin[password]" required>
-                  </div>
+  <label for="admin_password">Password</label>
+  <input
+    id="admin_password"
+    type="password"
+    class="form-control"
+    name="user[password]"
+    required
+    pattern="(?=.*[A-Z])(?=.*\d).{8,}"
+    title="Password must be at least 8 characters, include at least one uppercase letter and one number."
+  >
+  <small id="passwordHelp" class="form-text text-muted">
+    Password must be at least 8 characters, contain at least one uppercase letter and one number.
+  </small>
+</div>
 
-                  <div class="form-group">
-                    <label for="admin_password2">Confirm Password</label>
-                    <input id="admin_password2" type="password" class="form-control" name="admin[confirmPassword]" required>
-                  </div>
+<div class="form-group">
+  <label for="admin_password2">Confirm Password</label>
+  <input
+    id="admin_password2"
+    type="password"
+    class="form-control"
+    name="user[confirmPassword]"
+    required
+  >
+  <small id="confirmPasswordHelp" class="form-text text-muted"></small>
+</div>
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
@@ -120,5 +146,70 @@
   </div>
 
   <%- include('../../partials/script') %>
+
+ <script>
+  document.getElementById('registerCompanyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // مسح الأخطاء السابقة
+    ['company_email', 'company_subdomain', 'user_email', 'user_password', 'user_confirmPassword'].forEach(id => {
+      const el = document.getElementById(`error_${id}`);
+      if(el) el.textContent = '';
+    });
+
+    const passwordInput = document.getElementById('admin_password');
+    const confirmPasswordInput = document.getElementById('admin_password2');
+
+    // تحقق قوة الباسورد
+    const password = passwordInput.value;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasLength = password.length >= 8;
+    if (!hasLength || !hasUpper || !hasNumber) {
+      const el = document.getElementById('error_user_password');
+      if(el) el.textContent = 'Password must be at least 8 characters, include at least one uppercase letter and one number.';
+      passwordInput.focus();
+      return;
+    }
+
+    // تحقق تطابق الباسوردين
+    if (password !== confirmPasswordInput.value) {
+      const el = document.getElementById('error_user_confirmPassword');
+      if(el) el.textContent = 'Passwords do not match.';
+      confirmPasswordInput.focus();
+      return;
+    }
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch('/register-company', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.status === 400 && data.errors) {
+        // عرض الأخطاء تحت الحقول
+        for (const key in data.errors) {
+          const formattedKey = key.replace('.', '_');
+          const span = document.getElementById(`error_${formattedKey}`);
+          if (span) span.textContent = data.errors[key];
+        }
+      } else if (res.status === 200 || res.status === 201) {
+        alert('Company registered successfully!');
+        window.location.href = '/'; 
+      } else {
+        alert('Unexpected error occurred.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error submitting the form.');
+    }
+  });
+</script>
+
 </body>
 </html>
