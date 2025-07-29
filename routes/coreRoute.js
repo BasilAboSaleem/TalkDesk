@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const coreController = require('../controllers/coreController');
 
-router.get('/', (req, res) => {
-  res.render('landing', {
-    title: 'Home'
-  });
-});
+router.get('/', coreController.landing_get);
+router.get('/dashboard', coreController.dashboard_get);
+
 
 module.exports = router;

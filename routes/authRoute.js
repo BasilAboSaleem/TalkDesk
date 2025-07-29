@@ -10,4 +10,5 @@ router.post('/register-company', upload.single('logo'), authController.registerC
 router.get('/login', authController.login_get); 
 
 
+
 module.exports = router;
