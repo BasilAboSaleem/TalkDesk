@@ -48,8 +48,16 @@ app.use((req, res, next) => {
   next();
 });
 app.use(require('./middlewares/authMiddlewares').checkIfUser);
+// الثيم + اللغة
+app.use((req, res, next) => {
+  const user = req.user;
 
+  res.locals.themeClass = user ? `theme-${user.theme || 'light'}` : 'theme-light';
+  res.locals.dir = user?.language === 'ar' ? 'rtl' : 'ltr';
+  res.locals.lang = user?.language || 'en';
 
+  next();
+});
 
 // Auto refresh
 const liveReloadServer = livereload.createServer();
