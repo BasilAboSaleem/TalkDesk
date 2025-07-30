@@ -47,3 +47,10 @@ exports.login_post = async (req, res) => {
     return res.redirect('/login');
   }
 };
+
+exports.logout_get = (req, res) => {
+  res.clearCookie('connect.sid');
+  res.clearCookie('jwt');
+  req.flash('success', 'You have been logged out successfully.');
+  return res.redirect('/login');
+};

@@ -11,5 +11,5 @@ router.get('/register-company', authController.registerCompany_get);
 router.post('/register-company', upload.single('logo'), authController.registerCompany_post);
 router.get('/login', authController.login_get); 
 router.post('/login', loginLimiter, authController.login_post);
-
+router.get('/logout', requireAuth, authController.logout_get);
 module.exports = router;

@@ -1,5 +1,5 @@
 const {registerCompany_get , registerCompany_post} = require('./registerCompanyController');
-const {login_get, login_post} = require('./loginController');
+const {login_get, login_post, logout_get} = require('./loginController');
 
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
     registerCompany_post,
     login_get,
     login_post,
+    logout_get
     
 }
