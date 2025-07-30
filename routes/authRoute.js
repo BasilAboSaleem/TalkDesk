@@ -3,11 +3,13 @@ const router = express.Router();
 const authController = require('../controllers/auth/authController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const {requireAuth, checkIfUser, isAdmin, isEmployee, isSuperAdmin, loginLimiter} = require('../middlewares/authMiddlewares');
+
 
 
 router.get('/register-company', authController.registerCompany_get);
 router.post('/register-company', upload.single('logo'), authController.registerCompany_post);
 router.get('/login', authController.login_get); 
-router.post('/login', authController.login_post);
+router.post('/login', loginLimiter, authController.login_post);
 
 module.exports = router;

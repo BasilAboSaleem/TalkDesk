@@ -47,7 +47,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
-//app.use(require('./middlewares/authMiddlewares').checkIfUser);
+app.use(require('./middlewares/authMiddlewares').checkIfUser);
 
 
 

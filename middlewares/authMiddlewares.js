@@ -1,7 +1,6 @@
 var jwt = require("jsonwebtoken");
 const UserModel = require("../models/User")
-const rateLimit = require("express-rate-limit");
-
+const rateLimit = require('express-rate-limit');
 
 //دالة لفحص تسجيل الدخول قبل السماج للمستخدم بالذهاب للراوت المطلوب
 const requireAuth = (req,res,next) => {
@@ -82,15 +81,14 @@ const isSuperAdmin = (req, res, next) => {
 
 // استيراد مكتبة rate-limit الخاصة بتقييد محاولات تسجيل الدخول
 const loginLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 دقائق
-  max: 5, // يسمح بـ 5 محاولات فقط خلال 10 دقائق من نفس الـ IP
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 5, // limit each IP to 5 login attempts per windowMs
   message: {
-    error: "Too many login attempts. Please try again after 10 minutes."
+    error: 'Too many login attempts. Please try again after 10 minutes.'
   },
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: true, // return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false,  // disable the `X-RateLimit-*` headers
 });
-
 module.exports = {
     requireAuth,
     checkIfUser,
