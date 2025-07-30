@@ -14,6 +14,12 @@
   <div id="app">
     <section class="section">
       <div class="container mt-5">
+           <% if (success && success.length > 0) { %>
+              <div class="alert alert-success"><%= success[0] %></div>
+            <% } %>
+            <% if (error && error.length > 0) { %>
+              <div class="alert alert-danger"><%= error[0] %></div>
+            <% } %>
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
@@ -24,7 +30,7 @@
               <div class="card-header"><h4>Login to TalkDesk</h4></div>
 
               <div class="card-body">
-                <form id="loginForm" method="POST" novalidate>
+                <form id="loginForm" method="POST">
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" required autofocus>
@@ -72,42 +78,6 @@
 
   <%- include('../../partials/script') %>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Clear previous errors
-      ['email', 'password'].forEach(field => {
-        document.getElementById(`error_${field}`).textContent = '';
-      });
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      try {
-        const res = await fetch('/login', {
-          method: 'POST',
-          body: formData
-        });
-
-        const data = await res.json();
-
-        if (res.status === 400 && data.errors) {
-          for (const key in data.errors) {
-            const errorSpan = document.getElementById(`error_${key}`);
-            if (errorSpan) errorSpan.textContent = data.errors[key];
-          }
-        } else if (res.status === 200) {
-          window.location.href = data.redirect || '/dashboard';
-        } else {
-          alert('Unexpected error occurred.');
-        }
-
-      } catch (err) {
-        console.error(err);
-        alert('An error occurred while submitting the form.');
-      }
-    });
-  </script>
+ 
 </body>
 </html>
