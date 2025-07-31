@@ -55,7 +55,10 @@ const companySchema = new mongoose.Schema({
     type: Boolean,
     default: false,  // يتم تفعيله بعد التأكد من البيانات أو عبر الأدمن
   },
-
+isRejected: {
+  type: Boolean,
+  default: false
+},
   settings: {
     type: Object,
     default: {}
