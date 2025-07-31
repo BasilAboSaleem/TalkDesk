@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Pending Company Approvals</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item">Companies</div>
+              <div class="breadcrumb-item">Pending Approval</div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title">Companies Awaiting Activation</h2>
+            <p class="section-lead">Approve or reject newly registered companies.</p>
+
+            <div class="card">
+              <div class="card-header">
+                <h4>Pending Companies</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th>Subdomain</th>
+                        <th>Registered At</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (typeof companies !== 'undefined' && companies.length > 0) { %>
+                        <% companies.forEach((company, index) => { %>
+                          <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= company.name %></td>
+                            <td><%= company.email %></td>
+                            <td><%= company.subdomain %></td>
+                            <td><%= company.createdAt.toLocaleDateString() %></td>
+                            <td>
+                              <a href="/admin/companies/<%= company._id %>" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                              </a>
+
+                              <form action="/admin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                                <button class="btn btn-success btn-sm">
+                                  <i class="fas fa-check"></i> Approve
+                                </button>
+                              </form>
+
+                              <form action="/admin/companies/<%= company._id %>/reject" method="POST" style="display:inline;">
+                                <button class="btn btn-danger btn-sm">
+                                  <i class="fas fa-times"></i> Reject
+                                </button>
+                              </form>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="6" class="text-center">No pending companies to review.</td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+
+</body>
+</html>
