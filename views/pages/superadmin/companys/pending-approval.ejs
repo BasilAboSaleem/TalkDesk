@@ -13,33 +13,33 @@
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Pending Company Approvals</h1>
+            <h1><%= t('pendingApproval.pageTitle') %></h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item">Companies</div>
-              <div class="breadcrumb-item">Pending Approval</div>
+              <div class="breadcrumb-item active"><a href="#"><%= t('pendingApproval.breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('pendingApproval.breadcrumb.companies') %></div>
+              <div class="breadcrumb-item"><%= t('pendingApproval.breadcrumb.pendingApproval') %></div>
             </div>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Companies Awaiting Activation</h2>
-            <p class="section-lead">Approve or reject newly registered companies.</p>
+            <h2 class="section-title"><%= t('pendingApproval.sectionTitle') %></h2>
+            <p class="section-lead"><%= t('pendingApproval.sectionLead') %></p>
 
             <div class="card">
               <div class="card-header">
-                <h4>Pending Companies</h4>
+                <h4><%= t('pendingApproval.cardHeader') %></h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Company Name</th>
-                        <th>Email</th>
-                        <th>Subdomain</th>
-                        <th>Registered At</th>
-                        <th>Actions</th>
+                        <th><%= t('pendingApproval.tableHeaders.index') %></th>
+                        <th><%= t('pendingApproval.tableHeaders.companyName') %></th>
+                        <th><%= t('pendingApproval.tableHeaders.email') %></th>
+                        <th><%= t('pendingApproval.tableHeaders.subdomain') %></th>
+                        <th><%= t('pendingApproval.tableHeaders.registeredAt') %></th>
+                        <th><%= t('pendingApproval.tableHeaders.actions') %></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -53,18 +53,18 @@
                             <td><%= company.createdAt.toLocaleDateString() %></td>
                             <td>
                               <a href="/admin/companies/<%= company._id %>" class="btn btn-info btn-sm">
-                                <i class="fas fa-eye"></i> View
+                                <i class="fas fa-eye"></i> <%= t('pendingApproval.buttons.view') %>
                               </a>
 
                               <form action="/admin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
                                 <button class="btn btn-success btn-sm">
-                                  <i class="fas fa-check"></i> Approve
+                                  <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
                                 </button>
                               </form>
 
                               <form action="/admin/companies/<%= company._id %>/reject" method="POST" style="display:inline;">
                                 <button class="btn btn-danger btn-sm">
-                                  <i class="fas fa-times"></i> Reject
+                                  <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
                                 </button>
                               </form>
                             </td>
@@ -72,7 +72,7 @@
                         <% }) %>
                       <% } else { %>
                         <tr>
-                          <td colspan="6" class="text-center">No pending companies to review.</td>
+                          <td colspan="6" class="text-center"><%= t('pendingApproval.noPending') %></td>
                         </tr>
                       <% } %>
                     </tbody>

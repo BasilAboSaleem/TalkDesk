@@ -10,6 +10,7 @@ const path = require("path");
 const livereload = require("livereload");
 const connectLivereload = require("connect-livereload");
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 
 // Body parsers
 app.use(express.urlencoded({ extended: true }));
@@ -48,16 +49,44 @@ app.use((req, res, next) => {
   next();
 });
 app.use(require('./middlewares/authMiddlewares').checkIfUser);
-// الثيم + اللغة
+
+// *** language && theme ***
+
+const localesDir = path.join(__dirname, 'locales');
+const translations = {};
+
+
+fs.readdirSync(localesDir).forEach(file => {
+  if (file.endsWith('.json')) {
+    const langCode = file.replace('.json', ''); 
+    const filePath = path.join(localesDir, file);
+    translations[langCode] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  }
+});
+
+// Middleware for setting language and theme
 app.use((req, res, next) => {
   const user = req.user;
+  const lang = user?.language || 'en'; 
 
   res.locals.themeClass = user ? `theme-${user.theme || 'light'}` : 'theme-light';
-  res.locals.dir = user?.language === 'ar' ? 'rtl' : 'ltr';
-  res.locals.lang = user?.language || 'en';
+  res.locals.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  res.locals.lang = lang;
+
+  
+  res.locals.t = function(key) {
+    const keys = key.split('.');
+    let val = translations[lang];
+    for (const k of keys) {
+      if (!val) break;
+      val = val[k];
+    }
+    return val || key; 
+  };
 
   next();
 });
+// *** end of language && theme ***
 
 // Auto refresh
 const liveReloadServer = livereload.createServer();

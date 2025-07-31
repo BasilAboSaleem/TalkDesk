@@ -1,0 +1,27 @@
+{
+  "pendingApproval": {
+    "pageTitle": "Pending Company Approvals",
+    "breadcrumb": {
+      "dashboard": "Dashboard",
+      "companies": "Companies",
+      "pendingApproval": "Pending Approval"
+    },
+    "sectionTitle": "Companies Awaiting Activation",
+    "sectionLead": "Approve or reject newly registered companies.",
+    "cardHeader": "Pending Companies",
+    "tableHeaders": {
+      "index": "#",
+      "companyName": "Company Name",
+      "email": "Email",
+      "subdomain": "Subdomain",
+      "registeredAt": "Registered At",
+      "actions": "Actions"
+    },
+    "buttons": {
+      "view": "View",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "noPending": "No pending companies to review."
+  }
+}
