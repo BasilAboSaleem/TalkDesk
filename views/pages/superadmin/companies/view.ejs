@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1><%= t('pendingApproval.pageTitle') %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#"><%= t('pendingApproval.breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('pendingApproval.breadcrumb.companies') %></div>
+              <div class="breadcrumb-item"><%= t('pendingApproval.breadcrumb.pendingApproval') %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title"><%= company.name %></h2>
+            <p class="section-lead"><%= t('pendingApproval.sectionLead') %></p>
+
+            <div class="card">
+              <div class="card-header">
+                <h4><%= t('pendingApproval.cardHeader') %></h4>
+              </div>
+              <div class="card-body">
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.tableHeaders.companyName') %>:</strong>
+                    <p><%= company.name %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.tableHeaders.email') %>:</strong>
+                    <p><%= company.email %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.tableHeaders.subdomain') %>:</strong>
+                    <p><%= company.subdomain %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.tableHeaders.registeredAt') %>:</strong>
+                    <p><%= company.createdAt.toLocaleDateString() %></p>
+                  </div>
+                  <div class="col-md-12">
+                    <strong><%= t('pendingApproval.view.description') %>:</strong>
+                    <p><%= company.description || '-' %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.view.language') %>:</strong>
+                    <p><%= company.language %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><%= t('pendingApproval.view.theme') %>:</strong>
+                    <p><%= company.theme %></p>
+                  </div>
+                  <div class="col-md-12">
+                    <strong><%= t('pendingApproval.view.logo') %>:</strong><br>
+                    <% if (company.logoUrl) { %>
+                      <img src="<%= company.logoUrl %>" alt="Company Logo" style="max-width: 200px; margin-top:10px;">
+                    <% } else { %>
+                      <p>-</p>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="text-center mt-4">
+                  <form action="/admin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                    <button class="btn btn-success btn-lg mr-2">
+                      <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
+                    </button>
+                  </form>
+
+                  <form action="/admin/companies/<%= company._id %>/reject" method="POST" style="display:inline;">
+                    <button class="btn btn-danger btn-lg">
+                      <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
+                    </button>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+
+</body>
+</html>

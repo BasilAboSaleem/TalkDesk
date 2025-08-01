@@ -1,0 +1,34 @@
+{
+  "pendingApproval": {
+    "pageTitle": "الموافقات المعلقة للشركات",
+    "breadcrumb": {
+      "dashboard": "لوحة التحكم",
+      "companies": "الشركات",
+      "pendingApproval": "الموافقة المعلقة"
+    },
+    "sectionTitle": "الشركات بانتظار التفعيل",
+    "sectionLead": "قم بالموافقة أو الرفض للشركات المسجلة حديثًا.",
+    "cardHeader": "الشركات المعلقة",
+    "tableHeaders": {
+      "index": "#",
+      "companyName": "اسم الشركة",
+      "email": "البريد الإلكتروني",
+      "subdomain": "النطاق الفرعي",
+      "registeredAt": "تاريخ التسجيل",
+      "actions": "الإجراءات"
+    },
+    "buttons": {
+      "view": "عرض",
+      "approve": "موافقة",
+      "reject": "رفض"
+    },
+    "noPending": "لا توجد شركات معلقة للمراجعة.",
+
+    "view": {
+      "description": "الوصف",
+      "language": "اللغة",
+      "theme": "الثيم",
+      "logo": "شعار الشركة"
+    }
+  }
+}

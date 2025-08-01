@@ -7,4 +7,5 @@ router.get('/', coreController.landing_get);
 router.get('/dashboard', requireAuth, coreController.dashboard_get);
 
 
+
 module.exports = router;

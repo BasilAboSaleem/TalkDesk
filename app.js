@@ -99,20 +99,14 @@ liveReloadServer.server.once("connection", () => {
 // Routers
 const coreRoute = require('./routes/coreRoute');
 const authRoute = require('./routes/authRoute');
+const superAdminRoute = require('./routes/superAdminRoute');
 app.use(coreRoute);
 app.use(authRoute);
-/* Routers
+app.use(superAdminRoute);
 
 
-const reviewRoute = require('./routes/reviewRoute');
 
 
-app.use(reviewRoute);
-/*
-const dashboardRoute = require('./routes/dashboardRoute');
-
-
-app.use(dashboardRoute);*/
 
 // Connect DB + Start
 const port = process.env.PORT || 3001;
