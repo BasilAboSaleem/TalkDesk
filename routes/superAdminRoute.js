@@ -4,7 +4,8 @@ const superAdminController = require('../controllers/superAdmin/superAdminContro
 const { requireAuth, isSuperAdmin } = require('../middlewares/authMiddlewares');
 
 
-router.get('/admin/companies/pending', requireAuth, isSuperAdmin, superAdminController.pendingCompanies_get);
+router.get('/sadmin/companies/pending', requireAuth, isSuperAdmin, superAdminController.getPendingCompanies);
+router.get('/sadmin/companies/:companyId', requireAuth, isSuperAdmin, superAdminController.viewPendingCompany);
 
 
 module.exports = router;

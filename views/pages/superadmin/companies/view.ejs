@@ -32,35 +32,57 @@
               <div class="card-body">
 
                 <div class="row mb-3">
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.tableHeaders.companyName') %>:</strong>
-                    <p><%= company.name %></p>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.tableHeaders.companyName') %>:</strong>
+                    <span><%= company.name %></span>
                   </div>
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.tableHeaders.email') %>:</strong>
-                    <p><%= company.email %></p>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.tableHeaders.email') %>:</strong>
+                    <span><%= company.email %></span>
                   </div>
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.tableHeaders.subdomain') %>:</strong>
-                    <p><%= company.subdomain %></p>
+
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.tableHeaders.subdomain') %>:</strong>
+                    <span><%= company.subdomain %></span>
                   </div>
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.tableHeaders.registeredAt') %>:</strong>
-                    <p><%= company.createdAt.toLocaleDateString() %></p>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.industry') %>:</strong>
+                    <span><%= company.industry || '-' %></span>
                   </div>
-                  <div class="col-md-12">
-                    <strong><%= t('pendingApproval.view.description') %>:</strong>
-                    <p><%= company.description || '-' %></p>
+
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.language') %>:</strong>
+                    <span><%= company.defaultLanguage %></span>
                   </div>
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.view.language') %>:</strong>
-                    <p><%= company.language %></p>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.theme') %>:</strong>
+                    <span><%= company.defaultTheme %></span>
                   </div>
-                  <div class="col-md-6">
-                    <strong><%= t('pendingApproval.view.theme') %>:</strong>
-                    <p><%= company.theme %></p>
+
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.tableHeaders.registeredAt') %>:</strong>
+                    <span><%= company.createdAt.toLocaleDateString() %></span>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.updatedAt') %>:</strong>
+                    <span><%= company.updatedAt.toLocaleDateString() %></span>
+                  </div>
+
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.status.active') %>:</strong>
+                    <span><%= company.isActive ? t('pendingApproval.view.status.activeTrue') : t('pendingApproval.view.status.activeFalse') %></span>
+                  </div>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50"><%= t('pendingApproval.view.status.rejected') %>:</strong>
+                    <span><%= company.isRejected ? t('pendingApproval.view.status.rejectedTrue') : t('pendingApproval.view.status.rejectedFalse') %></span>
+                  </div>
+
+                  <div class="col-md-12 d-flex mt-2">
+                    <strong class="w-25"><%= t('pendingApproval.view.description') %>:</strong>
+                    <span><%= company.description || '-' %></span>
+                  </div>
+
+                  <div class="col-md-12 mt-3">
                     <strong><%= t('pendingApproval.view.logo') %>:</strong><br>
                     <% if (company.logoUrl) { %>
                       <img src="<%= company.logoUrl %>" alt="Company Logo" style="max-width: 200px; margin-top:10px;">
@@ -69,6 +91,21 @@
                     <% } %>
                   </div>
                 </div>
+
+                <% if (admin) { %>
+                  <hr />
+                  <h5 class="mb-3"><%= t('pendingApproval.view.adminSectionTitle') %></h5>
+                  <div class="row">
+                    <div class="col-md-6 d-flex">
+                      <strong class="w-50"><%= t('pendingApproval.view.adminName') %>:</strong>
+                      <span><%= admin.name %></span>
+                    </div>
+                    <div class="col-md-6 d-flex">
+                      <strong class="w-50"><%= t('pendingApproval.view.adminEmail') %>:</strong>
+                      <span><%= admin.email %></span>
+                    </div>
+                  </div>
+                <% } %>
 
                 <div class="text-center mt-4">
                   <form action="/admin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
@@ -86,7 +123,6 @@
 
               </div>
             </div>
-
           </div>
         </section>
       </div>
@@ -98,6 +134,5 @@
 
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
-
 </body>
 </html>

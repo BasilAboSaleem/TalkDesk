@@ -1,5 +1,6 @@
-const {pendingCompanies_get} = require('./companies');
+const {getPendingCompanies, viewPendingCompany} = require('./companies');
 
 module.exports = {
-    pendingCompanies_get
+    getPendingCompanies,
+    viewPendingCompany
 }

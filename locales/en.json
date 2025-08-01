@@ -23,12 +23,24 @@
       "reject": "Reject"
     },
     "noPending": "No pending companies to review.",
-
     "view": {
       "description": "Description",
+      "industry": "Industry",
       "language": "Language",
       "theme": "Theme",
-      "logo": "Company Logo"
+      "logo": "Company Logo",
+      "updatedAt": "Last Updated",
+      "status": {
+        "active": "Active Status",
+        "rejected": "Rejection Status",
+        "activeTrue": "Activated",
+        "activeFalse": "Not Activated",
+        "rejectedTrue": "Rejected",
+        "rejectedFalse": "Not Rejected"
+      },
+      "adminSectionTitle": "Admin Information",
+      "adminName": "Admin Name",
+      "adminEmail": "Admin Email"
     }
   }
 }

@@ -23,12 +23,24 @@
       "reject": "رفض"
     },
     "noPending": "لا توجد شركات معلقة للمراجعة.",
-
     "view": {
       "description": "الوصف",
+      "industry": "القطاع",
       "language": "اللغة",
       "theme": "الثيم",
-      "logo": "شعار الشركة"
+      "logo": "شعار الشركة",
+      "updatedAt": "آخر تحديث",
+      "status": {
+        "active": "حالة التفعيل",
+        "rejected": "حالة الرفض",
+        "activeTrue": "مفعّلة",
+        "activeFalse": "غير مفعّلة",
+        "rejectedTrue": "مرفوضة",
+        "rejectedFalse": "غير مرفوضة"
+      },
+      "adminSectionTitle": "معلومات الأدمن",
+      "adminName": "اسم الأدمن",
+      "adminEmail": "البريد الإلكتروني للأدمن"
     }
   }
 }
