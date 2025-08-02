@@ -1,3 +1,4 @@
+const e = require('express');
 const { Company, User } = require('./utils');
 
 
@@ -12,6 +13,31 @@ exports.getAllCompanies = async (req, res) => {
     res.status(500).render('pages/error/500', {
       title: 'Internal Server Error',
       message: 'Something went wrong while fetching all companies.'
+    });
+  }
+};
+
+exports.viewCompany = async (req, res) => {
+  const { companyId } = req.params;
+
+  try {
+    const company = await Company.findById(companyId);
+    const admin = await User.findOne({ company: companyId, role: 'admin' }).select('name email');
+    if (!company) {
+      return res.status(404).render('pages/error/404', {
+        title: 'Company Not Found',
+        message: 'The requested company does not exist.'
+      });
+    }
+    res.render('pages/superadmin/companies/view', {
+      title: 'View Company',
+      company,
+      admin
+    });
+  } catch (error) {
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while fetching the company details.'
     });
   }
 };

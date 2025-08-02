@@ -107,18 +107,20 @@
                   </div>
                 <% } %>
 
-                <div class="text-center mt-4">
-                  <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
-                    <button class="btn btn-success btn-lg mr-2">
-                      <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
-                    </button>
-                  </form>
+                <% if (!company.isActive && !company.isRejected) { %>
+                  <div class="text-center mt-4">
+                    <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                      <button class="btn btn-success btn-lg mr-2">
+                        <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
+                      </button>
+                    </form>
 
-                  <!-- زر يظهر المودال -->
-                  <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#rejectModal">
-                    <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
-                  </button>
-                </div>
+                    <!-- زر يظهر المودال -->
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#rejectModal">
+                      <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
+                    </button>
+                  </div>
+                <% } %>
 
               </div>
             </div>
