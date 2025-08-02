@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <% if (success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success[0] %></div>
+          <% } %>
+          <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger"><%= error[0] %></div>
+          <% } %>
+
+          <div class="section-header">
+            <h1><%= t('companies.pageTitle', 'All Registered Companies') %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#"><%= t('dashboard.title', 'Dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('companies.breadcrumb', 'Companies') %></div>
+              <div class="breadcrumb-item"><%= t('companies.allCompanies', 'All Companies') %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title"><%= t('companies.sectionTitle', 'List of All Companies') %></h2>
+            <p class="section-lead"><%= t('companies.sectionLead', 'View and manage all companies registered on the platform.') %></p>
+
+            <div class="card">
+              <div class="card-header">
+                <h4><%= t('companies.cardHeader', 'Companies Overview') %></h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th><%= t('companies.tableHeaders.index', '#') %></th>
+                        <th><%= t('companies.tableHeaders.companyName', 'Company Name') %></th>
+                        <th><%= t('companies.tableHeaders.email', 'Email') %></th>
+                        <th><%= t('companies.tableHeaders.subdomain', 'Subdomain') %></th>
+                        <th><%= t('companies.tableHeaders.status', 'Status') %></th>
+                        <th><%= t('companies.tableHeaders.registeredAt', 'Registered At') %></th>
+                        <th><%= t('companies.tableHeaders.actions', 'Actions') %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (typeof companies !== 'undefined' && companies.length > 0) { %>
+                        <% companies.forEach((company, index) => { %>
+                          <tr>
+                            <td><%= index + 1 %></td> 
+                            <td><%= company.name %></td>
+                            <td><%= company.email %></td>
+                            <td><%= company.subdomain %></td>
+                            <td>
+                              <% if(company.isActive) { %>
+                                <span class="badge badge-success"><%= t('companies.status.active', 'Active') %></span>
+                              <% } else if(company.isRejected) { %>
+                                <span class="badge badge-danger"><%= t('companies.status.rejected', 'Rejected') %></span>
+                              <% } else { %>
+                                <span class="badge badge-warning"><%= t('companies.status.pending', 'Pending') %></span>
+                              <% } %>
+                            </td>
+                            <td><%= company.createdAt.toLocaleDateString() %></td>
+                            <td>
+                              <a href="/sadmin/companies/<%= company._id %>" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> <%= t('companies.buttons.view', 'View') %>
+                              </a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="7" class="text-center"><%= t('companies.noCompanies', 'No companies registered yet.') %></td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+</body>
+</html>
