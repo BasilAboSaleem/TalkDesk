@@ -43,14 +43,14 @@
       "adminEmail": "البريد الإلكتروني للأدمن"
     },
     "modal": {
-  "title": "رفض الشركة",
-  "reasonLabel": "سبب الرفض",
-  "cancel": "إلغاء",
-  "confirmReject": "تأكيد الرفض"
-}
-
+      "title": "رفض الشركة",
+      "reasonLabel": "سبب الرفض",
+      "cancel": "إلغاء",
+      "confirmReject": "تأكيد الرفض"
+    }
   },
-   "companies": {
+
+  "companies": {
     "pageTitle": "جميع الشركات المسجلة",
     "breadcrumb": "الشركات",
     "allCompanies": "كل الشركات",
@@ -62,9 +62,7 @@
       "companyName": "اسم الشركة",
       "email": "البريد الإلكتروني",
       "subdomain": "النطاق الفرعي",
-      "isActive": "مفعّلة",
-      "isRejected": "مرفوضة",
-      "rejectionReason": "سبب الرفض",
+      "status": "الحالة",
       "registeredAt": "تاريخ التسجيل",
       "actions": "الإجراءات"
     },
@@ -72,7 +70,8 @@
       "activeTrue": "مفعّلة",
       "activeFalse": "غير مفعّلة",
       "rejectedTrue": "مرفوضة",
-      "rejectedFalse": "غير مرفوضة"
+      "rejectedFalse": "غير مرفوضة",
+      "pending": "بانتظار المراجعة"
     },
     "buttons": {
       "view": "عرض"
@@ -84,4 +83,3 @@
     "title": "لوحة التحكم"
   }
 }
-
