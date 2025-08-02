@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const superAdminController = require('../controllers/superAdmin/superAdminController');
-const { requireAuth, isSuperAdmin } = require('../middlewares/authMiddlewares');
+const { requireAuth ,isSuperAdmin } = require('../middlewares/authMiddlewares');
 
 router.get('/sadmin/companies', requireAuth, isSuperAdmin, superAdminController.getAllCompanies);
 router.get('/sadmin/companies/view/:companyId', requireAuth, isSuperAdmin, superAdminController.viewCompany);

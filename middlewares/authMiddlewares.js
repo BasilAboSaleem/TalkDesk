@@ -45,6 +45,27 @@ const checkIfUser =  (req, res, next) => {
   }
 };
 
+const redirectIfAuthenticated = async (req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWTSECRET_KEY);
+      const user = await UserModel.findById(decoded.id);
+
+      if (user) {
+        return res.redirect('/dashboard'); // أو أي صفحة رئيسية
+      } else {
+        next(); // لو ما وجد المستخدم
+      }
+    } catch (err) {
+      next(); // توكن غير صالح
+    }
+  } else {
+    next(); // لا يوجد توكن
+  }
+};
+
 //دوال لفحص صلاحيات المستخدم
 const isAdmin = (req, res, next) => {
     if (req.user && req.user.role === 'admin') {
@@ -92,6 +113,7 @@ const loginLimiter = rateLimit({
 module.exports = {
     requireAuth,
     checkIfUser,
+    redirectIfAuthenticated,
     isAdmin,
     isEmployee,
     isSuperAdmin,
