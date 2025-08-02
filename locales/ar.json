@@ -49,5 +49,39 @@
   "confirmReject": "تأكيد الرفض"
 }
 
+  },
+   "companies": {
+    "pageTitle": "جميع الشركات المسجلة",
+    "breadcrumb": "الشركات",
+    "allCompanies": "كل الشركات",
+    "sectionTitle": "قائمة بجميع الشركات",
+    "sectionLead": "عرض وإدارة جميع الشركات المسجلة على المنصة.",
+    "cardHeader": "نظرة عامة على الشركات",
+    "tableHeaders": {
+      "index": "#",
+      "companyName": "اسم الشركة",
+      "email": "البريد الإلكتروني",
+      "subdomain": "النطاق الفرعي",
+      "isActive": "مفعّلة",
+      "isRejected": "مرفوضة",
+      "rejectionReason": "سبب الرفض",
+      "registeredAt": "تاريخ التسجيل",
+      "actions": "الإجراءات"
+    },
+    "statuses": {
+      "activeTrue": "مفعّلة",
+      "activeFalse": "غير مفعّلة",
+      "rejectedTrue": "مرفوضة",
+      "rejectedFalse": "غير مرفوضة"
+    },
+    "buttons": {
+      "view": "عرض"
+    },
+    "noCompanies": "لا توجد شركات مسجلة حتى الآن."
+  },
+
+  "dashboard": {
+    "title": "لوحة التحكم"
   }
 }
+

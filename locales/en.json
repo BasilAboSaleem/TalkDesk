@@ -43,10 +43,41 @@
       "adminEmail": "Admin Email"
     },
     "modal": {
-  "title": "Reject Company",
-  "reasonLabel": "Reason for rejection",
-  "cancel": "Cancel",
-  "confirmReject": "Confirm Rejection"
-}
+      "title": "Reject Company",
+      "reasonLabel": "Reason for rejection",
+      "cancel": "Cancel",
+      "confirmReject": "Confirm Rejection"
+    }
+  },
+
+   "companies": {
+    "pageTitle": "All Registered Companies",
+    "breadcrumb": "Companies",
+    "allCompanies": "All Companies",
+    "sectionTitle": "List of All Companies",
+    "sectionLead": "View and manage all companies registered on the platform.",
+    "cardHeader": "Companies Overview",
+    "tableHeaders": {
+      "index": "#",
+      "companyName": "Company Name",
+      "email": "Email",
+      "subdomain": "Subdomain",
+      "status": "Status",
+      "registeredAt": "Registered At",
+      "actions": "Actions"
+    },
+    "statuses": {
+      "activeTrue": "Active",
+      "rejectedTrue": "Rejected",
+      "pending": "Pending"
+    },
+    "buttons": {
+      "view": "View"
+    },
+    "noCompanies": "No companies registered yet."
+  },
+
+  "dashboard": {
+    "title": "Dashboard"
   }
 }

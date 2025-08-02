@@ -1,5 +1,21 @@
 const { Company, User } = require('./utils');
 
+
+exports.getAllCompanies = async (req, res) => {
+  try {
+    const companies = await Company.find();
+    res.render('pages/superadmin/companies/all-companies', {
+      title: 'All Companies',
+      companies
+    });
+  } catch (error) {
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while fetching all companies.'
+    });
+  }
+};
+
 exports.getPendingCompanies = async (req, res) => {
   try {
     const pendingCompanies = await Company.find({ isActive: false });
