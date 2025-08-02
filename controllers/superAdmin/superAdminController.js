@@ -1,7 +1,8 @@
-const {getPendingCompanies, viewPendingCompany ,approveCompany } = require('./companies');
+const {getPendingCompanies, viewPendingCompany ,approveCompany, rejectCompany } = require('./companies');
 
 module.exports = {
     getPendingCompanies,
     viewPendingCompany,
-    approveCompany
+    approveCompany,
+    rejectCompany
 }
