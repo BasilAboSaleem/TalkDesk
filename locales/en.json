@@ -8,7 +8,7 @@
     },
     "sectionTitle": "Companies Awaiting Activation",
     "sectionLead": "Approve or reject newly registered companies.",
-    "cardHeader": "Pending Companies",
+    "cardHeader": "Company Details",
     "tableHeaders": {
       "index": "#",
       "companyName": "Company Name",
@@ -21,7 +21,9 @@
       "view": "View",
       "approve": "Approve",
       "reject": "Reject"
+      
     },
+
     "noPending": "No pending companies to review.",
     "view": {
       "description": "Description",
@@ -72,8 +74,12 @@
       "pending": "Pending"
     },
     "buttons": {
-      "view": "View"
+      "view": "View",
+      "softDelete": "Soft Delete",
+      "backToList": "Back to List"
+      
     },
+      "confirmSoftDelete": "Are you sure you want to deactivate and soft-delete this company? This can be undone.",
     "noCompanies": "No companies registered yet."
   },
 

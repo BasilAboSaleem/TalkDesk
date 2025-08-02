@@ -9,7 +9,6 @@
       <%- include('../../../partials/navbar.ejs') %>
       <%- include('../../../partials/sidebar.ejs') %>
 
-      <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -30,7 +29,6 @@
                 <h4><%= t('pendingApproval.cardHeader') %></h4>
               </div>
               <div class="card-body">
-
                 <div class="row mb-3">
                   <div class="col-md-6 d-flex">
                     <strong class="w-50"><%= t('pendingApproval.tableHeaders.companyName') %>:</strong>
@@ -40,7 +38,6 @@
                     <strong class="w-50"><%= t('pendingApproval.tableHeaders.email') %>:</strong>
                     <span><%= company.email %></span>
                   </div>
-
                   <div class="col-md-6 d-flex">
                     <strong class="w-50"><%= t('pendingApproval.tableHeaders.subdomain') %>:</strong>
                     <span><%= company.subdomain %></span>
@@ -49,7 +46,6 @@
                     <strong class="w-50"><%= t('pendingApproval.view.industry') %>:</strong>
                     <span><%= company.industry || '-' %></span>
                   </div>
-
                   <div class="col-md-6 d-flex">
                     <strong class="w-50"><%= t('pendingApproval.view.language') %>:</strong>
                     <span><%= company.defaultLanguage %></span>
@@ -58,7 +54,6 @@
                     <strong class="w-50"><%= t('pendingApproval.view.theme') %>:</strong>
                     <span><%= company.defaultTheme %></span>
                   </div>
-
                   <div class="col-md-6 d-flex">
                     <strong class="w-50"><%= t('pendingApproval.tableHeaders.registeredAt') %>:</strong>
                     <span><%= company.createdAt.toLocaleDateString() %></span>
@@ -67,7 +62,6 @@
                     <strong class="w-50"><%= t('pendingApproval.view.updatedAt') %>:</strong>
                     <span><%= company.updatedAt.toLocaleDateString() %></span>
                   </div>
-
                   <div class="col-md-6 d-flex">
                     <strong class="w-50"><%= t('pendingApproval.view.status.active') %>:</strong>
                     <span><%= company.isActive ? t('pendingApproval.view.status.activeTrue') : t('pendingApproval.view.status.activeFalse') %></span>
@@ -76,12 +70,10 @@
                     <strong class="w-50"><%= t('pendingApproval.view.status.rejected') %>:</strong>
                     <span><%= company.isRejected ? t('pendingApproval.view.status.rejectedTrue') : t('pendingApproval.view.status.rejectedFalse') %></span>
                   </div>
-
                   <div class="col-md-12 d-flex mt-2">
                     <strong class="w-25"><%= t('pendingApproval.view.description') %>:</strong>
                     <span><%= company.description || '-' %></span>
                   </div>
-
                   <div class="col-md-12 mt-3">
                     <strong><%= t('pendingApproval.view.logo') %>:</strong><br>
                     <% if (company.logoUrl) { %>
@@ -106,34 +98,52 @@
                     </div>
                   </div>
                 <% } %>
-
-                <% if (!company.isActive && !company.isRejected) { %>
-                  <div class="text-center mt-4">
-                    <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
-                      <button class="btn btn-success btn-lg mr-2">
-                        <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
-                      </button>
-                    </form>
-
-                    <!-- زر يظهر المودال -->
-                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#rejectModal">
-                      <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
-                    </button>
-                  </div>
-                <% } %>
-
               </div>
             </div>
+
+            <%
+              const canApproveOrReject = !company.isActive && !company.isRejected;
+              const canSoftDelete = company.isActive;
+            %>
+
+            <div class="card mt-4">
+              <div class="card-header">
+                <h4><%= t('companies.actionsCardTitle') || 'Actions' %></h4>
+              </div>
+              <div class="card-body text-center">
+                <% if (canApproveOrReject) { %>
+                  <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                    <button class="btn btn-success btn-lg mr-2">
+                      <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
+                    </button>
+                  </form>
+                  <button type="button" class="btn btn-danger btn-lg mr-2" data-toggle="modal" data-target="#rejectModal">
+                    <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
+                  </button>
+                <% } %>
+
+                <% if (canSoftDelete) { %>
+                  <form action="/sadmin/companies/<%= company._id %>/soft-delete" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmSoftDelete') %>')">
+                    <button class="btn btn-warning btn-lg mr-2">
+                      <i class="fas fa-trash-alt"></i> <%= t('companies.buttons.softDelete') %>
+                    </button>
+                  </form>
+                <% } %>
+
+              <a href="/sadmin/companies" class="btn btn-outline-primary btn-lg">
+  <i class="fas fa-arrow-left"></i> <%= t('companies.buttons.backToList') || 'Back to List' %>
+</a>
+              </div>
+            </div>
+
           </div>
         </section>
       </div>
 
-      <!-- Footer -->
       <%- include('../../../partials/footer.ejs') %>
     </div>
   </div>
 
-  <!-- Reject Modal -->
   <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <form action="/sadmin/companies/<%= company._id %>/reject" method="POST" class="modal-content">
@@ -157,7 +167,6 @@
     </div>
   </div>
 
-  <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
 </body>
 </html>

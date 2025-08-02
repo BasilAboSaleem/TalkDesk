@@ -12,12 +12,7 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          <% if (success && success.length > 0) { %>
-            <div class="alert alert-success"><%= success[0] %></div>
-          <% } %>
-          <% if (error && error.length > 0) { %>
-            <div class="alert alert-danger"><%= error[0] %></div>
-          <% } %>
+      
 
           <div class="section-header">
             <h1><%= t('companies.pageTitle', 'All Registered Companies') %></h1>
@@ -33,6 +28,12 @@
             <p class="section-lead"><%= t('companies.sectionLead', 'View and manage all companies registered on the platform.') %></p>
 
             <div class="card">
+                  <% if (success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success[0] %></div>
+          <% } %>
+          <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger"><%= error[0] %></div>
+          <% } %>
               <div class="card-header">
                 <h4><%= t('companies.cardHeader', 'Companies Overview') %></h4>
               </div>

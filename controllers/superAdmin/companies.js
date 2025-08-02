@@ -4,7 +4,7 @@ const { Company, User } = require('./utils');
 
 exports.getAllCompanies = async (req, res) => {
   try {
-    const companies = await Company.find();
+    const companies = await Company.find({ isDeleted: { $ne: true } });
     res.render('pages/superadmin/companies/all-companies', {
       title: 'All Companies',
       companies
@@ -41,10 +41,38 @@ exports.viewCompany = async (req, res) => {
     });
   }
 };
+exports.softDeleteCompany = async (req, res) => {
+  const { companyId } = req.params;
+
+  try {
+    const company = await Company.findById(companyId);
+
+    if (!company) {
+      return res.status(404).render('pages/error/404', {
+        title: 'Company Not Found',
+        message: 'The requested company does not exist.'
+      });
+    }
+
+    company.isActive = false;
+    company.isRejected = false; 
+    company.isDeleted = true; // soft-deleted
+    await company.save();
+
+    req.flash('success', 'Company soft-deleted successfully.');
+    res.redirect('/sadmin/companies');
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while soft-deleting the company.'
+    });
+  }
+};
 
 exports.getPendingCompanies = async (req, res) => {
   try {
-    const pendingCompanies = await Company.find({ isActive: false });
+    const pendingCompanies = await Company.find({ isActive: false, isRejected: false, isDeleted: false });
     res.render('pages/superAdmin/companies/pending-approval', {
       title: 'Pending Companies',
       companies: pendingCompanies

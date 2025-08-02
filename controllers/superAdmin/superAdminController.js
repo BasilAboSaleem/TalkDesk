@@ -1,8 +1,9 @@
-const {getAllCompanies ,viewCompany  ,getPendingCompanies, viewPendingCompany ,approveCompany, rejectCompany } = require('./companies');
+const {getAllCompanies ,viewCompany ,softDeleteCompany ,getPendingCompanies, viewPendingCompany ,approveCompany, rejectCompany } = require('./companies');
 
 module.exports = {
     getAllCompanies,
     viewCompany,
+    softDeleteCompany,
     getPendingCompanies,
     viewPendingCompany,
     approveCompany,

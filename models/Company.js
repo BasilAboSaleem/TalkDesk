@@ -63,6 +63,10 @@ isRejected: {
     type: String,
     default: ''
   },
+  isDeleted: {
+  type: Boolean,
+  default: false
+},
   settings: {
     type: Object,
     default: {}
