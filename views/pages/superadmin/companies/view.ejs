@@ -108,17 +108,16 @@
                 <% } %>
 
                 <div class="text-center mt-4">
-                  <form action="/admin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                  <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
                     <button class="btn btn-success btn-lg mr-2">
                       <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
                     </button>
                   </form>
 
-                  <form action="/admin/companies/<%= company._id %>/reject" method="POST" style="display:inline;">
-                    <button class="btn btn-danger btn-lg">
-                      <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
-                    </button>
-                  </form>
+                  <!-- زر يظهر المودال -->
+                  <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#rejectModal">
+                    <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
+                  </button>
                 </div>
 
               </div>
@@ -129,6 +128,30 @@
 
       <!-- Footer -->
       <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- Reject Modal -->
+  <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="/sadmin/companies/<%= company._id %>/reject" method="POST" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rejectModalLabel"><%= t('pendingApproval.modal.title') %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="reason"><%= t('pendingApproval.modal.reasonLabel') %></label>
+            <textarea id="reason" name="rejectionReason" class="form-control" rows="4" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('pendingApproval.modal.cancel') %></button>
+          <button type="submit" class="btn btn-danger"><%= t('pendingApproval.modal.confirmReject') %></button>
+        </div>
+      </form>
     </div>
   </div>
 

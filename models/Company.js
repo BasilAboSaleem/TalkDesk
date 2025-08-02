@@ -59,6 +59,10 @@ isRejected: {
   type: Boolean,
   default: false
 },
+  rejectionReason: {
+    type: String,
+    default: ''
+  },
   settings: {
     type: Object,
     default: {}

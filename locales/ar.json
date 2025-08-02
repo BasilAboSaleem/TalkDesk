@@ -41,6 +41,13 @@
       "adminSectionTitle": "معلومات الأدمن",
       "adminName": "اسم الأدمن",
       "adminEmail": "البريد الإلكتروني للأدمن"
-    }
+    },
+    "modal": {
+  "title": "رفض الشركة",
+  "reasonLabel": "سبب الرفض",
+  "cancel": "إلغاء",
+  "confirmReject": "تأكيد الرفض"
+}
+
   }
 }

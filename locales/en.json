@@ -41,6 +41,12 @@
       "adminSectionTitle": "Admin Information",
       "adminName": "Admin Name",
       "adminEmail": "Admin Email"
-    }
+    },
+    "modal": {
+  "title": "Reject Company",
+  "reasonLabel": "Reason for rejection",
+  "cancel": "Cancel",
+  "confirmReject": "Confirm Rejection"
+}
   }
 }

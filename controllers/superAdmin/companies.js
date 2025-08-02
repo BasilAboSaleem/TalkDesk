@@ -39,3 +39,39 @@ exports.viewPendingCompany = async (req, res) => {
   }
 };
 
+exports.approveCompany = async (req, res) => {
+  const { companyId } = req.params;
+
+  try {
+    const company = await Company.findById(companyId);
+
+    if (!company) {
+      return res.status(404).render('pages/error/404', {
+        title: 'Company Not Found',
+        message: 'The requested company does not exist.'
+      });
+    }
+
+    if (company.isActive) {
+      return res.status(400).render('pages/error/400', {
+        title: 'Already Approved',
+        message: 'This company has already been approved.'
+      });
+    }
+
+    company.isActive = true;
+    company.isRejected = false;
+    company.rejectionReason = undefined;
+
+    await company.save();
+
+    req.flash('success', 'Company approved successfully.');
+    res.redirect('/sadmin/companies/pending');
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while approving the company.'
+    });
+  }
+};

@@ -12,6 +12,12 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
+                 <% if (success && success.length > 0) { %>
+              <div class="alert alert-success"><%= success[0] %></div>
+            <% } %>
+            <% if (error && error.length > 0) { %>
+              <div class="alert alert-danger"><%= error[0] %></div>
+            <% } %>
           <div class="section-header">
             <h1><%= t('pendingApproval.pageTitle') %></h1>
             <div class="section-header-breadcrumb">
