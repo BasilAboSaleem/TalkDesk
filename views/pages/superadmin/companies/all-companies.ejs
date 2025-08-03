@@ -64,6 +64,8 @@
                                 <span class="badge badge-success"><%= t('companies.statuses.activeTrue', 'Active') %></span>
                               <% } else if (company.isRejected) { %>
                                 <span class="badge badge-danger"><%= t('companies.statuses.rejectedTrue', 'Rejected') %></span>
+                              <% } else if (company.isDeleted) { %>
+                                <span class="badge badge-dark"><%= t('companies.statuses.deleted', 'Deleted') %></span>
                               <% } else { %>
                                 <span class="badge badge-warning"><%= t('companies.statuses.pending', 'Pending') %></span>
                               <% } %>

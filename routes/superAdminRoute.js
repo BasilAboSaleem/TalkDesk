@@ -10,6 +10,7 @@ router.get('/sadmin/companies/pending', requireAuth, isSuperAdmin, superAdminCon
 router.get('/sadmin/companies/:companyId', requireAuth, isSuperAdmin, superAdminController.viewPendingCompany);
 router.post('/sadmin/companies/:companyId/approve', requireAuth, isSuperAdmin, superAdminController.approveCompany);
 router.post('/sadmin/companies/:companyId/reject', requireAuth, isSuperAdmin, superAdminController.rejectCompany);
+router.get('/sadmin/companies-deleted', requireAuth, isSuperAdmin, superAdminController.getDeletedCompanies);
 
 
 module.exports = router;

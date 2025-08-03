@@ -10,11 +10,13 @@
     <% if(user.role === 'superadmin') { %>
       <ul class="sidebar-menu">
         <li class="menu-header">Admin Panel</li>
-        <li><a class="nav-link" href="/sadmin/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+        <li><a class="nav-link" href="/dashboard"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
         <li class="menu-header">Companies</li>
         <li><a class="nav-link" href="/sadmin/companies"><i class="fas fa-building"></i> <span>All Companies</span></a></li>
         <li><a class="nav-link" href="/sadmin/companies/pending"><i class="fas fa-hourglass-half"></i> <span>Pending Approval</span></a></li>
+        <li><a class="nav-link" href="/sadmin/companies-deleted"><i class="fas fa-trash"></i> <span>Deleted Companies</span></a></li>
+
 
         <li class="menu-header">Admins</li> 
         <li><a class="nav-link" href="/sadmin/admins"><i class="fas fa-user-shield"></i> <span>Company Admins</span></a></li>

@@ -71,7 +71,8 @@
     "statuses": {
       "activeTrue": "Active",
       "rejectedTrue": "Rejected",
-      "pending": "Pending"
+      "pending": "Pending",
+      "deleted": "Deleted"
     },
     "buttons": {
       "view": "View",

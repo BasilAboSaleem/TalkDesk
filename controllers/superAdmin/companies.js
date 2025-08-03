@@ -183,3 +183,21 @@ exports.rejectCompany = async (req, res) => {
     });
   }
 };
+
+exports.getDeletedCompanies = async (req, res) => {
+  try {
+    const deletedCompanies = await Company.find({ isDeleted: true });
+    res.render('pages/superadmin/companies/all-companies', {
+      title: 'Deleted Companies',
+      companies: deletedCompanies
+    });
+  } catch (error) {
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while fetching deleted companies.'
+    });
+  }
+};
+
+
+
