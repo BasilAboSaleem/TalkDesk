@@ -70,6 +70,10 @@
                     <strong class="w-50"><%= t('pendingApproval.view.status.rejected') %>:</strong>
                     <span><%= company.isRejected ? t('pendingApproval.view.status.rejectedTrue') : t('pendingApproval.view.status.rejectedFalse') %></span>
                   </div>
+                  <div class="col-md-6 d-flex">
+                    <strong class="w-50">Deleted:</strong>
+                    <span><%= company.isDeleted ? 'Yes' : 'No' %></span>
+                  </div>
                   <div class="col-md-12 d-flex mt-2">
                     <strong class="w-25"><%= t('pendingApproval.view.description') %>:</strong>
                     <span><%= company.description || '-' %></span>
@@ -102,8 +106,9 @@
             </div>
 
             <%
-              const canApproveOrReject = !company.isActive && !company.isRejected;
-              const canSoftDelete = company.isActive;
+              const canApproveOrReject = !company.isActive && !company.isRejected && !company.isDeleted;
+              const canSoftDelete = company.isActive && !company.isDeleted;
+              const isDeleted = company.isDeleted;
             %>
 
             <div class="card mt-4">
@@ -111,28 +116,43 @@
                 <h4><%= t('companies.actionsCardTitle') || 'Actions' %></h4>
               </div>
               <div class="card-body text-center">
-                <% if (canApproveOrReject) { %>
-                  <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
-                    <button class="btn btn-success btn-lg mr-2">
-                      <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
+             <% if (isDeleted) { %>
+  <form action="/sadmin/companies/<%= company._id %>/restore" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmRestore') %>')">
+    <button class="btn btn-success btn-lg mr-2">
+      <i class="fas fa-undo"></i> <%= t('companies.buttons.restore') %>
+    </button>
+  </form>
+  <form action="/sadmin/companies/<%= company._id %>/permanent-delete" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmPermanentDelete') %>')">
+    <button class="btn btn-danger btn-lg mr-2">
+      <i class="fas fa-trash"></i> <%= t('companies.buttons.permanentDelete') %>
+    </button>
+  </form>
+
+
+                <% } else { %>
+                  <% if (canApproveOrReject) { %>
+                    <form action="/sadmin/companies/<%= company._id %>/approve" method="POST" style="display:inline;">
+                      <button class="btn btn-success btn-lg mr-2">
+                        <i class="fas fa-check"></i> <%= t('pendingApproval.buttons.approve') %>
+                      </button>
+                    </form>
+                    <button type="button" class="btn btn-danger btn-lg mr-2" data-toggle="modal" data-target="#rejectModal">
+                      <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
                     </button>
-                  </form>
-                  <button type="button" class="btn btn-danger btn-lg mr-2" data-toggle="modal" data-target="#rejectModal">
-                    <i class="fas fa-times"></i> <%= t('pendingApproval.buttons.reject') %>
-                  </button>
+                  <% } %>
+
+                  <% if (canSoftDelete) { %>
+                    <form action="/sadmin/companies/<%= company._id %>/soft-delete" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmSoftDelete') %>')">
+                      <button class="btn btn-warning btn-lg mr-2">
+                        <i class="fas fa-trash-alt"></i> <%= t('companies.buttons.softDelete') %>
+                      </button>
+                    </form>
+                  <% } %>
                 <% } %>
 
-                <% if (canSoftDelete) { %>
-                  <form action="/sadmin/companies/<%= company._id %>/soft-delete" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmSoftDelete') %>')">
-                    <button class="btn btn-warning btn-lg mr-2">
-                      <i class="fas fa-trash-alt"></i> <%= t('companies.buttons.softDelete') %>
-                    </button>
-                  </form>
-                <% } %>
-
-              <a href="/sadmin/companies" class="btn btn-outline-primary btn-lg">
-  <i class="fas fa-arrow-left"></i> <%= t('companies.buttons.backToList') || 'Back to List' %>
-</a>
+                <a href="/sadmin/companies" class="btn btn-outline-primary btn-lg">
+                  <i class="fas fa-arrow-left"></i> <%= t('companies.buttons.backToList') || 'Back to List' %>
+                </a>
               </div>
             </div>
 

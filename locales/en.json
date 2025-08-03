@@ -77,9 +77,13 @@
     "buttons": {
       "view": "View",
       "softDelete": "Soft Delete",
-      "backToList": "Back to List"
+      "backToList": "Back to List",
+      "restore": "Restore",
+    "permanentDelete": "Delete Permanently"
       
     },
+     "confirmRestore": "Are you sure you want to restore this company?",
+  "confirmPermanentDelete": "Are you sure you want to permanently delete this company? This action cannot be undone.",
       "confirmSoftDelete": "Are you sure you want to deactivate and soft-delete this company? This can be undone.",
     "noCompanies": "No companies registered yet."
   },
