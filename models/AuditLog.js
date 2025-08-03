@@ -1,3 +1,4 @@
+// models/AuditLog.js
 const mongoose = require('mongoose');
 
 const auditLogSchema = new mongoose.Schema({
@@ -6,27 +7,19 @@ const auditLogSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company',
+    required: true
+  },
   action: {
     type: String,
     required: true
   },
-
-  targetType: {
-    type: String,
-    required: true
-  },
-
-  targetId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
-
   details: {
     type: Object,
     default: {}
   }
-
-}, { timestamps: { createdAt: 'timestamp' } });
+}, { timestamps: true });
 
 module.exports = mongoose.model('AuditLog', auditLogSchema);
