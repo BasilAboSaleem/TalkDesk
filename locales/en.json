@@ -88,6 +88,12 @@
     "noCompanies": "No companies registered yet.",
     "actionsCardTitle": "Actions"
   },
+  "department": {
+    "addTitle": "Add Department",
+    "nameLabel": "Department Name",
+    "descriptionLabel": "Description",
+    "addButton": "Create Department"
+  },
 
   "dashboard": {
     "title": "Dashboard"
