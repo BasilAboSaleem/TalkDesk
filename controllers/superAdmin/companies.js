@@ -1,6 +1,6 @@
 const e = require('express');
 const { Company, User, Message, Attachment, AuditLog,
-   Conversation, Department, mongoose } = require('./utils');
+   Conversation, Department, mongoose, cloudinary } = require('./utils');
 
 
 exports.getAllCompanies = async (req, res) => {
@@ -247,6 +247,11 @@ exports.permanentDeleteCompany = async (req, res) => {
         title: 'Company Not Found',
         message: 'The requested company does not exist.'
       });
+    }
+    
+    // delete logo from cloudinary if it exists
+    if(company.logo){
+        await cloudinary.uploader.destroy(company.logo);
     }
 
     // get all users for company

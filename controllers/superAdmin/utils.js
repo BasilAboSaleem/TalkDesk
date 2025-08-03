@@ -8,6 +8,16 @@ const Attachment = require('../../models/Attachment');
 const mongoose = require('mongoose');
 
 
+const cloudinary = require('cloudinary').v2;
+
+ // Configuration cloudinary اعدادات الكلاودنري
+ cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET 
+  });
+
+
 module.exports = {
     Company,
     User,
@@ -16,6 +26,7 @@ module.exports = {
     Department,
     AuditLog,
     Attachment,
-    mongoose
+    mongoose,
+    cloudinary
 
 }
