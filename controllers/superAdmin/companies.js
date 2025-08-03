@@ -1,5 +1,6 @@
 const e = require('express');
-const { Company, User } = require('./utils');
+const { Company, User, Message, Attachment, AuditLog,
+   Conversation, Department, mongoose } = require('./utils');
 
 
 exports.getAllCompanies = async (req, res) => {
@@ -225,6 +226,73 @@ exports.restoreCompany = async (req, res) => {
     res.status(500).render('pages/error/500', {
       title: 'Internal Server Error',
       message: 'Something went wrong while restoring the company.'
+    });
+  }
+};
+
+exports.permanentDeleteCompany = async (req, res) => {
+  const { companyId } = req.params;
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    const company = await Company.findById(companyId).session(session);
+
+    if (!company) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(404).render('pages/error/404', {
+        title: 'Company Not Found',
+        message: 'The requested company does not exist.'
+      });
+    }
+
+    // get all users for company
+    const users = await User.find({ company: companyId }).session(session);
+    const userIds = users.map(u => u._id);
+
+    // get all conversations for users
+    const conversations = await Conversation.find({ participants: { $in: userIds } }).session(session);
+    const conversationIds = conversations.map(c => c._id);
+
+    // delete messages associated with conversations
+    await Message.deleteMany({ conversation: { $in: conversationIds } }).session(session);
+
+    // delete conversations
+    await Conversation.deleteMany({ _id: { $in: conversationIds } }).session(session);
+
+    // delete users
+    await User.deleteMany({ company: companyId }).session(session);
+
+    // delete attachments associated with company
+    await Attachment.deleteMany({ company: companyId }).session(session);
+
+    // delete audit logs associated with company
+    await AuditLog.deleteMany({ company: companyId }).session(session);
+
+    // delete departments associated with company
+    await Department.deleteMany({ company: companyId }).session(session);
+
+    // delete company 
+    await Company.findByIdAndDelete(companyId).session(session);
+
+    // complete the transaction
+    await session.commitTransaction();
+    session.endSession();
+
+    req.flash('success', 'Company permanently deleted successfully.');
+    res.redirect('/sadmin/companies-deleted');
+
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+
+    console.error(error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Something went wrong while permanently deleting the company.'
     });
   }
 };
