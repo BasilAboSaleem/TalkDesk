@@ -11,6 +11,7 @@ router.get('/sadmin/companies/:companyId', requireAuth, isSuperAdmin, superAdmin
 router.post('/sadmin/companies/:companyId/approve', requireAuth, isSuperAdmin, superAdminController.approveCompany);
 router.post('/sadmin/companies/:companyId/reject', requireAuth, isSuperAdmin, superAdminController.rejectCompany);
 router.get('/sadmin/companies-deleted', requireAuth, isSuperAdmin, superAdminController.getDeletedCompanies);
+router.post('/sadmin/companies/:companyId/restore', requireAuth, isSuperAdmin, superAdminController.restoreCompany);
 
 
 module.exports = router;

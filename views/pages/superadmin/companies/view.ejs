@@ -122,7 +122,7 @@
       <i class="fas fa-undo"></i> <%= t('companies.buttons.restore') %>
     </button>
   </form>
-  <form action="/sadmin/companies/<%= company._id %>/permanent-delete" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmPermanentDelete') %>')">
+  <form action="/sadmin/companies/<%= company._id %>/permanent-delete?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('companies.confirmPermanentDelete') %>')">
     <button class="btn btn-danger btn-lg mr-2">
       <i class="fas fa-trash"></i> <%= t('companies.buttons.permanentDelete') %>
     </button>
