@@ -9,10 +9,35 @@
     margin-bottom: -100px;
     margin-top: -80px;
   }
+
   .text-danger {
     font-size: 0.85rem;
-
   }
+  #spinnerContainer {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.8); 
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.4rem;
+}
+
+#spinnerContainer p {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #4B61DD;
+}
+
 </style>
 
 <body>
@@ -26,13 +51,16 @@
             </div>
 
             <div class="card card-primary" style="margin-top: -100px;">
-              <div class="card-header"><h4><span style="color: rgb(75, 97, 221);">Register Your Company</span></h4></div>
+              <div class="card-header">
+                <h4><span style="color: rgb(75, 97, 221);">Register Your Company</span></h4>
+              </div>
 
               <div class="card-body">
                 <form id="registerCompanyForm" method="post" enctype="multipart/form-data">
-                  
+
                   <!-- Company Info -->
                   <div class="form-divider">Company Information</div>
+
                   <div class="form-group">
                     <label for="company_name">Company Name</label>
                     <input id="company_name" type="text" class="form-control" name="company[name]" required>
@@ -84,6 +112,7 @@
 
                   <!-- Admin Info -->
                   <div class="form-divider">Admin User Information</div>
+
                   <div class="form-group">
                     <label for="admin_name">Admin Name</label>
                     <input id="admin_name" type="text" class="form-control" name="user[name]" required>
@@ -96,32 +125,17 @@
                   </div>
 
                   <div class="form-group">
-  <label for="admin_password">Password</label>
-  <input
-    id="admin_password"
-    type="password"
-    class="form-control"
-    name="user[password]"
-    required
-    pattern="(?=.*[A-Z])(?=.*\d).{8,}"
-    title="Password must be at least 8 characters, include at least one uppercase letter and one number."
-  >
-  <small id="passwordHelp" class="form-text text-muted">
-    Password must be at least 8 characters, contain at least one uppercase letter and one number.
-  </small>
-</div>
+                    <label for="admin_password">Password</label>
+                    <input id="admin_password" type="password" class="form-control" name="user[password]" required>
+                    <small class="form-text text-muted">Must be at least 8 characters, one uppercase and one number.</small>
+                    <span class="text-danger" id="error_user_password"></span>
+                  </div>
 
-<div class="form-group">
-  <label for="admin_password2">Confirm Password</label>
-  <input
-    id="admin_password2"
-    type="password"
-    class="form-control"
-    name="user[confirmPassword]"
-    required
-  >
-  <small id="confirmPasswordHelp" class="form-text text-muted"></small>
-</div>
+                  <div class="form-group">
+                    <label for="admin_password2">Confirm Password</label>
+                    <input id="admin_password2" type="password" class="form-control" name="user[confirmPassword]" required>
+                    <span class="text-danger" id="error_user_confirmPassword"></span>
+                  </div>
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
@@ -131,9 +145,14 @@
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                      Register Company
-                    </button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block">Register Company</button>
+                  </div>
+
+                  <div class="form-group text-center" id="spinnerContainer" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="mt-2">Registering company, please wait...</p>
                   </div>
                 </form>
               </div>
@@ -147,36 +166,42 @@
 
   <%- include('../../partials/script') %>
 
- <script>
+  <script>
   document.getElementById('registerCompanyForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // مسح الأخطاء السابقة
+    const spinner = document.getElementById('spinnerContainer');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // إظهار السبينر وتعطيل الزر
+    submitBtn.disabled = true;
+    spinner.style.display = 'block';
+
+    // تفريغ أخطاء قديمة
     ['company_email', 'company_subdomain', 'user_email', 'user_password', 'user_confirmPassword'].forEach(id => {
       const el = document.getElementById(`error_${id}`);
-      if(el) el.textContent = '';
+      if (el) el.textContent = '';
     });
 
-    const passwordInput = document.getElementById('admin_password');
-    const confirmPasswordInput = document.getElementById('admin_password2');
-
-    // تحقق قوة الباسورد
-    const password = passwordInput.value;
+    const password = document.getElementById('admin_password').value;
+    const confirmPassword = document.getElementById('admin_password2').value;
     const hasUpper = /[A-Z]/.test(password);
     const hasNumber = /\d/.test(password);
     const hasLength = password.length >= 8;
+
+    // تحقق من الباسوورد
     if (!hasLength || !hasUpper || !hasNumber) {
-      const el = document.getElementById('error_user_password');
-      if(el) el.textContent = 'Password must be at least 8 characters, include at least one uppercase letter and one number.';
-      passwordInput.focus();
+      document.getElementById('error_user_password').textContent =
+        'Password must be at least 8 characters, include at least one uppercase letter and one number.';
+      spinner.style.display = 'none';
+      submitBtn.disabled = false;
       return;
     }
 
-    // تحقق تطابق الباسوردين
-    if (password !== confirmPasswordInput.value) {
-      const el = document.getElementById('error_user_confirmPassword');
-      if(el) el.textContent = 'Passwords do not match.';
-      confirmPasswordInput.focus();
+    if (password !== confirmPassword) {
+      document.getElementById('error_user_confirmPassword').textContent = 'Passwords do not match.';
+      spinner.style.display = 'none';
+      submitBtn.disabled = false;
       return;
     }
 
@@ -192,21 +217,28 @@
       const data = await res.json();
 
       if (res.status === 400 && data.errors) {
-        // عرض الأخطاء تحت الحقول
+        // عرض الأخطاء
         for (const key in data.errors) {
           const formattedKey = key.replace('.', '_');
-          const span = document.getElementById(`error_${formattedKey}`);
-          if (span) span.textContent = data.errors[key];
+          const el = document.getElementById(`error_${formattedKey}`);
+          if (el) el.textContent = data.errors[key];
         }
-      } else if (res.status === 200 || res.status === 201) {
-        alert('Company registered successfully!');
-        window.location.href = '/'; 
+
+        spinner.style.display = 'none';
+        submitBtn.disabled = false;
+      } else if (res.status === 200 && data.redirect) {
+        // نجاح
+        window.location.href = data.redirect;
       } else {
         alert('Unexpected error occurred.');
+        spinner.style.display = 'none';
+        submitBtn.disabled = false;
       }
     } catch (err) {
       console.error(err);
       alert('Error submitting the form.');
+      spinner.style.display = 'none';
+      submitBtn.disabled = false;
     }
   });
 </script>

@@ -83,10 +83,10 @@ if (req.file) {
       defaultTheme: company.defaultTheme || 'light',
       isActive: false,
       settings: {},
-      // اللوجو يجب تعامله بشكل منفصل لو في رفع ملف
+   
     });
     await newCompany.save();
-    console.log('Company created:', newCompany);
+    
 
 
     // انشاء الادمن 
@@ -103,7 +103,7 @@ if (req.file) {
       profileImage: null,
     });
     await newUser.save();
-    console.log('Admin user created:', newUser);
+    
 
 
 
@@ -127,10 +127,10 @@ if (req.file) {
         <p>This link will expire in 24 hours.</p>
       `
     });
-    console.log("Verification email sent to:", newUser.email);
+    
 
-    // سيتم التوجيه بشكل افضل لاحقا بعد التيست
-    res.status(201)
+   req.flash('success', 'Registration successful! Login to your account.');
+    res.status(200).json({ redirect: '/login' });
   } catch (err) {
     console.error(err);
     res.status(500).render('pages/error/500', { title: 'Server Error' });
