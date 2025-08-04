@@ -1,0 +1,96 @@
+body.theme-dark {
+  background-color: #1e1e2f;
+  color: #e0e0e0;
+  font-weight: 400;
+}
+
+/* === SIDEBAR === */
+body.theme-dark .main-sidebar {
+  background-color: #2a2d3e;
+  border-right: 1px solid #393d4e;
+}
+
+body.theme-dark .sidebar-menu li a {
+  color: #b0b0b0;
+}
+
+body.theme-dark .sidebar-menu li.active > a,
+body.theme-dark .sidebar-menu li a:hover {
+  background-color: #393d4e;
+  color: #ffffff;
+}
+
+/* === NAVBAR === */
+body.theme-dark .navbar,
+body.theme-dark .navbar-bg {
+  background-color: #2a2d3e;
+  border-bottom: 1px solid #393d4e;
+}
+
+body.theme-dark .navbar .nav-link {
+  color: #e0e0e0;
+}
+
+/* === CARDS === */
+body.theme-dark .card {
+  background-color: #2a2d3e;
+  color: #e0e0e0;
+  border: 1px solid #393d4e;
+}
+
+/* === SECTION HEADER === */
+body.theme-dark .section-header {
+  background-color: #2a2d3e;
+  color: #ffffff;
+}
+
+/* === BUTTONS === */
+body.theme-dark .btn-primary {
+  background-color: #4c8bf5;
+  border-color: #4c8bf5;
+  color: white;
+}
+
+body.theme-dark .btn-primary:hover {
+  background-color: #3a6fd1;
+}
+
+/* === FORMS === */
+body.theme-dark input,
+body.theme-dark textarea,
+body.theme-dark select {
+  background-color: #1e1e2f;
+  color: #e0e0e0;
+  border: 1px solid #393d4e;
+}
+
+body.theme-dark input::placeholder,
+body.theme-dark textarea::placeholder {
+  color: #888;
+}
+
+/* === TABLES === */
+body.theme-dark table {
+  background-color: #2a2d3e;
+  color: #e0e0e0;
+}
+
+body.theme-dark table th,
+body.theme-dark table td {
+  border-color: #393d4e;
+}
+
+/* === DROPDOWNS & MODALS === */
+body.theme-dark .dropdown-menu,
+body.theme-dark .modal-content {
+  background-color: #2a2d3e;
+  color: #e0e0e0;
+  border: 1px solid #393d4e;
+}
+
+/* === ALERTS === */
+body.theme-dark .alert {
+  background-color: #393d4e;
+  color: #ffffff;
+  border-color: #4a4a5e;
+}

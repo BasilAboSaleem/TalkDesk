@@ -8,6 +8,8 @@ exports.landing_get = (req, res) => {
 
 exports.dashboard_get = (req, res) => {
   res.render('index', {
-    title: 'Dashboard'
+    title: 'Dashboard',
+    onlineUsers: [],
+    directMessages: []
   });
 };
