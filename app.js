@@ -100,9 +100,11 @@ liveReloadServer.server.once("connection", () => {
 const coreRoute = require('./routes/coreRoute');
 const authRoute = require('./routes/authRoute');
 const superAdminRoute = require('./routes/superAdminRoute');
+const adminRoute = require('./routes/adminRoute');
 app.use(coreRoute);
 app.use(authRoute);
 app.use(superAdminRoute);
+app.use(adminRoute);
 
 
 

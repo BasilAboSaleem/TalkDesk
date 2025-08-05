@@ -11,13 +11,14 @@ async function logAudit({ userId, companyId, action, details = {} }) {
     console.error('Failed to log audit entry:', error);
   }
 }
-const user = require('../../models/User');
-const company = require('../../models/Company');
+const User = require('../../models/User');
+const Company = require('../../models/Company');
 
 
 
 module.exports = {
      logAudit,
-     user,
-     company
+     AuditLog,
+     User,
+     Company
     };

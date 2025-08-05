@@ -89,9 +89,11 @@
     "actionsCardTitle": "Actions"
   },
   "department": {
-    "addTitle": "Add Department",
+"addTitle": "Add New Department",
     "nameLabel": "Department Name",
+    "namePlaceholder": "e.g. Customer Service",
     "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Brief about the department...",
     "addButton": "Create Department"
   },
 

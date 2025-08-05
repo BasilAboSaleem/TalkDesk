@@ -33,9 +33,11 @@ body.theme-dark .navbar .nav-link {
 
 /* === CARDS === */
 body.theme-dark .card {
-  background-color: #2a2d3e;
+  background-color: #242637;
   color: #e0e0e0;
   border: 1px solid #393d4e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
 }
 
 /* === SECTION HEADER === */
@@ -49,10 +51,14 @@ body.theme-dark .btn-primary {
   background-color: #4c8bf5;
   border-color: #4c8bf5;
   color: white;
+  box-shadow: 0 2px 6px rgba(76, 139, 245, 0.4);
+  transition: 0.3s ease;
 }
 
 body.theme-dark .btn-primary:hover {
   background-color: #3a6fd1;
+  border-color: #3a6fd1;
+  box-shadow: 0 4px 10px rgba(58, 111, 209, 0.5);
 }
 
 /* === FORMS === */
@@ -60,13 +66,23 @@ body.theme-dark input,
 body.theme-dark textarea,
 body.theme-dark select {
   background-color: #1e1e2f;
-  color: #e0e0e0;
+  color: #ffffff !important;
   border: 1px solid #393d4e;
+}
+
+body.theme-dark input:focus,
+body.theme-dark textarea:focus,
+body.theme-dark select:focus {
+  color: #ffffff !important; 
+  background-color: #252538;
+  border-color: #4c8bf5;
+  box-shadow: 0 0 0 0.2rem rgba(76, 139, 245, 0.25);
+  outline: none;
 }
 
 body.theme-dark input::placeholder,
 body.theme-dark textarea::placeholder {
-  color: #888;
+  color: #bbbbbb;
 }
 
 /* === TABLES === */
