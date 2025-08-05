@@ -1,3 +1,4 @@
+const e = require('express');
 const {logAudit, AuditLog, User, Company, Department} = require('./utils');
 
 exports.getNewDepartment = async (req, res) => {
@@ -53,6 +54,24 @@ if (existing) {
     res.status(500).render('pages/error/500', {
       title: 'Internal Server Error',
       message: 'Failed to create department. Please try again later.'
+    });
+  }
+};
+
+exports.getDepartments = async (req, res) => {
+  try {
+    const companyId = req.user.company;
+    const departments = await Department.find({ company: companyId });
+
+    res.render('pages/admin/department/departments', { departments , 
+      directMessages: [],
+      onlineUsers: []
+    }); 
+  } catch (error) {
+    console.error('Error fetching departments:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to fetch departments. Please try again later.'
     });
   }
 };
