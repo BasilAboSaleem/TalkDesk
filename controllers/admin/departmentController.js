@@ -19,7 +19,9 @@ exports.getNewDepartment = async (req, res) => {
 exports.createDepartment = async (req, res) => {
   const { name, description } = req.body;
   const userId = req.user.id; 
+  const userName = req.user.name;
   const companyId = req.user.company;
+  
 
   try {
     const existing = await Department.findOne({ name, company: companyId });
@@ -31,7 +33,8 @@ if (existing) {
     const newDepartment = await Department.create({
       name,
       description,
-      company: companyId
+      company: companyId,
+      createdBy: userName,
     });
 
     // Log audit entry

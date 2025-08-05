@@ -17,6 +17,10 @@ const departmentSchema = new mongoose.Schema({
     ref: 'Company',
     required: true
   },
+ createdBy: {
+  type: String,
+  required: true
+},
   
   isDeleted: {
   type: Boolean,

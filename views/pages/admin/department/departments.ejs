@@ -59,6 +59,7 @@
                         <th scope="col">#</th>
                         <th scope="col"><%= t('department.tableHeaders.name') %></th>
                         <th scope="col"><%= t('department.tableHeaders.description') %></th>
+                        <th scope="col"><%= t('department.tableHeaders.createdBy') %></th>
                         <th scope="col"><%= t('department.tableHeaders.createdAt') %></th>
                         <th scope="col"><%= t('department.tableHeaders.actions') %></th>
                       </tr>
@@ -70,11 +71,10 @@
                             <th scope="row"><%= index + 1 %></th>
                             <td><%= department.name %></td>
                             <td><%= department.description || '-' %></td>
+                            <td><%= department.createdBy || '-' %></td>
                             <td><%= department.createdAt.toLocaleDateString() %></td>
                        <td>
-  <a href="/admin/departments/<%= department._id %>" class="btn btn-info btn-sm" title="<%= t('department.actions.view') %>">
-    <i class="fas fa-eye"></i>
-  </a>
+  
   <a href="/admin/departments/<%= department._id %>/edit" class="btn btn-warning btn-sm" title="<%= t('department.actions.edit') %>">
     <i class="fas fa-edit"></i>
   </a>
