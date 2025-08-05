@@ -1,5 +1,6 @@
-const {getNewDepartment} = require('./departmentController');
+const {getNewDepartment, createDepartment} = require('./departmentController');
 
 module.exports = {
-  getNewDepartment
+  getNewDepartment,
+  createDepartment
 };

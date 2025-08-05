@@ -14,6 +14,12 @@
         <section class="section">
           <div class="container mt-5">
             <div class="row">
+                  <% if (success && success.length > 0) { %>
+              <div class="alert alert-success"><%= success[0] %></div>
+            <% } %>
+            <% if (error && error.length > 0) { %>
+              <div class="alert alert-danger"><%= error[0] %></div>
+            <% } %>
               <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
 
                 <div class="card card-primary animated fadeIn">
@@ -22,7 +28,7 @@
                   </div>
 
                   <div class="card-body">
-                    <form action="/admin/departments" method="POST">
+                    <form action="/admin/departments/new" method="POST">
 
                       <!-- Department Name -->
                       <div class="form-group">
