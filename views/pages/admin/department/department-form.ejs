@@ -14,21 +14,21 @@
         <section class="section">
           <div class="container mt-5">
             <div class="row">
-                  <% if (success && success.length > 0) { %>
-              <div class="alert alert-success"><%= success[0] %></div>
-            <% } %>
-            <% if (error && error.length > 0) { %>
-              <div class="alert alert-danger"><%= error[0] %></div>
-            <% } %>
-              <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+              <% if (success && success.length > 0) { %>
+                <div class="alert alert-success"><%= success[0] %></div>
+              <% } %>
+              <% if (error && error.length > 0) { %>
+                <div class="alert alert-danger"><%= error[0] %></div>
+              <% } %>
 
+              <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
                 <div class="card card-primary animated fadeIn">
                   <div class="card-header">
-                    <h4><%= t('department.addTitle') %></h4>
+                    <h4><%= pageTitle %></h4>
                   </div>
 
                   <div class="card-body">
-                    <form action="/admin/departments/new" method="POST">
+                    <form action="<%= formAction %>" method="POST">
 
                       <!-- Department Name -->
                       <div class="form-group">
@@ -37,8 +37,14 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                           </div>
-                          <input id="name" name="name" type="text" class="form-control" required
-                            placeholder="<%= t('department.namePlaceholder') %>">
+                          <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            class="form-control"
+                            required
+                            placeholder="<%= t('department.namePlaceholder') %>"
+                            value="<%= department ? department.name : '' %>">
                         </div>
                       </div>
 
@@ -49,15 +55,20 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-align-left"></i></span>
                           </div>
-                          <textarea id="description" name="description" class="form-control" rows="3"
-                            placeholder="<%= t('department.descriptionPlaceholder') %>"></textarea>
+                          <textarea
+                            id="description"
+                            name="description"
+                            class="form-control"
+                            rows="3"
+                            placeholder="<%= t('department.descriptionPlaceholder') %>"><%= department ? department.description : '' %></textarea>
                         </div>
                       </div>
 
                       <!-- Submit Button -->
                       <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary btn-lg">
-                          <i class="fas fa-plus-circle mr-1"></i> <%= t('department.addButton') %>
+                          <i class="fas <%= isEdit ? 'fa-save' : 'fa-plus-circle' %> mr-1"></i>
+                          <%= submitLabel %>
                         </button>
                       </div>
 

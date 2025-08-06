@@ -78,12 +78,11 @@
   <a href="/admin/departments/<%= department._id %>/edit" class="btn btn-warning btn-sm" title="<%= t('department.actions.edit') %>">
     <i class="fas fa-edit"></i>
   </a>
-  <!-- زر حذف يفتح المودال -->
+  
   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<%= department._id %>" title="<%= t('department.actions.delete') %>">
     <i class="fas fa-trash-alt"></i>
   </button>
 
-  <!-- مودال التأكيد -->
   <div class="modal fade" id="deleteModal-<%= department._id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<%= department._id %>" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content bg-dark text-white">

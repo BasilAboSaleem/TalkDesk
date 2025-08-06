@@ -3,10 +3,20 @@ const {logAudit, AuditLog, User, Company, Department} = require('./utils');
 
 exports.getNewDepartment = async (req, res) => {
   try {
-    // مؤقتا 
+    // مؤقتًا
     let directMessages = [];
     let onlineUsers = [];
-    res.render('pages/admin/department/add-department', {directMessages, onlineUsers});
+
+    res.render('pages/admin/department/department-form', {
+      department: null,
+      formAction: '/admin/departments/new',
+      pageTitle: res.locals.t('department.addTitle'),
+      submitLabel: res.locals.t('department.addButton'),
+      isEdit: false,
+      directMessages,
+      onlineUsers
+    });
+
   } catch (error) {
     console.error('Error fetching new department page:', error);
     res.status(500).render('pages/error/500', {
