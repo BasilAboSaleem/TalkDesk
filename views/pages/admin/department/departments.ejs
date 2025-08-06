@@ -33,7 +33,7 @@
 
           <!-- Section Header -->
           <div class="section-header">
-            <h1><%= t('department.pageTitle') %></h1>
+            <h1><%= viewType === 'deleted' ? t('department.deletedPageTitle') : t('department.pageTitle') %></h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="/admin/dashboard"><%= t('breadcrumb.dashboard') %></a></div>
               <div class="breadcrumb-item"><%= t('department.pageTitle') %></div>
@@ -44,69 +44,113 @@
             <h2 class="section-title"><%= t('department.sectionTitle') %></h2>
             <p class="section-lead"><%= t('department.sectionLead') %></p>
 
+            <div class="mb-3">
+              <a href="<%= viewType === 'deleted' ? '/admin/departments' : '/admin/departments/deleted' %>" class="btn btn-outline-secondary">
+                <i class="fas fa-sync-alt"></i> 
+                <%= viewType === 'deleted' ? t('department.showActive') : t('department.showDeleted') %>
+              </a>
+            </div>
+
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h4><%= t('department.cardHeader') %></h4>
-                <a href="/admin/departments/new" class="btn btn-primary">
-                  <i class="fas fa-plus"></i> <%= t('department.addButton') %>
-                </a>
+                <% if (viewType !== 'deleted') { %>
+                  <a href="/admin/departments/new" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> <%= t('department.addButton') %>
+                  </a>
+                <% } %>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-striped table-hover">
                     <thead class="thead-dark">
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col"><%= t('department.tableHeaders.name') %></th>
-                        <th scope="col"><%= t('department.tableHeaders.description') %></th>
-                        <th scope="col"><%= t('department.tableHeaders.createdBy') %></th>
-                        <th scope="col"><%= t('department.tableHeaders.createdAt') %></th>
-                        <th scope="col"><%= t('department.tableHeaders.actions') %></th>
+                        <th>#</th>
+                        <th><%= t('department.tableHeaders.name') %></th>
+                        <th><%= t('department.tableHeaders.description') %></th>
+                        <th><%= t('department.tableHeaders.createdBy') %></th>
+                        <th><%= t('department.tableHeaders.createdAt') %></th>
+                        <th><%= t('department.tableHeaders.actions') %></th>
                       </tr>
                     </thead>
                     <tbody>
                       <% if (departments && departments.length > 0) { %>
                         <% departments.forEach((department, index) => { %>
                           <tr>
-                            <th scope="row"><%= index + 1 %></th>
+                            <th><%= index + 1 %></th>
                             <td><%= department.name %></td>
                             <td><%= department.description || '-' %></td>
                             <td><%= department.createdBy || '-' %></td>
                             <td><%= department.createdAt.toLocaleDateString() %></td>
-                       <td>
-  
-  <a href="/admin/departments/<%= department._id %>/edit" class="btn btn-warning btn-sm" title="<%= t('department.actions.edit') %>">
-    <i class="fas fa-edit"></i>
-  </a>
-  
-  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<%= department._id %>" title="<%= t('department.actions.delete') %>">
-    <i class="fas fa-trash-alt"></i>
-  </button>
+                            <td>
+                              <% if (viewType === 'deleted') { %>
+                                <!-- Restore Button -->
+                                <form action="/admin/departments/restore/<%= department._id %>" method="POST" style="display:inline;">
+                                  <button type="submit" class="btn btn-success btn-sm" title="<%= t('department.actions.restore') %>">
+                                    <i class="fas fa-undo"></i>
+                                  </button>
+                                </form>
 
-  <div class="modal fade" id="deleteModal-<%= department._id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<%= department._id %>" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content bg-dark text-white">
-        <div class="modal-header border-danger">
-          <h5 class="modal-title text-danger" id="deleteModalLabel-<%= department._id %>"><i class="fas fa-exclamation-triangle"></i> <%= t('department.softDeleteWarningTitle') %></h5>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="<%= t('common.close') %>">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p><strong><%= t('department.softDeleteWarningMessage') %></strong></p>
-          <p><%= t('department.softDeleteConfirmText', { name: department.name }) %></p>
-          <p class="text-danger font-weight-bold"><%= t('department.softDeleteIrreversible') %></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
-          <form action="/admin/departments/<%= department._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-danger"><%= t('common.confirmDelete') %></button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</td>
+                                <!-- Hard Delete Modal Trigger -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hardDeleteModal-<%= department._id %>" title="<%= t('department.actions.hardDelete') %>">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+
+                                <!-- Hard Delete Modal -->
+                                <div class="modal fade" id="hardDeleteModal-<%= department._id %>" tabindex="-1" role="dialog" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content bg-dark text-white">
+                                      <div class="modal-header border-danger">
+                                        <h5 class="modal-title text-danger"><i class="fas fa-exclamation-triangle"></i> <%= t('department.deleteWarningTitle') %></h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p><strong><%= t('department.deleteWarningMessage') %></strong></p>
+                                        <p><%= t('department.deleteConfirmText', { name: department.name }) %></p>
+                                        <p class="text-danger font-weight-bold"><%= t('department.deleteIrreversible') %></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
+                                        <form action="/admin/departments/hard-delete/<%= department._id %>?_method=DELETE" method="POST">
+                                          <button type="submit" class="btn btn-danger"><%= t('common.confirmDelete') %></button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <% } else { %>
+                                <a href="/admin/departments/<%= department._id %>/edit" class="btn btn-warning btn-sm" title="<%= t('department.actions.edit') %>">
+                                  <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#softDeleteModal-<%= department._id %>" title="<%= t('department.actions.delete') %>">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+
+                                <!-- Soft Delete Modal -->
+                                <div class="modal fade" id="softDeleteModal-<%= department._id %>" tabindex="-1" role="dialog" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content bg-dark text-white">
+                                      <div class="modal-header border-danger">
+                                        <h5 class="modal-title text-danger"><i class="fas fa-exclamation-triangle"></i> <%= t('department.softDeleteWarningTitle') %></h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p><strong><%= t('department.softDeleteWarningMessage') %></strong></p>
+                                        <p><%= t('department.softDeleteConfirmText', { name: department.name }) %></p>
+                                        <p class="text-danger font-weight-bold"><%= t('department.softDeleteIrreversible') %></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
+                                        <form action="/admin/departments/soft-delete/<%= department._id %>?_method=DELETE" method="POST">
+                                          <button type="submit" class="btn btn-danger"><%= t('common.confirmDelete') %></button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <% } %>
+                            </td>
                           </tr>
                         <% }) %>
                       <% } else { %>
@@ -132,14 +176,14 @@
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
   <script>
-  $(document).on('click', '[data-toggle="modal"]', function (e) {
-    const target = $(this).data('target');
-    $(target).modal('show');
-  });
+    $(document).on('click', '[data-toggle="modal"]', function (e) {
+      const target = $(this).data('target');
+      $(target).modal('show');
+    });
 
-  $(document).on('click', '[data-dismiss="modal"]', function (e) {
-    $(this).closest('.modal').modal('hide');
-  });
-</script>
+    $(document).on('click', '[data-dismiss="modal"]', function (e) {
+      $(this).closest('.modal').modal('hide');
+    });
+  </script>
 </body>
 </html>

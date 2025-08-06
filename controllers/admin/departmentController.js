@@ -73,9 +73,10 @@ if (existing) {
 exports.getDepartments = async (req, res) => {
   try {
     const companyId = req.user.company;
-    const departments = await Department.find({ company: companyId });
+    const departments = await Department.find({ company: companyId , isDeleted: false });
 
     res.render('pages/admin/department/departments', { departments , 
+      viewType: 'active', 
       directMessages: [],
       onlineUsers: []
     }); 
@@ -168,6 +169,44 @@ exports.updateDepartment = async (req, res) => {
     res.status(500).render('pages/error/500', {
       title: 'Internal Server Error',
       message: 'Failed to update department. Please try again later.'
+    });
+  }
+};
+
+exports.softDeleteDepartment = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+  const userName = req.user.name;
+  const companyId = req.user.company;
+
+  try {
+    const department = await Department.findById(id);
+    if (!department) {
+      req.flash('error', res.locals.t('flashMessages.error.notFound'));
+      return res.redirect('/admin/departments');
+    }
+
+    // Soft delete department
+    department.isDeleted = true;
+    department.markModified('isDeleted');
+
+    await department.save();
+ 
+    // Log audit entry
+    await logAudit({
+      userId,
+      companyId,
+      action: 'soft_delete_department',
+      details: { departmentId: id, name: department.name, deletedBy: userName }
+    });
+
+    req.flash('success', res.locals.t('flashMessages.success.softDelete'));
+    res.redirect('/admin/departments');
+  } catch (error) {
+    console.error('Error soft deleting department:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to soft delete department. Please try again later.'
     });
   }
 };

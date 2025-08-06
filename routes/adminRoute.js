@@ -8,5 +8,6 @@ router.post('/admin/departments/new', requireAuth, isAdmin, adminController.crea
 router.get('/admin/departments', requireAuth, isAdmin,  adminController.getDepartments); 
 router.get('/admin/departments/:id/edit', requireAuth, isAdmin, adminController.getEditDepartment);
 router.put('/admin/departments/:id', requireAuth, isAdmin, adminController.updateDepartment);
+router.delete('/admin/departments/soft-delete/:id', requireAuth, isAdmin, adminController.softDeleteDepartment);
 
 module.exports = router;

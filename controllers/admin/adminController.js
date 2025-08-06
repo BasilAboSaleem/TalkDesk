@@ -1,5 +1,5 @@
 const {getNewDepartment, createDepartment, getDepartments, getEditDepartment,
-  updateDepartment,
+  updateDepartment, softDeleteDepartment
 } = require('./departmentController');
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
   createDepartment,
   getDepartments,
   getEditDepartment,
-  updateDepartment
+  updateDepartment,
+  softDeleteDepartment
 };
