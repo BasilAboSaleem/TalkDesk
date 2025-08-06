@@ -90,34 +90,37 @@
   },
 
 
-  "department": {
-"addTitle": "Add New Department",
-    "nameLabel": "Department Name",
-    "namePlaceholder": "e.g. Customer Service",
-    "descriptionLabel": "Description",
-    "descriptionPlaceholder": "Brief about the department...",
-    "addButton": "Create Department",
-    "pageTitle": "Departments",
-    "sectionTitle": "All Departments",
-    "sectionLead": "Manage your company departments from here.",
-    "cardHeader": "Departments List",
-    "tableHeaders": {
-      "name": "Name",
-      "description": "Description",
-      "createdBy": "Created By",
-      "createdAt": "Created At",
-      "actions": "Actions"
+"department": {
+  "addTitle": "Add New Department",
+  "editTitle": "Edit Department",
+  "nameLabel": "Department Name",
+  "namePlaceholder": "e.g. Customer Service",
+  "descriptionLabel": "Description",
+  "descriptionPlaceholder": "Brief about the department...",
+  "addButton": "Create Department",
+  "editButton": "Update Department",
+  "pageTitle": "Departments",
+  "sectionTitle": "All Departments",
+  "sectionLead": "Manage your company departments from here.",
+  "cardHeader": "Departments List",
+  "tableHeaders": {
+    "name": "Name",
+    "description": "Description",
+    "createdBy": "Created By",
+    "createdAt": "Created At",
+    "actions": "Actions"
   },
   "actions": {
-      "view": "View Department",
-      "edit": "Edit Department",
-      "delete": "Delete Department"
-    },
-    "deleteWarningTitle": "WARNING: DELETE DEPARTMENT",
-    "deleteWarningMessage": "This action is irreversible and will permanently delete the department!",
-    "deleteConfirmText": "Are you sure you want to delete the department \"{{name}}\"?",
-    "deleteIrreversible": "⚠️ This cannot be undone!"
+    "view": "View Department",
+    "edit": "Edit Department",
+    "delete": "Delete Department"
   },
+  "deleteWarningTitle": "WARNING: DELETE DEPARTMENT",
+  "deleteWarningMessage": "This action is irreversible and will permanently delete the department!",
+  "deleteConfirmText": "Are you sure you want to delete the department \"{{name}}\"?",
+  "deleteIrreversible": "⚠️ This cannot be undone!"
+},
+
   "common": {
     "close": "Close",
     "cancel": "Cancel",

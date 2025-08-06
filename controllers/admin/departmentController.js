@@ -89,3 +89,86 @@ exports.getDepartments = async (req, res) => {
   }
 };
 
+exports.getEditDepartment = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const department = await Department.findById(id);
+    if (!department) {
+      req.flash('error', 'Department not found.');
+      return res.redirect('/admin/departments');
+    }
+
+    res.render('pages/admin/department/department-form', {
+      department,
+      formAction: `/admin/departments/${id}`,
+      pageTitle: res.locals.t('department.editTitle'),
+      submitLabel: res.locals.t('department.editButton'),
+      isEdit: true,
+      directMessages: [],
+      onlineUsers: []
+    });
+  } catch (error) {
+    console.error('Error fetching department for edit:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to fetch department for editing. Please try again later.'
+    });
+  }
+}
+
+exports.updateDepartment = async (req, res) => {
+  const { id } = req.params;
+  const { name, description } = req.body;
+  const userId = req.user.id;
+  const userName = req.user.name;
+  const companyId = req.user.company;
+
+  try {
+    const department = await Department.findById(id);
+    if (!department) {
+      req.flash('error', 'Department not found.');
+      return res.redirect('/admin/departments');
+    }
+
+    // Check for duplicate name
+    const existing = await Department.findOne({ name, company: companyId, _id: { $ne: id } });
+    if (existing) {
+      req.flash('error', 'A department with this name already exists.');
+      return res.redirect(`/admin/departments/${id}/edit`);
+    }
+
+    // Store old values for audit log
+    const oldName = department.name;
+    const oldDescription = department.description;
+
+    // Update department
+    department.name = name || department.name;
+    department.description = description || department.description;
+    await department.save();
+
+    // Store new values for audit log
+    const newName = department.name;
+    const newDescription = department.description;
+
+    // Log audit entry
+    await logAudit({
+      userId,
+      companyId,
+      action: 'update_department',
+      details: {
+        departmentId: id,
+        before: { name: oldName, description: oldDescription },
+        after: { name: newName, description: newDescription }
+      }
+    });
+
+    req.flash('success', 'Department updated successfully.');
+    res.redirect('/admin/departments');
+  } catch (error) {
+    console.error('Error updating department:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to update department. Please try again later.'
+    });
+  }
+};

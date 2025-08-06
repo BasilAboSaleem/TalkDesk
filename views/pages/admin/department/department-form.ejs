@@ -28,51 +28,56 @@
                   </div>
 
                   <div class="card-body">
-                    <form action="<%= formAction %>" method="POST">
+                   <form action="<%= formAction %>" method="POST">
 
-                      <!-- Department Name -->
-                      <div class="form-group">
-                        <label for="name"><%= t('department.nameLabel') %></label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-building"></i></span>
-                          </div>
-                          <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            class="form-control"
-                            required
-                            placeholder="<%= t('department.namePlaceholder') %>"
-                            value="<%= department ? department.name : '' %>">
-                        </div>
-                      </div>
+  <% if (isEdit) { %>
+    <input type="hidden" name="_method" value="PUT">
+  <% } %>
 
-                      <!-- Description -->
-                      <div class="form-group">
-                        <label for="description"><%= t('department.descriptionLabel') %></label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                          </div>
-                          <textarea
-                            id="description"
-                            name="description"
-                            class="form-control"
-                            rows="3"
-                            placeholder="<%= t('department.descriptionPlaceholder') %>"><%= department ? department.description : '' %></textarea>
-                        </div>
-                      </div>
+  <!-- Department Name -->
+  <div class="form-group">
+    <label for="name"><%= t('department.nameLabel') %></label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-building"></i></span>
+      </div>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        class="form-control"
+        required
+        placeholder="<%= t('department.namePlaceholder') %>"
+        value="<%= department ? department.name : '' %>">
+    </div>
+  </div>
 
-                      <!-- Submit Button -->
-                      <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                          <i class="fas <%= isEdit ? 'fa-save' : 'fa-plus-circle' %> mr-1"></i>
-                          <%= submitLabel %>
-                        </button>
-                      </div>
+  <!-- Description -->
+  <div class="form-group">
+    <label for="description"><%= t('department.descriptionLabel') %></label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+      </div>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        rows="3"
+        placeholder="<%= t('department.descriptionPlaceholder') %>"><%= department ? department.description : '' %></textarea>
+    </div>
+  </div>
 
-                    </form>
+  <!-- Submit Button -->
+  <div class="form-group text-center">
+    <button type="submit" class="btn btn-primary btn-lg">
+      <i class="fas <%= isEdit ? 'fa-save' : 'fa-plus-circle' %> mr-1"></i>
+      <%= submitLabel %>
+    </button>
+  </div>
+
+</form>
+
                   </div>
                 </div>
 
