@@ -1,12 +1,13 @@
 const {getNewDepartment, createDepartment, getDepartments, getEditDepartment,
-  updateDepartment, softDeleteDepartment
+  updateDepartment, softDeleteDepartment, getSoftDeletedDepartments
 } = require('./departmentController');
 
 module.exports = {
   getNewDepartment,
   createDepartment,
   getDepartments,
-  getEditDepartment,
+  getEditDepartment, 
   updateDepartment,
-  softDeleteDepartment
+  softDeleteDepartment,
+  getSoftDeletedDepartments
 };

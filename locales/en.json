@@ -113,8 +113,11 @@
   "actions": {
     "view": "View Department",
     "edit": "Edit Department",
-    "delete": "Delete Department"
+    "delete": "Delete Department",
+    "restore": "Restore Department"
   },
+  "showActive": "Show Active Departments",
+  "showDeleted": "Show Soft Deleted Departments",
   "softDeleteWarningTitle": "Warning: Soft Delete Department",
 "softDeleteWarningMessage": "This action will temporarily deactivate the department but can be restored later.",
 "softDeleteConfirmText": "Are you sure you want to deactivate the department \"{{name}}\"?",

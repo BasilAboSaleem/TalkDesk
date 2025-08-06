@@ -210,3 +210,23 @@ exports.softDeleteDepartment = async (req, res) => {
     });
   }
 };
+
+exports.getSoftDeletedDepartments = async (req, res) => {
+  try {
+    const companyId = req.user.company;
+    const departments = await Department.find({ company: companyId, isDeleted: true });
+
+    res.render('pages/admin/department/departments', { 
+      departments, 
+      viewType: 'deleted', 
+      directMessages: [],
+      onlineUsers: [] 
+    });
+  } catch (error) {
+    console.error('Error fetching soft deleted departments:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to fetch soft deleted departments. Please try again later.'
+    });
+  }
+}

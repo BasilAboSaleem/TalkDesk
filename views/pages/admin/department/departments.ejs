@@ -45,7 +45,7 @@
             <p class="section-lead"><%= t('department.sectionLead') %></p>
 
             <div class="mb-3">
-              <a href="<%= viewType === 'deleted' ? '/admin/departments' : '/admin/departments/deleted' %>" class="btn btn-outline-secondary">
+              <a href="<%= viewType === 'deleted' ? '/admin/departments' : '/admin/departments/soft-deleted' %>" class="btn btn-outline-secondary">
                 <i class="fas fa-sync-alt"></i> 
                 <%= viewType === 'deleted' ? t('department.showActive') : t('department.showDeleted') %>
               </a>
@@ -92,7 +92,7 @@
                                 </form>
 
                                 <!-- Hard Delete Modal Trigger -->
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hardDeleteModal-<%= department._id %>" title="<%= t('department.actions.hardDelete') %>">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hardDeleteModal-<%= department._id %>" title="<%= t('department.actions.delete') %>">
                                   <i class="fas fa-trash"></i>
                                 </button>
 
