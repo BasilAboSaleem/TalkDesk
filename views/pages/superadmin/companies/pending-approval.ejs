@@ -12,12 +12,23 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-                 <% if (success && success.length > 0) { %>
-              <div class="alert alert-success"><%= success[0] %></div>
-            <% } %>
-            <% if (error && error.length > 0) { %>
-              <div class="alert alert-danger"><%= error[0] %></div>
-            <% } %>
+                <!-- Flash Messages -->
+          <% if (success && success.length > 0) { %>
+            <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-check-circle mr-2"></i> <%= success[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
+          <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-exclamation-triangle mr-2"></i> <%= error[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
           <div class="section-header">
             <h1><%= t('pendingApproval.pageTitle') %></h1>
             <div class="section-header-breadcrumb">

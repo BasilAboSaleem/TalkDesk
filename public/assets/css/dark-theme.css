@@ -110,3 +110,37 @@ body.theme-dark .alert {
   color: #ffffff;
   border-color: #4a4a5e;
 }
+
+/* .flash-message  */
+.flash-message {
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+
+.theme-dark .alert-success.flash-message {
+  background-color: #2a5d34;  
+  color: #c6f6d5;            
+  border: 1px solid #4caf50;
+}
+
+.theme-dark .alert-danger.flash-message {
+  background-color: #6b1e1e;  
+  color: #f9caca;             
+  border: 1px solid #e53e3e;
+}
+
+.theme-light .alert-success.flash-message {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.theme-light .alert-danger.flash-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
