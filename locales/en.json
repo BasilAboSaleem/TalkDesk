@@ -115,6 +115,10 @@
     "edit": "Edit Department",
     "delete": "Delete Department"
   },
+  "softDeleteWarningTitle": "Warning: Soft Delete Department",
+"softDeleteWarningMessage": "This action will temporarily deactivate the department but can be restored later.",
+"softDeleteConfirmText": "Are you sure you want to deactivate the department \"{{name}}\"?",
+"softDeleteIrreversible": "You can restore this department later from the recycle bin.",
   "deleteWarningTitle": "WARNING: DELETE DEPARTMENT",
   "deleteWarningMessage": "This action is irreversible and will permanently delete the department!",
   "deleteConfirmText": "Are you sure you want to delete the department \"{{name}}\"?",

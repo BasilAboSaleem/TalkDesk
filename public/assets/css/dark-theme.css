@@ -144,3 +144,36 @@ body.theme-dark .alert {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+/* === MODALS === */
+.modal {
+  z-index: 9999 !important;
+  pointer-events: none;
+}
+.modal-backdrop {
+  z-index: 9998 !important;
+  pointer-events: none;
+  
+}
+
+
+/* تأكد من ظهور المودال والـ backdrop فوق كل شيء */
+body.theme-dark .modal-backdrop {
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+body.theme-dark .modal {
+  z-index: 1060;
+}
+
+/* في حال زر الإغلاق لا يعمل */
+body.theme-dark .modal .close {
+  color: #fff;
+  opacity: 1;
+}
+
+/* في حال زر confirm delete لا يعمل */
+body.theme-dark .modal .btn {
+  pointer-events: auto;
+}

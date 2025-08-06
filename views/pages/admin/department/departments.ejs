@@ -87,15 +87,15 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content bg-dark text-white">
         <div class="modal-header border-danger">
-          <h5 class="modal-title text-danger" id="deleteModalLabel-<%= department._id %>"><i class="fas fa-exclamation-triangle"></i> <%= t('department.deleteWarningTitle') %></h5>
+          <h5 class="modal-title text-danger" id="deleteModalLabel-<%= department._id %>"><i class="fas fa-exclamation-triangle"></i> <%= t('department.softDeleteWarningTitle') %></h5>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="<%= t('common.close') %>">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p><strong><%= t('department.deleteWarningMessage') %></strong></p>
-          <p><%= t('department.deleteConfirmText', { name: department.name }) %></p>
-          <p class="text-danger font-weight-bold"><%= t('department.deleteIrreversible') %></p>
+          <p><strong><%= t('department.softDeleteWarningMessage') %></strong></p>
+          <p><%= t('department.softDeleteConfirmText', { name: department.name }) %></p>
+          <p class="text-danger font-weight-bold"><%= t('department.softDeleteIrreversible') %></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
@@ -131,5 +131,15 @@
 
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
+  <script>
+  $(document).on('click', '[data-toggle="modal"]', function (e) {
+    const target = $(this).data('target');
+    $(target).modal('show');
+  });
+
+  $(document).on('click', '[data-dismiss="modal"]', function (e) {
+    $(this).closest('.modal').modal('hide');
+  });
+</script>
 </body>
 </html>
