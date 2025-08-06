@@ -36,7 +36,7 @@ exports.createDepartment = async (req, res) => {
   try {
     const existing = await Department.findOne({ name, company: companyId });
 if (existing) {
-  req.flash('error', 'A department with this name already exists.');
+  req.flash('error', res.locals.t('flashMessages.error.alreadyExists'));
   return res.redirect('/admin/departments/new');
 }
     // Create new department
@@ -55,11 +55,10 @@ if (existing) {
       details: { departmentId: newDepartment.id, name }
     });
 
-    console.log('Department created successfully:', newDepartment);
 
     // Flash success message
-    req.flash('success', 'Department created successfully.');
-    
+    req.flash('success', res.locals.t('flashMessages.success.add'));
+
     res.redirect('/admin/departments');
   } catch (error) {
     console.error('Error creating department:', error);
@@ -94,7 +93,7 @@ exports.getEditDepartment = async (req, res) => {
   try {
     const department = await Department.findById(id);
     if (!department) {
-      req.flash('error', 'Department not found.');
+      req.flash('error', res.locals.t('flashMessages.error.notFound'));
       return res.redirect('/admin/departments');
     }
 
@@ -126,14 +125,14 @@ exports.updateDepartment = async (req, res) => {
   try {
     const department = await Department.findById(id);
     if (!department) {
-      req.flash('error', 'Department not found.');
+      req.flash('error', res.locals.t('flashMessages.error.notFound'));
       return res.redirect('/admin/departments');
     }
 
     // Check for duplicate name
     const existing = await Department.findOne({ name, company: companyId, _id: { $ne: id } });
     if (existing) {
-      req.flash('error', 'A department with this name already exists.');
+      req.flash('error', res.locals.t('flashMessages.error.alreadyExists'));
       return res.redirect(`/admin/departments/${id}/edit`);
     }
 
@@ -162,7 +161,7 @@ exports.updateDepartment = async (req, res) => {
       }
     });
 
-    req.flash('success', 'Department updated successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.update'));
     res.redirect('/admin/departments');
   } catch (error) {
     console.error('Error updating department:', error);

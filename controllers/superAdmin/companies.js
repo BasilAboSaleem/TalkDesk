@@ -60,7 +60,7 @@ exports.softDeleteCompany = async (req, res) => {
     company.isDeleted = true; // soft-deleted
     await company.save();
 
-    req.flash('success', 'Company soft-deleted successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.softDelete'));
     res.redirect('/sadmin/companies');
   } catch (error) {
     console.error(error);
@@ -136,7 +136,7 @@ exports.approveCompany = async (req, res) => {
 
     await company.save();
 
-    req.flash('success', 'Company approved successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.approve'));
     res.redirect('/sadmin/companies/pending');
   } catch (error) {
     console.error(error);
@@ -174,7 +174,7 @@ exports.rejectCompany = async (req, res) => {
 
     await company.save();
 
-    req.flash('success', 'Company rejected successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.reject'));
     res.redirect('/sadmin/companies/pending');
   } catch (error) {
     console.error(error);
@@ -219,7 +219,7 @@ exports.restoreCompany = async (req, res) => {
 
     await company.save();
 
-    req.flash('success', 'Company restored successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.restore'));
     res.redirect('/sadmin/companies-deleted');
   } catch (error) {
     console.error(error);
@@ -287,7 +287,7 @@ exports.permanentDeleteCompany = async (req, res) => {
     await session.commitTransaction();
     session.endSession();
 
-    req.flash('success', 'Company permanently deleted successfully.');
+    req.flash('success', res.locals.t('flashMessages.success.delete'));
     res.redirect('/sadmin/companies-deleted');
 
   } catch (error) {

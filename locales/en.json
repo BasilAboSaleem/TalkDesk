@@ -135,5 +135,33 @@
 
   "dashboard": {
     "title": "Dashboard"
+  },
+
+  "flashMessages": {
+    "success": {
+      "add": "Item added successfully.",
+      "update": "Item updated successfully.",
+      "approve": "Item approved successfully.",
+      "reject": "Item rejected successfully.",
+      "softDelete": "Item soft-deleted successfully.",
+      "restore": "Item restored successfully.",
+
+      "delete": "Item deleted successfully.",
+      "general": "Operation completed successfully."
+    },
+    "error": {
+      "add": "Failed to add item. Please try again.",
+      "update": "Failed to update item. Please try again.",
+      "approve": "Failed to approve item. Please try again.",
+      "reject": "Failed to reject item. Please try again.",
+      "softDelete": "Failed to soft-delete item. Please try again.",
+      "restore": "Failed to restore item. Please try again.",
+      "delete": "Failed to delete item. Please try again.",
+      "general": "An error occurred. Please try again.",
+      "notFound": "The requested item was not found.",
+      "alreadyExists": "An item with the same data already exists."
+
+      
+    }
   }
 }
