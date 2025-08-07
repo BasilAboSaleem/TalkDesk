@@ -85,7 +85,7 @@
                             <td>
                               <% if (viewType === 'deleted') { %>
                                 <!-- Restore Button -->
-                                <form action="/admin/departments/restore/<%= department._id %>" method="POST" style="display:inline;">
+                                <form action="/admin/departments/restore/<%= department._id %>?_method=PUT" method="POST" style="display:inline;">
                                   <button type="submit" class="btn btn-success btn-sm" title="<%= t('department.actions.restore') %>">
                                     <i class="fas fa-undo"></i>
                                   </button>

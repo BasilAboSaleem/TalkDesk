@@ -25,11 +25,14 @@ app.use(cookieParser());
 // Override with POST having ?_method=PUT || ?_method=DELETE
 app.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    let method = req.body._method;
+    const method = req.body._method;
     delete req.body._method;
     return method;
+  } else if (req.query && '_method' in req.query) {
+    return req.query._method;
   }
 }));
+
 // Session & flash
 app.use(session({
   secret: 'your-secret-key',

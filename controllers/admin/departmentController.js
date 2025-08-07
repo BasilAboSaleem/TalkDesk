@@ -230,3 +230,40 @@ exports.getSoftDeletedDepartments = async (req, res) => {
     });
   }
 }
+
+exports.restoreDepartment = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+  const userName = req.user.name;
+  const companyId = req.user.company;
+
+  try {
+    const department = await Department.findById(id);
+    if (!department || !department.isDeleted) {
+      req.flash('error', res.locals.t('flashMessages.error.notFound'));
+      return res.redirect('/admin/departments/soft-deleted');
+    }
+
+    // Restore department
+    department.isDeleted = false;
+    department.markModified('isDeleted');
+    await department.save();
+
+    // Log audit entry
+    await logAudit({
+      userId,
+      companyId,
+      action: 'restore_department',
+      details: { departmentId: id, name: department.name, restoredBy: userName }
+    });
+
+    req.flash('success', res.locals.t('flashMessages.success.restore'));
+    res.redirect('/admin/departments/soft-deleted');
+  } catch (error) {
+    console.error('Error restoring department:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to restore department. Please try again later.'
+    });
+  }
+};

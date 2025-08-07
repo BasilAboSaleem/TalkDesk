@@ -10,5 +10,6 @@ router.get('/admin/departments/:id/edit', requireAuth, isAdmin, adminController.
 router.put('/admin/departments/:id', requireAuth, isAdmin, adminController.updateDepartment);
 router.delete('/admin/departments/soft-delete/:id', requireAuth, isAdmin, adminController.softDeleteDepartment);
 router.get('/admin/departments/soft-deleted', requireAuth, isAdmin, adminController.getSoftDeletedDepartments);
+router.put('/admin/departments/restore/:id', requireAuth, isAdmin, adminController.restoreDepartment);
 
 module.exports = router;
