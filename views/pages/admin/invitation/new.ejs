@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+
+          <!-- Section Header -->
+          <div class="section-header">
+            <h1><%= t('invitation.pageTitle') %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="/admin/dashboard"><%= t('breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('invitation.pageTitle') %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title"><%= t('invitation.sectionTitle') %></h2>
+            <p class="section-lead"><%= t('invitation.sectionLead') %></p>
+          </div>
+
+          <div class="container mt-5">
+            <div class="row">
+              <!-- Flash Messages -->
+              <% if (success && success.length > 0) { %>
+                <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+                  <i class="fas fa-check-circle mr-2"></i> <%= success[0] %>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <% } %>
+              <% if (error && error.length > 0) { %>
+                <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+                  <i class="fas fa-exclamation-triangle mr-2"></i> <%= error[0] %>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <% } %>
+
+              <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <div class="card card-primary animated fadeIn">
+                  <div class="card-header">
+                    <h4><%= t('invitation.pageTitle') %></h4>
+                  </div>
+
+                  <div class="card-body">
+                    <form action="/admin/invitations/new" method="POST" novalidate>
+                      <!-- Email Input -->
+                      <div class="form-group">
+                        <label for="email"><%= t('invitation.emailLabel') %></label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                          </div>
+                          <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            required
+                            placeholder="<%= t('invitation.emailPlaceholder') %>"
+                            value="<%= typeof email !== 'undefined' ? email : '' %>"
+                            autocomplete="email"
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Submit Button -->
+                      <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fas fa-paper-plane mr-1"></i>
+                          <%= t('invitation.sendInvite') %>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+</body>
+</html>

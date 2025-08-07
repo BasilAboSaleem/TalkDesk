@@ -14,6 +14,7 @@ async function logAudit({ userId, companyId, action, details = {} }) {
 const User = require('../../models/User');
 const Company = require('../../models/Company');
 const Department = require('../../models/Department');
+const Invitation = require('../../models/Invitation');
 
 
 
@@ -22,5 +23,6 @@ module.exports = {
      AuditLog,
      User,
      Company,
-      Department
+      Department,
+      Invitation
     };

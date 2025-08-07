@@ -97,6 +97,13 @@ app.use((req, res, next) => {
 });
 // *** end of language && theme ***
 
+// Middleware for setting locals
+app.use((req, res, next) => {
+  res.locals.directMessages = [];
+  res.locals.onlineUsers = [];
+  next();
+});
+
 // Auto refresh
 const liveReloadServer = livereload.createServer();
 liveReloadServer.watch(path.join(__dirname, "public"));

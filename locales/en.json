@@ -183,5 +183,15 @@
     "restore": "Restore",
     "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+
+   "invitation": {
+    "pageTitle": "Invite Employee",
+    "sectionTitle": "Invite New Employee",
+    "sectionLead": "Send an invitation to a new employee to join your company.",
+    "emailLabel": "Employee Email",
+    "emailPlaceholder": "Enter employee email",
+    "sendInvite": "Send Invitation"
+    
   }
 }
