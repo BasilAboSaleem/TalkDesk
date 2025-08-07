@@ -152,8 +152,8 @@
       "reject": "Item rejected successfully.",
       "softDelete": "Item soft-deleted successfully.",
       "restore": "Item restored successfully.",
-
       "delete": "Item deleted successfully.",
+      "hardDelete": "Item permanently deleted successfully.",
       "general": "Operation completed successfully."
     },
     "error": {
@@ -164,6 +164,7 @@
       "softDelete": "Failed to soft-delete item. Please try again.",
       "restore": "Failed to restore item. Please try again.",
       "delete": "Failed to delete item. Please try again.",
+      "hardDelete": "Failed to permanently delete item. Please try again.",
       "general": "An error occurred. Please try again.",
       "notFound": "The requested item was not found.",
       "alreadyExists": "An item with the same data already exists."

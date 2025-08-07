@@ -267,3 +267,38 @@ exports.restoreDepartment = async (req, res) => {
     });
   }
 };
+
+exports.hardDeleteDepartment = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+  const userName = req.user.name;
+  const companyId = req.user.company;
+
+  try {
+    const department = await Department.findById(id);
+    if (!department || !department.isDeleted) {
+      req.flash('error', res.locals.t('flashMessages.error.notFound'));
+      return res.redirect('/admin/departments/soft-deleted');
+    }
+
+    // Hard delete department
+    await Department.deleteOne({ _id: id });
+
+    // Log audit entry
+    await logAudit({
+      userId,
+      companyId,
+      action: 'hard_delete_department',
+      details: { departmentId: id, name: department.name, deletedBy: userName }
+    });
+
+    req.flash('success', res.locals.t('flashMessages.success.hardDelete'));
+    res.redirect('/admin/departments/soft-deleted');
+  } catch (error) {
+    console.error('Error hard deleting department:', error);
+    res.status(500).render('pages/error/500', {
+      title: 'Internal Server Error',
+      message: 'Failed to hard delete department. Please try again later.'
+    });
+  }
+};

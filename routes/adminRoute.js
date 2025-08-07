@@ -11,5 +11,6 @@ router.put('/admin/departments/:id', requireAuth, isAdmin, adminController.updat
 router.delete('/admin/departments/soft-delete/:id', requireAuth, isAdmin, adminController.softDeleteDepartment);
 router.get('/admin/departments/soft-deleted', requireAuth, isAdmin, adminController.getSoftDeletedDepartments);
 router.put('/admin/departments/restore/:id', requireAuth, isAdmin, adminController.restoreDepartment);
+router.delete('/admin/departments/hard-delete/:id', requireAuth, isAdmin, adminController.hardDeleteDepartment);
 
 module.exports = router;
