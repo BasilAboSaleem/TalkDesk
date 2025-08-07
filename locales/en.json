@@ -171,5 +171,17 @@
 
       
     }
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No data available.",
+    "searchPlaceholder": "Search...",
+    "actions": "Actions",
+    "viewDetails": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "restore": "Restore",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }

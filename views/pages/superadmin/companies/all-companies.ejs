@@ -49,6 +49,16 @@
                 <h4><%= t('companies.cardHeader', 'Companies Overview') %></h4>
               </div>
               <div class="card-body">
+                <div class="mb-3">
+  <input
+    type="search"
+    id="searchInput"
+    class="form-control"
+    placeholder="<%= t('common.searchPlaceholder', 'Search in all fields...') %>"
+    aria-label="Search"
+  />
+</div>
+
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
@@ -111,5 +121,18 @@
 
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
+  <script>
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('table tbody tr');
+
+    rows.forEach(row => {
+      const rowText = row.textContent.toLowerCase();
+      const matches = rowText.includes(searchTerm);
+      row.style.display = matches ? '' : 'none';
+    });
+  });
+</script>
+
 </body>
 </html>
