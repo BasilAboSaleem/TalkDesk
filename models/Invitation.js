@@ -1,8 +1,24 @@
 const mongoose = require('mongoose');
 
-const employeeInvitationSchema = new mongoose.Schema({
+const invitationSchema = new mongoose.Schema({
   email: {
     type: String,
+    required: true,
+    lowercase: true,
+    trim: true,
+  },
+  token: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'accepted', 'expired'],
+    default: 'pending',
+  },
+  expiresAt: {
+    type: Date,
     required: true,
   },
   company: {
@@ -10,31 +26,11 @@ const employeeInvitationSchema = new mongoose.Schema({
     ref: 'Company',
     required: true,
   },
-  role: {
-    type: String,
-    required: true,
-    enum: ['employee', 'admin'], 
-  },
-  token: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  expiresAt: {
-    type: Date,
+  invitedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
-  status: {
-    type: String,
-    enum: ['pending', 'accepted', 'expired', 'canceled'],
-    default: 'pending',
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  }
-}, {
-  timestamps: true
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('EmployeeInvitation', employeeInvitationSchema);
+module.exports = mongoose.model('Invitation', invitationSchema);
