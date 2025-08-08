@@ -55,34 +55,58 @@
 
                   <div class="card-body">
                     <form action="/admin/invitations/new" method="POST" novalidate>
-                      <!-- Email Input -->
-                      <div class="form-group">
-                        <label for="email"><%= t('invitation.emailLabel') %></label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                          </div>
-                          <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            class="form-control"
-                            required
-                            placeholder="<%= t('invitation.emailPlaceholder') %>"
-                            value="<%= typeof email !== 'undefined' ? email : '' %>"
-                            autocomplete="email"
-                          >
-                        </div>
-                      </div>
+  <!-- Email Input -->
+  <div class="form-group">
+    <label for="email"><%= t('invitation.emailLabel') %></label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      </div>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        class="form-control"
+        required
+        placeholder="<%= t('invitation.emailPlaceholder') %>"
+        value="<%= typeof email !== 'undefined' ? email : '' %>"
+        autocomplete="email"
+      >
+    </div>
+  </div>
 
-                      <!-- Submit Button -->
-                      <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                          <i class="fas fa-paper-plane mr-1"></i>
-                          <%= t('invitation.sendInvite') %>
-                        </button>
-                      </div>
-                    </form>
+  <!-- Department Select -->
+  <div class="form-group">
+    <label for="department"><%= t('invitation.departmentLabel') %></label>
+    <select
+      id="department"
+      name="department"
+      class="form-control"
+      required
+    >
+      <option value="" disabled selected><%= t('invitation.selectDepartment') %></option>
+      <% if (departments && departments.length > 0) { %>
+        <% departments.forEach(function(dept) { %>
+          <option
+            value="<%= dept._id %>"
+            <%= typeof department !== 'undefined' && department.toString() === dept._id.toString() ? 'selected' : '' %>
+          ><%= dept.name %></option>
+        <% }) %>
+      <% } else { %>
+        <option value="" disabled><%= t('invitation.noDepartments') %></option>
+      <% } %>
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group text-center">
+    <button type="submit" class="btn btn-primary btn-lg">
+      <i class="fas fa-paper-plane mr-1"></i>
+      <%= t('invitation.sendInvite') %>
+    </button>
+  </div>
+</form>
+
                   </div>
                 </div>
               </div>

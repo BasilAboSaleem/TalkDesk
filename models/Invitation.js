@@ -31,6 +31,11 @@ const invitationSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department',
+    required: true,   // إذا تبي تخلي القسم إلزامي، أو false لو اختياري
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Invitation', invitationSchema);
