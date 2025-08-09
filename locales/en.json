@@ -154,6 +154,7 @@
       "restore": "Item restored successfully.",
       "delete": "Item deleted successfully.",
       "hardDelete": "Item permanently deleted successfully.",
+      "invitationSent": "Invitation sent successfully.",
       "general": "Operation completed successfully."
     },
     "error": {
@@ -194,7 +195,9 @@
     "sendInvite": "Send Invitation",
     "noDepartments": "No departments available. Please create a department first.",
     "selectDepartment": "Select Department",
-    "departmentLabel": "Department"
-    
+    "departmentLabel": "Department",
+    "emailExistsError": "This email has already been invited.",
+    "emailBody": "You have been invited to join our platform. Please click the link below to accept the invitation.",
+    "acceptButton": "Accept Invitation"
   }
 }

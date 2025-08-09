@@ -3,6 +3,7 @@ const router = express.Router();
 const adminController = require('../controllers/admin/adminController');
 const { requireAuth, isAdmin } = require('../middlewares/authMiddlewares');
 
+
 router.get('/admin/departments/new', requireAuth, isAdmin, adminController.getNewDepartment);
 router.post('/admin/departments/new', requireAuth, isAdmin, adminController.createDepartment); 
 router.get('/admin/departments', requireAuth, isAdmin,  adminController.getDepartments); 
@@ -13,5 +14,6 @@ router.get('/admin/departments/soft-deleted', requireAuth, isAdmin, adminControl
 router.put('/admin/departments/restore/:id', requireAuth, isAdmin, adminController.restoreDepartment);
 router.delete('/admin/departments/hard-delete/:id', requireAuth, isAdmin, adminController.hardDeleteDepartment);
 router.get('/admin/invitations/new', requireAuth, isAdmin, adminController.getNewInvitation);
+router.post('/admin/invitations/new', requireAuth, isAdmin, adminController.createInvitation);
 
 module.exports = router;

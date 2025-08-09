@@ -15,6 +15,19 @@ const User = require('../../models/User');
 const Company = require('../../models/Company');
 const Department = require('../../models/Department');
 const Invitation = require('../../models/Invitation');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
+
+// اعدادت ارسال إيميل 
+ const transporter = nodemailer.createTransport({
+  service: 'gmail', 
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
 
 
 
@@ -24,5 +37,7 @@ module.exports = {
      User,
      Company,
       Department,
-      Invitation
+      Invitation,
+      jwt,
+      transporter
     };

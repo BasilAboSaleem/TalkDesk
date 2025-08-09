@@ -54,65 +54,67 @@
                   </div>
 
                   <div class="card-body">
-                    <form action="/admin/invitations/new" method="POST" novalidate>
-  <!-- Email Input -->
-  <div class="form-group">
-    <label for="email"><%= t('invitation.emailLabel') %></label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-      </div>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        class="form-control"
-        required
-        placeholder="<%= t('invitation.emailPlaceholder') %>"
-        value="<%= typeof email !== 'undefined' ? email : '' %>"
-        autocomplete="email"
-      >
-    </div>
-  </div>
+                    <form action="/admin/invitations/new" method="POST" id="invitationForm" >
+                      <!-- Email Input -->
+                      <div class="form-group">
+                        <label for="email"><%= t('invitation.emailLabel') %></label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                          </div>
+                          <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            required
+                            placeholder="<%= t('invitation.emailPlaceholder') %>"
+                            value="<%= typeof email !== 'undefined' ? email : '' %>"
+                            autocomplete="email"
+                          >
+                        </div>
+                        <!-- رسالة الخطأ -->
+                        <div id="error_email" class="invalid-feedback" style="display:none;"></div>
+                      </div>
 
-  <!-- Department Select -->
-<div class="form-group">
-  <label for="department"><%= t('invitation.departmentLabel') %></label>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
-    </div>
-    <select
-      id="department"
-      name="department"
-      class="form-control"
-      required
-    >
-      <option value="" disabled selected><%= t('invitation.selectDepartment') %></option>
-      <% if (departments && departments.length > 0) { %>
-        <% departments.forEach(function(dept) { %>
-          <option
-            value="<%= dept._id %>"
-            <%= typeof department !== 'undefined' && department.toString() === dept._id.toString() ? 'selected' : '' %>
-          ><%= dept.name %></option>
-        <% }) %>
-      <% } else { %>
-        <option value="" disabled><%= t('invitation.noDepartments') %></option>
-      <% } %>
-    </select>
-  </div>
-</div>
+                      <!-- Department Select -->
+                      <div class="form-group">
+                        <label for="department"><%= t('invitation.departmentLabel') %></label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
+                          </div>
+                          <select
+                            id="department"
+                            name="department"
+                            class="form-control"
+                            required
+                          >
+                            <option value="" disabled selected><%= t('invitation.selectDepartment') %></option>
+                            <% if (departments && departments.length > 0) { %>
+                              <% departments.forEach(function(dept) { %>
+                                <option
+                                  value="<%= dept._id %>"
+                                  <%= typeof department !== 'undefined' && department.toString() === dept._id.toString() ? 'selected' : '' %>
+                                ><%= dept.name %></option>
+                              <% }) %>
+                            <% } else { %>
+                              <option value="" disabled><%= t('invitation.noDepartments') %></option>
+                            <% } %>
+                          </select>
+                        </div>
+                        <!-- رسالة الخطأ -->
+                        <div id="error_department" class="invalid-feedback" style="display:none;"></div>
+                      </div>
 
-
-  <!-- Submit Button -->
-  <div class="form-group text-center">
-    <button type="submit" class="btn btn-primary btn-lg">
-      <i class="fas fa-paper-plane mr-1"></i>
-      <%= t('invitation.sendInvite') %>
-    </button>
-  </div>
-</form>
-
+                      <!-- Submit Button -->
+                      <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fas fa-paper-plane mr-1"></i>
+                          <%= t('invitation.sendInvite') %>
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -130,5 +132,53 @@
 
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
+
+<script>
+document.getElementById('invitationForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  ['email', 'department'].forEach(id => {
+    const el = document.getElementById('error_' + id);
+    el.textContent = '';
+    el.style.display = 'none';
+    document.getElementById(id).classList.remove('is-invalid');
+  });
+
+  const formData = {
+    email: this.email.value,
+    department: this.department.value
+  };
+
+  try {
+    const res = await fetch(this.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await res.json();
+
+    if (res.status === 400 && data.errors) {
+      for (const key in data.errors) {
+        const el = document.getElementById('error_' + key);
+        if (el) {
+          el.textContent = data.errors[key];
+          el.style.display = 'block';
+          document.getElementById(key).classList.add('is-invalid');
+        }
+      }
+    } else if (res.status === 200) {
+      alert(data.message);
+  if (data.redirect) window.location.href = data.redirect;
+    } else {
+      alert('Unexpected error');
+    }
+  } catch (err) { 
+    alert('Error submitting form');
+  }
+});
+</script>
+
+
 </body>
 </html>

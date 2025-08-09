@@ -83,15 +83,15 @@ app.use((req, res, next) => {
   res.locals.lang = lang;
 
   
-  res.locals.t = function(key) {
-    const keys = key.split('.');
-    let val = translations[lang];
-    for (const k of keys) {
-      if (!val) break;
-      val = val[k];
-    }
-    return val || key; 
-  };
+req.t = res.locals.t = function(key) {
+  const keys = key.split('.');
+  let val = translations[lang];
+  for (const k of keys) {
+    if (!val) break;
+    val = val[k];
+  }
+  return val || key;
+};
 
   next();
 });
