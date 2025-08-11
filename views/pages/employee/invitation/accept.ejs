@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= t('invitation.acceptTitle') %> - <%= t('siteName') %></title>
+  <link rel="stylesheet" href="/assets/modules/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/assets/modules/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <style>
+    body {
+      background: #f7f9fc;
+    }
+    .accept-card {
+      max-width: 420px;
+      margin: 80px auto;
+      padding: 2rem;
+      box-shadow: 0 0 18px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background: white;
+    }
+    .accept-card .card-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .custom-file-label::after {
+      content: "تصفح";
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accept-card">
+    <div class="card-header">
+      <h3><%= t('invitation.acceptTitle') %></h3>
+      <p class="text-muted"><%= t('invitation.acceptSectionLead') %></p>
+    </div>
+
+    <form action="/invitation/accept" method="POST" enctype="multipart/form-data" id="acceptForm" novalidate>
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="name"><%= t('invitation.nameLabel') %></label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          required
+          placeholder="<%= t('invitation.namePlaceholder') %>"
+          value="<%= typeof name !== 'undefined' ? name : '' %>"
+        />
+        <div class="invalid-feedback" id="error_name"></div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password"><%= t('invitation.passwordLabel') %></label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+          placeholder="<%= t('invitation.passwordPlaceholder') %>"
+        />
+        <div class="invalid-feedback" id="error_password"></div>
+      </div>
+
+      <!-- Profile Image -->
+      <div class="form-group">
+        <label for="profileImage"><%= t('invitation.profileImageLabel') %></label>
+        <div class="custom-file">
+          <input
+            type="file"
+            class="custom-file-input"
+            id="profileImage"
+            name="profileImage"
+            accept="image/*"
+            required
+          />
+          <label class="custom-file-label" for="profileImage"><%= t('invitation.chooseFile') %></label>
+          <div class="invalid-feedback" id="error_profileImage"></div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary btn-block btn-lg">
+        <i class="fas fa-user-check mr-2"></i><%= t('invitation.acceptButton') %>
+      </button>
+    </form>
+  </div>
+
+  <script src="/assets/modules/jquery.min.js"></script>
+  <script src="/assets/modules/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+  <script src="/assets/modules/popper.js"></script>
+  <script src="/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+
+      const form = document.getElementById('acceptForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Reset errors
+        ['name', 'password', 'profileImage'].forEach(id => {
+          const el = document.getElementById('error_' + id);
+          el.textContent = '';
+          el.style.display = 'none';
+          document.getElementById(id).classList.remove('is-invalid');
+        });
+
+        // Validate password
+        const password = form.password.value.trim();
+        const passwordError = document.getElementById('error_password');
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+        if (!regex.test(password)) {
+          passwordError.textContent = "<%= t('invitation.passwordValidationError') %>";
+          passwordError.style.display = 'block';
+          form.password.classList.add('is-invalid');
+          return;
+        }
+
+        // Optional: You can add more validation for name and profileImage here
+
+        // Disable submit button and show spinner
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <%= t("invitation.acceptButton") %>';
+
+        form.submit();
+      });
+    });
+  </script>
+</body>
+</html>

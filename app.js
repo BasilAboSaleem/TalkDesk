@@ -117,14 +117,12 @@ const coreRoute = require('./routes/coreRoute');
 const authRoute = require('./routes/authRoute');
 const superAdminRoute = require('./routes/superAdminRoute');
 const adminRoute = require('./routes/adminRoute');
+const employeeRoute = require('./routes/employeeRoute');
 app.use(coreRoute);
 app.use(authRoute);
 app.use(superAdminRoute);
 app.use(adminRoute);
-
-
-
-
+app.use(employeeRoute);
 
 // Connect DB + Start
 const port = process.env.PORT || 3001;

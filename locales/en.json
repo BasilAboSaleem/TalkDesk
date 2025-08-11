@@ -198,6 +198,15 @@
     "departmentLabel": "Department",
     "emailExistsError": "This email has already been invited.",
     "emailBody": "You have been invited to join our platform. Please click the link below to accept the invitation.",
-    "acceptButton": "Accept Invitation"
+    "acceptButton": "Accept Invitation",
+    "acceptTitle": "Accept Your Invitation",
+    "acceptSectionLead": "Please fill in the details below to accept invitation.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "nameLabel": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "profileImageLabel": "Profile Image",
+    "chooseFile": "Choose File"
+
   }
 }
