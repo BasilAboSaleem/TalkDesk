@@ -1,5 +1,6 @@
-const {showAcceptForm } = require('./acceptController')
+const {showAcceptForm , acceptInvitation} = require('./acceptController')
 
 module.exports = {
-  showAcceptForm
+  showAcceptForm,
+  acceptInvitation
 }

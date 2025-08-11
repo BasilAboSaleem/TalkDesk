@@ -26,6 +26,8 @@ const cloudinary = require('cloudinary').v2;
     api_key: process.env.API_KEY, 
     api_secret: process.env.API_SECRET 
   });
+const fs = require('fs').promises;
+const { validationResult } = require('express-validator');
 
 
 // اعدادت ارسال إيميل 
@@ -49,5 +51,8 @@ module.exports = {
       Invitation,
       jwt,
       transporter,
-      cloudinary
+      cloudinary,
+      fs,
+      validationResult
+
     };

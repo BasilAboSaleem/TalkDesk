@@ -38,19 +38,23 @@
     </div>
 
     <form action="/invitation/accept" method="POST" enctype="multipart/form-data" id="acceptForm" novalidate>
+      <input type="hidden" name="token" value="<%= token %>">
+      
       <!-- Full Name -->
       <div class="form-group">
         <label for="name"><%= t('invitation.nameLabel') %></label>
         <input
           type="text"
-          class="form-control"
+          class="form-control <%= errors && errors.name ? 'is-invalid' : '' %>"
           id="name"
           name="name"
           required
           placeholder="<%= t('invitation.namePlaceholder') %>"
-          value="<%= typeof name !== 'undefined' ? name : '' %>"
+          value="<%= formData && formData.name ? formData.name : '' %>"
         />
-        <div class="invalid-feedback" id="error_name"></div>
+        <div class="invalid-feedback" id="error_name">
+          <%= errors && errors.name ? errors.name.msg : '' %>
+        </div>
       </div>
 
       <!-- Password -->
@@ -58,13 +62,15 @@
         <label for="password"><%= t('invitation.passwordLabel') %></label>
         <input
           type="password"
-          class="form-control"
+          class="form-control <%= errors && errors.password ? 'is-invalid' : '' %>"
           id="password"
           name="password"
           required
           placeholder="<%= t('invitation.passwordPlaceholder') %>"
         />
-        <div class="invalid-feedback" id="error_password"></div>
+        <div class="invalid-feedback" id="error_password">
+          <%= errors && errors.password ? errors.password.msg : '' %>
+        </div>
       </div>
 
       <!-- Profile Image -->
@@ -73,14 +79,15 @@
         <div class="custom-file">
           <input
             type="file"
-            class="custom-file-input"
+            class="custom-file-input <%= errors && errors.profileImage ? 'is-invalid' : '' %>"
             id="profileImage"
             name="profileImage"
             accept="image/*"
-            required
           />
           <label class="custom-file-label" for="profileImage"><%= t('invitation.chooseFile') %></label>
-          <div class="invalid-feedback" id="error_profileImage"></div>
+          <div class="invalid-feedback" id="error_profileImage">
+            <%= errors && errors.profileImage ? errors.profileImage.msg : '' %>
+          </div>
         </div>
       </div>
 
@@ -122,8 +129,6 @@
           form.password.classList.add('is-invalid');
           return;
         }
-
-        // Optional: You can add more validation for name and profileImage here
 
         // Disable submit button and show spinner
         const submitBtn = form.querySelector('button[type="submit"]');
