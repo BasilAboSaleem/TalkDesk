@@ -67,9 +67,7 @@ exports.createInvitation = async (req, res) => {
       html: `<p>${req.t('invitation.emailBody')}</p><p><a href="${invitationLink}">${req.t('invitation.acceptButton')}</a></p>`
     });
 
-    if (req.xhr || req.headers.accept.includes('application/json')) {
-      return res.json({ success: true, message: req.t('flashMessages.success.invitationSent') });
-    }
+   
 
   return res.json({
   success: true,
@@ -84,3 +82,4 @@ exports.createInvitation = async (req, res) => {
   }
 };
 
+ 

@@ -29,15 +29,8 @@
 
           <div class="container mt-5">
             <div class="row">
-              <!-- Flash Messages -->
-              <% if (success && success.length > 0) { %>
-                <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
-                  <i class="fas fa-check-circle mr-2"></i> <%= success[0] %>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <% } %>
+
+              <!-- عرض أخطاء فقط -->
               <% if (error && error.length > 0) { %>
                 <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
                   <i class="fas fa-exclamation-triangle mr-2"></i> <%= error[0] %>
@@ -137,12 +130,20 @@
 document.getElementById('invitationForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalBtnHtml = submitBtn.innerHTML;
+
+  // إخفاء الأخطاء السابقة
   ['email', 'department'].forEach(id => {
     const el = document.getElementById('error_' + id);
     el.textContent = '';
     el.style.display = 'none';
     document.getElementById(id).classList.remove('is-invalid');
   });
+
+  // إظهار السبينر وتعطيل الزر
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i> ${submitBtn.textContent}`;
 
   const formData = {
     email: this.email.value,
@@ -155,7 +156,7 @@ document.getElementById('invitationForm').addEventListener('submit', async funct
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
-
+ 
     const data = await res.json();
 
     if (res.status === 400 && data.errors) {
@@ -167,18 +168,22 @@ document.getElementById('invitationForm').addEventListener('submit', async funct
           document.getElementById(key).classList.add('is-invalid');
         }
       }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHtml;
     } else if (res.status === 200) {
-      alert(data.message);
-  if (data.redirect) window.location.href = data.redirect;
+      if (data.redirect) window.location.href = data.redirect;
     } else {
-      alert('Unexpected error');
+      console.error('Unexpected error', data);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHtml;
     }
   } catch (err) { 
-    alert('Error submitting form');
+    console.error('Error submitting form', err);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnHtml;
   }
 });
 </script>
-
 
 </body>
 </html>
