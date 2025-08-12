@@ -1,3 +1,4 @@
+const e = require('connect-flash');
 const {logAudit, AuditLog, User, Company, Department, Invitation, jwt, transporter} = require('./utils');
 
 exports.getNewInvitation = async (req, res) => {
@@ -118,4 +119,17 @@ if (existingUser) {
   }
 };
 
- 
+exports.getInvitations = async (req, res) => {
+  try{
+    const companyId = req.user.company;
+    const invitations = await Invitation.find({ company: companyId })
+      .populate('department', 'name')
+      .sort({ createdAt: -1 });
+    res.render('pages/admin/invitation/invitations', { invitations });
+  } catch (error) {
+    console.error('Error fetching invitations:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while fetching the invitations.'
+    });
+}
+}

@@ -183,7 +183,10 @@
     "delete": "Delete",
     "restore": "Restore",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "all": "All",
+    "confirmDelete":"Confirm Delete"
+
   },
 
    "invitation": {
@@ -207,7 +210,31 @@
     "namePlaceholder": "Enter your full name",
     "profileImageLabel": "Profile Image",
     "chooseFile": "Choose File",
-    "emailHeader": "You Are Invited!"
+    "emailHeader": "You Are Invited!",
+    "title": "Invitations Management",
+    "sectionTitleInvitation": "Manage Invitations",
+    "sectionLeadInvitation": "View, filter, search and resend invitations.",
+    "tableHeaders": {
+      "email": "Email",
+      "department": "Department",
+      "status": "Status",
+      "sentAt": "Sent At",
+      "actions": "Actions"
+    },
+     "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "expired": "Expired"
+    },
+     "searchByEmail": "Search by Email",
+    "searchByDepartment": "Search by Department",
+    "searchByDate": "Search by Date",
+    "actions": {
+      "resend": "Resend Invitation"
+    },
+    "addButton": "New Invitation",
+    "noInvitations": "No invitations found."
+
 
   },
   "user":{

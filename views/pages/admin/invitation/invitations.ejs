@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+
+          <!-- Flash Messages -->
+          <% if (success && success.length > 0) { %>
+            <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-check-circle mr-2"></i> <%= success[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
+          <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-exclamation-triangle mr-2"></i> <%= error[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
+
+          <!-- Section Header -->
+          <div class="section-header">
+            <h1><%= t('invitation.title') || 'Invitations Management' %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="/admin/dashboard"><%= t('breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('invitation.title') || 'Invitations' %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title"><%= t('invitation.sectionTitleInvitation') || 'Manage Invitations' %></h2>
+            <p class="section-lead"><%= t('invitation.sectionLeadInvitation') || 'View, filter, search and resend invitations.' %></p>
+
+            <!-- Filters -->
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <select id="statusFilter" class="form-control">
+                  <option value="pending"><%= t('invitation.status.pending') || 'Pending' %></option>
+                  <option value="accepted"><%= t('invitation.status.accepted') || 'Accepted' %></option>
+                  <option value="expired"><%= t('invitation.status.expired') || 'Expired' %></option>
+                  <option value="all"><%= t('common.all') || 'All' %></option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" id="emailSearch" class="form-control" placeholder="<%= t('invitation.searchByEmail') || 'Search by Email' %>" />
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" id="departmentSearch" class="form-control" placeholder="<%= t('invitation.searchByDepartment') || 'Search by Department' %>" />
+              </div>
+
+              <div class="col-md-3">
+                <input type="date" id="dateSearch" class="form-control" placeholder="<%= t('invitation.searchByDate') || 'Search by Date' %>" />
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h4><%= t('invitation.cardHeader') || 'Invitations List' %></h4>
+                <a href="/admin/invitations/new" class="btn btn-primary">
+                  <i class="fas fa-plus"></i> <%= t('invitation.addButton') || 'New Invitation' %>
+                </a>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover" id="invitationsTable">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>#</th>
+                        <th><%= t('invitation.tableHeaders.email') || 'Email' %></th>
+                        <th><%= t('invitation.tableHeaders.sentAt') || 'Sent At' %></th>
+                        <th><%= t('invitation.tableHeaders.status') || 'Status' %></th>
+                        <th><%= t('invitation.tableHeaders.actions') || 'Actions' %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (invitations && invitations.length > 0) { %>
+                        <% invitations.forEach((invitation, index) => { %>
+                          <tr data-status="<%= invitation.status %>" data-email="<%= invitation.email.toLowerCase() %>" data-department="<%= invitation.department ? invitation.department.name.toLowerCase() : '' %>" data-date="<%= invitation.createdAt.toISOString().slice(0,10) %>">
+                            <th><%= index + 1 %></th>
+                            <td><%= invitation.email %></td>
+                            <td><%= invitation.createdAt.toLocaleDateString() %></td>
+                            <td>
+                              <% if (invitation.status === 'pending') { %>
+                                <span class="badge badge-warning"><%= t('invitation.status.pending') || 'Pending' %></span>
+                              <% } else if (invitation.status === 'accepted') { %>
+                                <span class="badge badge-success"><%= t('invitation.status.accepted') || 'Accepted' %></span>
+                              <% } else if (invitation.status === 'expired') { %>
+                                <span class="badge badge-secondary"><%= t('invitation.status.expired') || 'Expired' %></span>
+                              <% } %>
+                            </td>
+                            <td>
+                              <button class="btn btn-primary btn-sm view-details-btn" data-id="<%= invitation._id %>" title="<%= t('invitation.actions.view') || 'View Details' %>">
+                                <i class="fas fa-eye"></i>
+                              </button>
+
+                              <% if (invitation.status === 'expired') { %>
+                                <form action="/admin/invitations/resend/<%= invitation._id %>" method="POST" style="display:inline;">
+                                  <button type="submit" class="btn btn-info btn-sm" title="<%= t('invitation.actions.resend') || 'Resend Invitation' %>">
+                                    <i class="fas fa-redo"></i>
+                                  </button>
+                                </form>
+                              <% } %>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="5" class="text-center"><%= t('invitation.noInvitations') || 'No invitations found.' %></td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+
+  <script>
+    // Filtering logic (front-end only filtering)
+    function filterInvitations() {
+      const status = document.getElementById('statusFilter').value;
+      const emailSearch = document.getElementById('emailSearch').value.toLowerCase();
+      const departmentSearch = document.getElementById('departmentSearch').value.toLowerCase();
+      const dateSearch = document.getElementById('dateSearch').value;
+
+      const rows = document.querySelectorAll('#invitationsTable tbody tr');
+
+      rows.forEach(row => {
+        const rowStatus = row.getAttribute('data-status');
+        const rowEmail = row.getAttribute('data-email');
+        const rowDepartment = row.getAttribute('data-department');
+        const rowDate = row.getAttribute('data-date');
+
+        let statusMatch = (status === 'all') || (rowStatus === status);
+        let emailMatch = rowEmail.includes(emailSearch);
+        let departmentMatch = rowDepartment.includes(departmentSearch);
+        let dateMatch = !dateSearch || rowDate === dateSearch;
+
+        if (statusMatch && emailMatch && departmentMatch && dateMatch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    document.getElementById('statusFilter').addEventListener('change', filterInvitations);
+    document.getElementById('emailSearch').addEventListener('input', filterInvitations);
+    document.getElementById('departmentSearch').addEventListener('input', filterInvitations);
+    document.getElementById('dateSearch').addEventListener('change', filterInvitations);
+
+    // Initial filter on page load
+    filterInvitations();
+
+    // Example for view button: here فقط مثال بسيط لفتح alert. ممكن تعدل لفتح مودال أو صفحة تفاصيل
+    document.querySelectorAll('.view-details-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const invitationId = e.currentTarget.getAttribute('data-id');
+        alert('Show details for invitation ID: ' + invitationId);
+        
+      });
+    });
+  </script>
+
+</body>
+</html>
