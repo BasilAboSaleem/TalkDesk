@@ -155,7 +155,8 @@
       "delete": "Item deleted successfully.",
       "hardDelete": "Item permanently deleted successfully.",
       "invitationSent": "Invitation sent successfully.",
-      "general": "Operation completed successfully."
+      "general": "Operation completed successfully.",
+      "invitationResent": "Invitation resent successfully."
     },
     "error": {
       "add": "Failed to add item. Please try again.",
@@ -169,6 +170,7 @@
       "general": "An error occurred. Please try again.",
       "notFound": "The requested item was not found.",
       "alreadyExists": "An item with the same data already exists."
+
 
       
     }
@@ -245,6 +247,7 @@
       "expiresAt": "Expires At",
       "token": "Invitation Token"
     },
+    "confirmResendMessage": "Are you sure you want to resend this invitation?",
   
     "addButton": "New Invitation",
     "noInvitations": "No invitations found."

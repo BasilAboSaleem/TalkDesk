@@ -110,12 +110,12 @@
 </a>
 
                               <% if (invitation.status === 'expired') { %>
-                                <form action="/admin/invitations/resend/<%= invitation._id %>" method="POST" style="display:inline;">
-                                  <button type="submit" class="btn btn-info btn-sm" title="<%= t('invitation.actions.resend') || 'Resend Invitation' %>">
-                                    <i class="fas fa-redo"></i>
-                                  </button>
-                                </form>
-                              <% } %>
+                               <form action="/admin/invitations/resend/<%= invitation._id %>" method="POST" style="display:inline;" onsubmit="return confirm('<%= t('invitation.confirmResendMessage') || 'Are you sure you want to resend this invitation?' %>')">
+  <button type="submit" class="btn btn-info btn-sm" title="<%= t('invitation.actions.resend') || 'Resend Invitation' %>">
+    <i class="fas fa-redo"></i>
+  </button>
+</form>
+                              <% } %> 
                             </td>
                           </tr>
                         <% }) %>
@@ -178,15 +178,6 @@
 
     // Initial filter on page load
     filterInvitations();
-
-    // Example for view button: here فقط مثال بسيط لفتح alert. ممكن تعدل لفتح مودال أو صفحة تفاصيل
-    document.querySelectorAll('.view-details-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const invitationId = e.currentTarget.getAttribute('data-id');
-        alert('Show details for invitation ID: ' + invitationId);
-        
-      });
-    });
   </script>
 
 </body>

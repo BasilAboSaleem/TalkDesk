@@ -3,7 +3,7 @@ const {getNewDepartment, createDepartment, getDepartments, getEditDepartment,
   hardDeleteDepartment
 } = require('./departmentController');
 const {getNewInvitation, createInvitation ,getInvitations,
-  viewInvitationDetails
+  viewInvitationDetails , resendInvitation
 } = require('./invitationController');
 
 module.exports = {
@@ -19,5 +19,6 @@ module.exports = {
   getNewInvitation,
   createInvitation,
   getInvitations,
-  viewInvitationDetails
+  viewInvitationDetails,
+  resendInvitation
 };

@@ -155,3 +155,82 @@ exports.viewInvitationDetails = async (req, res) => {
     });
   }
 };
+
+exports.resendInvitation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;  
+    const companyId = req.user.company;
+    const userId = req.user._id;
+
+    // جلب الدعوة عن طريق الـ ID والشركة
+    const invitation = await Invitation.findOne({ _id: invitationId, company: companyId });
+    if (!invitation) {
+      return res.status(404).json({ errors: { invitation: 'Invitation not found' } });
+    }
+
+    // فقط اعادة إرسال الدعوة إذا الحالة expired
+    if (invitation.status !== 'expired') {
+      return res.status(400).json({ errors: { invitation: 'Only expired invitations can be resent' } });
+    }
+
+    // تحديث التوكن وتاريخ الانتهاء
+    const token = jwt.sign({ email: invitation.email, company: companyId }, process.env.JWTSECRET_KEY, { expiresIn: '2d' });
+    invitation.token = token;
+    invitation.expiresAt = Date.now() + 2 * 24 * 60 * 60 * 1000;
+    invitation.invitedBy = userId;
+    invitation.status = 'pending'; // ممكن تعيد الحالة pending بعد الإعادة
+    await invitation.save();
+
+    // إرسال الإيميل
+    const invitationLink = `${process.env.BASE_URL}/invitation/accept?token=${token}`;
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: invitation.email,
+      subject: 'Invitation to Join Our Platform',
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px;">
+          <div style="max-width: 600px; margin: auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            <div style="background-color: #4CAF50; color: white; padding: 15px; font-size: 20px; text-align: center;">
+              ${req.t('invitation.emailHeader') || 'You Are Invited!'}
+            </div>
+            <div style="padding: 20px; font-size: 16px; color: #333;">
+              <p>${req.t('invitation.emailBody')}</p>
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${invitationLink}" 
+                  style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; font-size: 16px; border-radius: 5px; display: inline-block;">
+                  ${req.t('invitation.acceptButton') || 'Accept Invitation'}
+                </a>
+              </div>
+              <p style="font-size: 14px; color: #777;">If the button above doesn’t work, copy and paste this link into your browser:</p>
+              <p style="word-break: break-all; color: #4CAF50;">${invitationLink}</p>
+            </div>
+            <div style="background-color: #f1f1f1; text-align: center; padding: 10px; font-size: 12px; color: #777;">
+              © ${new Date().getFullYear()} TalkDesk. All rights reserved.
+            </div>
+          </div>
+        </div>
+      `
+    });
+
+    await logAudit({
+      userId,
+      companyId,
+      action: 'resend_invitation',
+      details: {
+        email: invitation.email,
+        department: invitation.department,
+        invitationId: invitation._id
+      }
+    });
+
+  req.flash('success', req.t('flashMessages.success.invitationResent'));
+   return res.redirect('/admin/invitations');
+  } catch (error) {
+    console.error('Error resending invitation:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while resending the invitation.'
+    });
+  }
+};
+
+
