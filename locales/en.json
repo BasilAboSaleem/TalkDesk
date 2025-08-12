@@ -206,7 +206,12 @@
     "nameLabel": "Full Name",
     "namePlaceholder": "Enter your full name",
     "profileImageLabel": "Profile Image",
-    "chooseFile": "Choose File"
+    "chooseFile": "Choose File",
+    "emailHeader": "You Are Invited!"
 
+  },
+  "user":{
+    "emailExistsError": "This email is already in use."
   }
+
 }
