@@ -133,3 +133,25 @@ exports.getInvitations = async (req, res) => {
     });
 }
 }
+
+exports.viewInvitationDetails = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const invitation = await Invitation.findById(invitationId)
+      .populate('department', 'name')
+      .populate('invitedBy', 'name');
+
+    if (!invitation) {
+      return res.status(404).render('pages/error/404', {
+        message: 'Invitation not found.'
+      });
+    }
+
+    res.render('pages/admin/invitation/view', { invitation });
+  } catch (error) {
+    console.error('Error fetching invitation details:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while fetching the invitation details.'
+    });
+  }
+};

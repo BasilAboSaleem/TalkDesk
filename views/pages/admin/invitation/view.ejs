@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1><%= t('invitation.view.pageTitle') || 'Invitation Details' %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="/admin/dashboard"><%= t('breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><a href="/admin/invitations"><%= t('invitation.pageTitle') || 'Invitations' %></a></div>
+              <div class="breadcrumb-item"><%= invitation.email %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="card">
+              <div class="card-header">
+                <h4><%= t('invitation.view.cardHeader') || 'Invitation Information' %></h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.email') || 'Email' %>:</strong>
+                    <span><%= invitation.email %></span>
+                  </div>
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.status') || 'Status' %>:</strong>
+                    <span>
+                      <% if (invitation.status === 'pending') { %>
+                        <span class="badge badge-warning"><%= t('invitation.status.pending') || 'Pending' %></span>
+                      <% } else if (invitation.status === 'accepted') { %>
+                        <span class="badge badge-success"><%= t('invitation.status.accepted') || 'Accepted' %></span>
+                      <% } else if (invitation.status === 'expired') { %>
+                        <span class="badge badge-secondary"><%= t('invitation.status.expired') || 'Expired' %></span>
+                      <% } %>
+                    </span>
+                  </div>
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.department') || 'Department' %>:</strong>
+                    <span><%= invitation.department ? invitation.department.name : '-' %></span>
+                  </div>
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.invitedBy') || 'Invited By' %>:</strong>
+                    <span><%= invitation.invitedBy ? invitation.invitedBy.name : '-' %></span>
+                  </div>
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.sentAt') || 'Sent At' %>:</strong>
+                    <span><%= invitation.createdAt.toLocaleString() %></span>
+                  </div>
+
+                  <div class="col-md-6 d-flex mb-3">
+                    <strong class="w-50"><%= t('invitation.view.expiresAt') || 'Expires At' %>:</strong>
+                    <span><%= invitation.expiresAt.toLocaleString() %></span>
+                  </div>
+
+                  <div class="col-md-12 d-flex mb-3">
+                    <strong class="w-25"><%= t('invitation.view.token') || 'Invitation Token' %>:</strong>
+                    <span><code><%= invitation.token %></code></span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <a href="/admin/invitations" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> <%= t('common.backToList') || 'Back to Invitations' %>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <%- include('../../../partials/script.ejs') %>
+</body>
+</html>

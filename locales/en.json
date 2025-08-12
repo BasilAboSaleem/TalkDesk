@@ -185,7 +185,8 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "all": "All",
-    "confirmDelete":"Confirm Delete"
+    "confirmDelete":"Confirm Delete",
+    "backToList": "Back to List"
 
   },
 
@@ -230,8 +231,21 @@
     "searchByDepartment": "Search by Department",
     "searchByDate": "Search by Date",
     "actions": {
-      "resend": "Resend Invitation"
+      "resend": "Resend Invitation",
+      "backToList": "Back to Invitations"
     },
+    "view": {
+      "pageTitle": "Invitation Details",
+      "cardHeader": "Invitation Information",
+      "email": "Email",
+      "status": "Status",
+      "department": "Department",
+      "invitedBy": "Invited By",
+      "sentAt": "Sent At",
+      "expiresAt": "Expires At",
+      "token": "Invitation Token"
+    },
+  
     "addButton": "New Invitation",
     "noInvitations": "No invitations found."
 
@@ -239,6 +253,9 @@
   },
   "user":{
     "emailExistsError": "This email is already in use."
+  },
+   "breadcrumb": { 
+    "dashboard": "Dashboard"
   }
 
 }

@@ -105,9 +105,9 @@
                               <% } %>
                             </td>
                             <td>
-                              <button class="btn btn-primary btn-sm view-details-btn" data-id="<%= invitation._id %>" title="<%= t('invitation.actions.view') || 'View Details' %>">
-                                <i class="fas fa-eye"></i>
-                              </button>
+                             <a href="/admin/invitations/view/<%= invitation._id %>" class="btn btn-primary btn-sm" title="<%= t('invitation.actions.view') || 'View Details' %>">
+  <i class="fas fa-eye"></i>
+</a>
 
                               <% if (invitation.status === 'expired') { %>
                                 <form action="/admin/invitations/resend/<%= invitation._id %>" method="POST" style="display:inline;">

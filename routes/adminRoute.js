@@ -16,5 +16,6 @@ router.delete('/admin/departments/hard-delete/:id', requireAuth, isAdmin, adminC
 router.get('/admin/invitations/new', requireAuth, isAdmin, adminController.getNewInvitation);
 router.post('/admin/invitations/new', requireAuth, isAdmin, adminController.createInvitation);
 router.get('/admin/invitations', requireAuth, isAdmin, adminController.getInvitations);
+router.get('/admin/invitations/view/:id', requireAuth, isAdmin, adminController.viewInvitationDetails);
 
 module.exports = router;
