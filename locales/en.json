@@ -248,6 +248,7 @@
     "success": {
       "add": "Item added successfully.",
       "update": "Item updated successfully.",
+      "edit": "Item edited successfully.",
       "approve": "Item approved successfully.",
       "reject": "Item rejected successfully.",
       "softDelete": "Item soft-deleted successfully.",

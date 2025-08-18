@@ -58,3 +58,25 @@ exports.getEditEmployee = async (req, res) => {
     });
   }
 }
+
+exports.EditEmployee = async (req, res) => {
+  try {
+    const { department } = req.body;
+    const employee = await User.findOne({ _id: req.params.id, company: req.user.company });
+    if (!employee) {
+      return res.status(404).render('pages/error/404', {
+        message: 'Employee not found.'
+      });
+    }
+    employee.department = department || employee.department;
+    await employee.save();
+    req.flash('success', res.locals.t('flashMessages.success.edit'));
+    res.redirect('/admin/employees');
+  }
+  catch (error) {
+    console.error('Error editing employee:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while editing the employee.'
+    });
+  }
+}

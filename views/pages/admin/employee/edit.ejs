@@ -24,9 +24,9 @@
             <div class="card">
               <div class="card-header">
                 <h4><%= t('employee.edit.cardHeader') || 'Edit Employee Department' %></h4>
-              </div>
+              </div> 
               <div class="card-body">
-                <form action="/admin/employees/edit/<%= employee._id %>" method="POST">
+                <form action="/admin/employees/edit/<%= employee._id %>?_method=PUT" method="POST">
                   <div class="row">
 
                     <!-- Name (readonly) -->
