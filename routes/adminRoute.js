@@ -22,4 +22,5 @@ router.get('/admin/employees', requireAuth, isAdmin, adminController.getEmployee
 router.get('/admin/employees/view/:id', requireAuth, isAdmin, adminController.viewEmployeeDetails);
 router.get('/admin/employees/edit/:id', requireAuth, isAdmin, adminController.getEditEmployee);
 router.put('/admin/employees/edit/:id', requireAuth, isAdmin, adminController.EditEmployee);
+router.put('/admin/employees/soft-delete/:id', requireAuth, isAdmin, adminController.softDeleteEmployee);
 module.exports = router;

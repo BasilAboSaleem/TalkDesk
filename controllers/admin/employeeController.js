@@ -80,3 +80,24 @@ exports.EditEmployee = async (req, res) => {
     });
   }
 }
+
+exports.softDeleteEmployee = async (req, res) => {
+  try {
+    const employee = await User.findOne({ _id: req.params.id, company: req.user.company });
+    if (!employee) {
+      return res.status(404).render('pages/error/404', {
+        message: 'Employee not found.'
+      });
+    }
+    employee.isDeleted = true;
+    await employee.save();
+    req.flash('success', res.locals.t('flashMessages.success.softDelete'));
+    res.redirect('/admin/employees');
+  }
+  catch (error) {
+    console.error('Error soft deleting employee:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while soft deleting the employee.'
+    });
+  }
+}

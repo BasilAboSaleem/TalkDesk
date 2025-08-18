@@ -110,14 +110,14 @@
                               <% if (!emp.isDeleted) { %>
                                 <a href="/admin/employees/view/<%= emp._id %>" class="btn btn-primary btn-sm" title="View"><i class="fas fa-eye"></i></a>
                                 <a href="/admin/employees/edit/<%= emp._id %>" class="btn btn-info btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm" title="Delete" data-toggle="modal" data-target="#softDeleteModal" data-url="/admin/employees/soft-delete/<%= emp._id %>">
+                                <button type="button" class="btn btn-danger btn-sm" title="Delete" data-toggle="modal" data-target="#softDeleteModal" data-url="/admin/employees/soft-delete/<%= emp._id %>?_method=PUT">
                                   <i class="fas fa-trash"></i>
                                 </button>
                               <% } else { %>
-                                <form action="/admin/employees/restore/<%= emp._id %>" method="POST" style="display:inline;">
+                                <form action="/admin/employees/restore/<%= emp._id %>?_method=PUT" method="POST" style="display:inline;">
                                   <button type="submit" class="btn btn-success btn-sm" title="Restore"><i class="fas fa-undo"></i></button>
                                 </form>
-                                <button type="button" class="btn btn-danger btn-sm" title="Delete Permanently" data-toggle="modal" data-target="#forceDeleteModal" data-url="/admin/employees/force-delete/<%= emp._id %>">
+                                <button type="button" class="btn btn-danger btn-sm" title="Delete Permanently" data-toggle="modal" data-target="#forceDeleteModal" data-url="/admin/employees/force-delete/<%= emp._id %>?_method=DELETE">
                                   <i class="fas fa-times"></i>
                                 </button>
                               <% } %>
@@ -241,6 +241,6 @@
       var url = button.data('url');
       $('#forceDeleteForm').attr('action', url);
     });
-  </script>
+  </script> 
 </body>
 </html>
