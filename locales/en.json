@@ -259,6 +259,43 @@
   },
    "breadcrumb": { 
     "dashboard": "Dashboard"
+  },
+
+   "employee": {
+    "title": "Employees Management",
+    "sectionTitle": "Manage Employees",
+    "sectionLead": "View, filter, search and manage employees.",
+    "cardHeader": "Employees List",
+    "addButton": "Invite Employee",
+    "searchByName": "Search by Name",
+    "searchByEmail": "Search by Email",
+    "searchByDepartment": "Search by Department",
+    "searchByDate": "Search by Date",
+    "tableHeaders": {
+      "name": "Name",
+      "email": "Email",
+      "department": "Department",
+      "status": "Status",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Busy"
+    },
+    "actions": {
+      "view": "View Details",
+      "edit": "Edit Employee",
+      "delete": "Delete Employee",
+      "restore": "Restore Employee",
+      "forceDelete": "Permanently Delete Employee"
+    },
+    "confirmations": {
+      "delete": "Are you sure you want to delete this employee?",
+      "forceDelete": "This will permanently delete the employee. Are you sure?"
+    },
+    "noEmployees": "No employees found."
   }
 
 }

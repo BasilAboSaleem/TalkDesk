@@ -6,6 +6,8 @@ const {getNewInvitation, createInvitation ,getInvitations,
   viewInvitationDetails , resendInvitation
 } = require('./invitationController');
 
+const {getEmployees} = require('./employeeController');
+
 module.exports = {
   getNewDepartment,
   createDepartment,
@@ -20,5 +22,6 @@ module.exports = {
   createInvitation,
   getInvitations,
   viewInvitationDetails,
-  resendInvitation
+  resendInvitation,
+  getEmployees
 };

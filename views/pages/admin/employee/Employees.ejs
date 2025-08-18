@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= dir %>">
+<%- include('../../../partials/head.ejs') %>
+
+<body class="<%= themeClass %>">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <%- include('../../../partials/navbar.ejs') %>
+      <%- include('../../../partials/sidebar.ejs') %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+
+          <!-- Flash Messages -->
+          <% if (success && success.length > 0) { %>
+            <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-check-circle mr-2"></i> <%= success[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
+          <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+              <i class="fas fa-exclamation-triangle mr-2"></i> <%= error[0] %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% } %>
+
+          <!-- Section Header -->
+          <div class="section-header">
+            <h1><%= t('employee.title') || 'Employees Management' %></h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="/admin/dashboard"><%= t('breadcrumb.dashboard') %></a></div>
+              <div class="breadcrumb-item"><%= t('employee.title') || 'Employees' %></div>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title"><%= t('employee.sectionTitle') || 'Manage Employees' %></h2>
+            <p class="section-lead"><%= t('employee.sectionLead') || 'View, filter, search and manage employees.' %></p>
+
+            <!-- Filters -->
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <select id="statusFilter" class="form-control">
+                  <option value="all"><%= t('common.all') || 'All' %></option>
+                  <option value="online"><%= t('employee.status.online') || 'Online' %></option>
+                  <option value="offline"><%= t('employee.status.offline') || 'Offline' %></option>
+                  <option value="busy"><%= t('employee.status.busy') || 'Busy' %></option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" id="nameSearch" class="form-control" placeholder="<%= t('employee.searchByName') || 'Search by Name' %>" />
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" id="emailSearch" class="form-control" placeholder="<%= t('employee.searchByEmail') || 'Search by Email' %>" />
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" id="departmentSearch" class="form-control" placeholder="<%= t('employee.searchByDepartment') || 'Search by Department' %>" />
+              </div>
+
+              <div class="col-md-3 mt-2">
+                <input type="date" id="dateSearch" class="form-control" placeholder="<%= t('employee.searchByDate') || 'Search by Date' %>" />
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h4><%= t('employee.cardHeader') || 'Employees List' %></h4>
+                <a href="/admin/invitations/new" class="btn btn-primary">
+                  <i class="fas fa-user-plus"></i> <%= t('employee.addButton') || 'Invite Employee' %>
+                </a>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover" id="employeesTable">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>#</th>
+                        <th><%= t('employee.tableHeaders.name') || 'Name' %></th>
+                        <th><%= t('employee.tableHeaders.email') || 'Email' %></th>
+                        <th><%= t('employee.tableHeaders.department') || 'Department' %></th>
+                        <th><%= t('employee.tableHeaders.status') || 'Status' %></th>
+                        <th><%= t('employee.tableHeaders.createdAt') || 'Created At' %></th>
+                        <th><%= t('employee.tableHeaders.actions') || 'Actions' %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (employees && employees.length > 0) { %>
+                        <% employees.forEach((emp, index) => { %>
+                          <tr data-status="<%= emp.status %>" data-name="<%= emp.name.toLowerCase() %>" data-email="<%= emp.email.toLowerCase() %>" data-department="<%= emp.department ? emp.department.name.toLowerCase() : '' %>" data-date="<%= emp.createdAt.toISOString().slice(0,10) %>">
+                            <th><%= index + 1 %></th>
+                            <td><%= emp.name %></td>
+                            <td><%= emp.email %></td>
+                            <td><%= emp.department ? emp.department.name : '-' %></td>
+                            <td>
+                              <% if (emp.status === 'online') { %>
+                                <span class="badge badge-success"><%= t('employee.status.online') || 'Online' %></span>
+                              <% } else if (emp.status === 'offline') { %>
+                                <span class="badge badge-secondary"><%= t('employee.status.offline') || 'Offline' %></span>
+                              <% } else if (emp.status === 'busy') { %>
+                                <span class="badge badge-warning"><%= t('employee.status.busy') || 'Busy' %></span>
+                              <% } %>
+                            </td>
+                            <td><%= emp.createdAt.toLocaleDateString() %></td>
+                            <td>
+                              <% if (!emp.isDeleted) { %>
+                                <a href="/admin/employees/view/<%= emp._id %>" class="btn btn-primary btn-sm" title="View"><i class="fas fa-eye"></i></a>
+                                <a href="/admin/employees/edit/<%= emp._id %>" class="btn btn-info btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
+                                <form action="/admin/employees/delete/<%= emp._id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                                  <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash"></i></button>
+                                </form>
+                              <% } else { %>
+                                <form action="/admin/employees/restore/<%= emp._id %>" method="POST" style="display:inline;">
+                                  <button type="submit" class="btn btn-success btn-sm" title="Restore"><i class="fas fa-undo"></i></button>
+                                </form>
+                                <form action="/admin/employees/force-delete/<%= emp._id %>" method="POST" style="display:inline;" onsubmit="return confirm('This will permanently delete the employee. Are you sure?')">
+                                  <button type="submit" class="btn btn-danger btn-sm" title="Delete Permanently"><i class="fas fa-times"></i></button>
+                                </form>
+                              <% } %>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="7" class="text-center"><%= t('employee.noEmployees') || 'No employees found.' %></td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../../../partials/footer.ejs') %>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <%- include('../../../partials/script.ejs') %>
+
+  <script>
+    function filterEmployees() {
+      const status = document.getElementById('statusFilter').value;
+      const nameSearch = document.getElementById('nameSearch').value.toLowerCase();
+      const emailSearch = document.getElementById('emailSearch').value.toLowerCase();
+      const departmentSearch = document.getElementById('departmentSearch').value.toLowerCase();
+      const dateSearch = document.getElementById('dateSearch').value;
+
+      const rows = document.querySelectorAll('#employeesTable tbody tr');
+
+      rows.forEach(row => {
+        const rowStatus = row.getAttribute('data-status');
+        const rowName = row.getAttribute('data-name');
+        const rowEmail = row.getAttribute('data-email');
+        const rowDepartment = row.getAttribute('data-department');
+        const rowDate = row.getAttribute('data-date');
+
+        let statusMatch = (status === 'all') || (rowStatus === status);
+        let nameMatch = rowName.includes(nameSearch);
+        let emailMatch = rowEmail.includes(emailSearch);
+        let departmentMatch = rowDepartment.includes(departmentSearch);
+        let dateMatch = !dateSearch || rowDate === dateSearch;
+
+        if (statusMatch && nameMatch && emailMatch && departmentMatch && dateMatch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    document.getElementById('statusFilter').addEventListener('change', filterEmployees);
+    document.getElementById('nameSearch').addEventListener('input', filterEmployees);
+    document.getElementById('emailSearch').addEventListener('input', filterEmployees);
+    document.getElementById('departmentSearch').addEventListener('input', filterEmployees);
+    document.getElementById('dateSearch').addEventListener('change', filterEmployees);
+
+    filterEmployees();
+  </script>
+</body>
+</html>
