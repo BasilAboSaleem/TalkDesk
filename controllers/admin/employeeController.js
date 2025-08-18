@@ -36,3 +36,25 @@ exports.viewEmployeeDetails = async (req, res) => {
     });
   }
 }
+
+exports.getEditEmployee = async (req, res) => {
+  try {
+    const departments = await Department.find({ company: req.user.company });
+    const employee = await User.findOne({company: req.user.company, _id: req.params.id })
+      .populate('department')
+      .populate('company');
+
+    if (!employee) {
+      return res.status(404).render('pages/error/404', {
+        message: 'Employee not found.'
+      });
+    }
+    res.render('pages/admin/employee/edit', { departments, employee });
+  }
+  catch (error) {
+    console.error('Error viewing employee details:', error);
+    res.status(500).render('pages/error/500', {
+      message: 'An error occurred while viewing employee details.'
+    });
+  }
+}
