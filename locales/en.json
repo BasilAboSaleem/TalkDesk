@@ -291,11 +291,32 @@
       "restore": "Restore Employee",
       "forceDelete": "Permanently Delete Employee"
     },
+        "view": {
+      "pageTitle": "Employee Details",
+      "cardHeader": "Employee Information",
+      "sendMessage": "Send Message",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "department": "Department",
+      "company": "Company",
+      "status": "Status",
+      "language": "Language",
+      "theme": "Theme",
+      "isDeleted": "Deleted",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At"
+    },
     "confirmations": {
       "delete": "Are you sure you want to delete this employee?",
       "forceDelete": "This will permanently delete the employee. Are you sure?"
     },
     "noEmployees": "No employees found."
+  },
+    "common": {
+    "backToList": "Back to Employees",
+    "yes": "Yes",
+    "no": "No"
   }
 
 }

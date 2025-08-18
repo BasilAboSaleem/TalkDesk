@@ -19,4 +19,5 @@ router.get('/admin/invitations', requireAuth, isAdmin, adminController.getInvita
 router.get('/admin/invitations/view/:id', requireAuth, isAdmin, adminController.viewInvitationDetails);
 router.post('/admin/invitations/resend/:id', requireAuth, isAdmin, adminController.resendInvitation);
 router.get('/admin/employees', requireAuth, isAdmin, adminController.getEmployees);
+router.get('/admin/employees/view/:id', requireAuth, isAdmin, adminController.viewEmployeeDetails);
 module.exports = router;
