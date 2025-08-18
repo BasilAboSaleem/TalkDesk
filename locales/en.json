@@ -21,9 +21,7 @@
       "view": "View",
       "approve": "Approve",
       "reject": "Reject"
-      
     },
-
     "noPending": "No pending companies to review.",
     "view": {
       "description": "Description",
@@ -51,8 +49,7 @@
       "confirmReject": "Confirm Rejection"
     }
   },
-
-   "companies": {
+  "companies": {
     "pageTitle": "All Registered Companies",
     "breadcrumb": "Companies",
     "allCompanies": "All Companies",
@@ -79,120 +76,53 @@
       "softDelete": "Soft Delete",
       "backToList": "Back to List",
       "restore": "Restore",
-    "permanentDelete": "Delete Permanently"
-      
+      "permanentDelete": "Delete Permanently"
     },
-     "confirmRestore": "Are you sure you want to restore this company?",
-  "confirmPermanentDelete": "Are you sure you want to permanently delete this company? This action cannot be undone.",
-      "confirmSoftDelete": "Are you sure you want to deactivate and soft-delete this company? This can be undone.",
+    "confirmRestore": "Are you sure you want to restore this company?",
+    "confirmPermanentDelete": "Are you sure you want to permanently delete this company? This action cannot be undone.",
+    "confirmSoftDelete": "Are you sure you want to deactivate and soft-delete this company? This can be undone.",
     "noCompanies": "No companies registered yet.",
     "actionsCardTitle": "Actions"
   },
-
-
-"department": {
-  "addTitle": "Add New Department",
-  "editTitle": "Edit Department",
-  "nameLabel": "Department Name",
-  "namePlaceholder": "e.g. Customer Service",
-  "descriptionLabel": "Description",
-  "descriptionPlaceholder": "Brief about the department...",
-  "addButton": "Create Department",
-  "editButton": "Update Department",
-  "pageTitle": "Departments",
-  "sectionTitle": "All Departments",
-  "sectionLead": "Manage your company departments from here.",
-  "cardHeader": "Departments List",
-  "tableHeaders": {
-    "name": "Name",
-    "description": "Description",
-    "createdBy": "Created By",
-    "createdAt": "Created At",
-    "actions": "Actions"
-  },
-  "actions": {
-    "view": "View Department",
-    "edit": "Edit Department",
-    "delete": "Delete Department",
-    "restore": "Restore Department"
-  },
-  "showActive": "Show Active Departments",
-  "showDeleted": "Show Soft Deleted Departments",
-  "softDeleteWarningTitle": "Warning: Soft Delete Department",
-"softDeleteWarningMessage": "This action will temporarily deactivate the department but can be restored later.",
-"softDeleteConfirmText": "Are you sure you want to deactivate the department \"{{name}}\"?",
-"softDeleteIrreversible": "You can restore this department later from the recycle bin.",
-  "deleteWarningTitle": "WARNING: DELETE DEPARTMENT",
-  "deleteWarningMessage": "This action is irreversible and will permanently delete the department!",
-  "deleteConfirmText": "Are you sure you want to delete the department \"{{name}}\"?",
-  "deleteIrreversible": "⚠️ This cannot be undone!"
-},
-
-  "common": {
-    "close": "Close",
-    "cancel": "Cancel",
-    "confirmDelete": "Confirm Delete"
-  },
-    "noDepartments": "No departments found.",
-    
-  "breadcrumb": {
-    "dashboard": "Dashboard"
-  },
-
-
-  "dashboard": {
-    "title": "Dashboard"
-  },
-
-  "flashMessages": {
-    "success": {
-      "add": "Item added successfully.",
-      "update": "Item updated successfully.",
-      "approve": "Item approved successfully.",
-      "reject": "Item rejected successfully.",
-      "softDelete": "Item soft-deleted successfully.",
-      "restore": "Item restored successfully.",
-      "delete": "Item deleted successfully.",
-      "hardDelete": "Item permanently deleted successfully.",
-      "invitationSent": "Invitation sent successfully.",
-      "general": "Operation completed successfully.",
-      "invitationResent": "Invitation resent successfully."
+  "department": {
+    "addTitle": "Add New Department",
+    "editTitle": "Edit Department",
+    "nameLabel": "Department Name",
+    "namePlaceholder": "e.g. Customer Service",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Brief about the department...",
+    "addButton": "Create Department",
+    "editButton": "Update Department",
+    "pageTitle": "Departments",
+    "sectionTitle": "All Departments",
+    "sectionLead": "Manage your company departments from here.",
+    "cardHeader": "Departments List",
+    "tableHeaders": {
+      "name": "Name",
+      "description": "Description",
+      "createdBy": "Created By",
+      "createdAt": "Created At",
+      "actions": "Actions"
     },
-    "error": {
-      "add": "Failed to add item. Please try again.",
-      "update": "Failed to update item. Please try again.",
-      "approve": "Failed to approve item. Please try again.",
-      "reject": "Failed to reject item. Please try again.",
-      "softDelete": "Failed to soft-delete item. Please try again.",
-      "restore": "Failed to restore item. Please try again.",
-      "delete": "Failed to delete item. Please try again.",
-      "hardDelete": "Failed to permanently delete item. Please try again.",
-      "general": "An error occurred. Please try again.",
-      "notFound": "The requested item was not found.",
-      "alreadyExists": "An item with the same data already exists."
-
-
-      
-    }
+    "actions": {
+      "view": "View Department",
+      "edit": "Edit Department",
+      "delete": "Delete Department",
+      "restore": "Restore Department"
+    },
+    "showActive": "Show Active Departments",
+    "showDeleted": "Show Soft Deleted Departments",
+    "softDeleteWarningTitle": "Warning: Soft Delete Department",
+    "softDeleteWarningMessage": "This action will temporarily deactivate the department but can be restored later.",
+    "softDeleteConfirmText": "Are you sure you want to deactivate the department \"{{name}}\"?",
+    "softDeleteIrreversible": "You can restore this department later from the recycle bin.",
+    "deleteWarningTitle": "WARNING: DELETE DEPARTMENT",
+    "deleteWarningMessage": "This action is irreversible and will permanently delete the department!",
+    "deleteConfirmText": "Are you sure you want to delete the department \"{{name}}\"?",
+    "deleteIrreversible": "⚠️ This cannot be undone!",
+    "noDepartments": "No departments found."
   },
-  "common": {
-    "loading": "Loading...",
-    "noData": "No data available.",
-    "searchPlaceholder": "Search...",
-    "actions": "Actions",
-    "viewDetails": "View Details",
-    "edit": "Edit",
-    "delete": "Delete",
-    "restore": "Restore",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "all": "All",
-    "confirmDelete":"Confirm Delete",
-    "backToList": "Back to List"
-
-  },
-
-   "invitation": {
+  "invitation": {
     "pageTitle": "Invite Employee",
     "sectionTitle": "Invite New Employee",
     "sectionLead": "Send an invitation to a new employee to join your company.",
@@ -224,12 +154,12 @@
       "sentAt": "Sent At",
       "actions": "Actions"
     },
-     "status": {
+    "status": {
       "pending": "Pending",
       "accepted": "Accepted",
       "expired": "Expired"
     },
-     "searchByEmail": "Search by Email",
+    "searchByEmail": "Search by Email",
     "searchByDepartment": "Search by Department",
     "searchByDate": "Search by Date",
     "actions": {
@@ -248,20 +178,9 @@
       "token": "Invitation Token"
     },
     "confirmResendMessage": "Are you sure you want to resend this invitation?",
-  
     "addButton": "New Invitation",
     "noInvitations": "No invitations found."
-
-
   },
-  "user":{
-    "emailExistsError": "This email is already in use."
-  },
-   "breadcrumb": { 
-    "dashboard": "Dashboard"
-  },
-
-  
   "employee": {
     "title": "Employees Management",
     "sectionTitle": "Manage Employees",
@@ -319,17 +238,59 @@
     },
     "noEmployees": "No employees found."
   },
-  "breadcrumb": {
-    "dashboard": "Dashboard"
+  "user": {
+    "emailExistsError": "This email is already in use."
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "flashMessages": {
+    "success": {
+      "add": "Item added successfully.",
+      "update": "Item updated successfully.",
+      "approve": "Item approved successfully.",
+      "reject": "Item rejected successfully.",
+      "softDelete": "Item soft-deleted successfully.",
+      "restore": "Item restored successfully.",
+      "delete": "Item deleted successfully.",
+      "hardDelete": "Item permanently deleted successfully.",
+      "invitationSent": "Invitation sent successfully.",
+      "general": "Operation completed successfully.",
+      "invitationResent": "Invitation resent successfully."
+    },
+    "error": {
+      "add": "Failed to add item. Please try again.",
+      "update": "Failed to update item. Please try again.",
+      "approve": "Failed to approve item. Please try again.",
+      "reject": "Failed to reject item. Please try again.",
+      "softDelete": "Failed to soft-delete item. Please try again.",
+      "restore": "Failed to restore item. Please try again.",
+      "delete": "Failed to delete item. Please try again.",
+      "hardDelete": "Failed to permanently delete item. Please try again.",
+      "general": "An error occurred. Please try again.",
+      "notFound": "The requested item was not found.",
+      "alreadyExists": "An item with the same data already exists."
+    }
   },
   "common": {
-    "saveChanges": "Save Changes",
-    "backToList": "Back to Employees"
-  },
-  "common": {
+    "loading": "Loading...",
+    "noData": "No data available.",
+    "searchPlaceholder": "Search...",
+    "actions": "Actions",
+    "viewDetails": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "restore": "Restore",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "all": "All",
+    "confirmDelete": "Confirm Delete",
     "backToList": "Back to Employees",
+    "saveChanges": "Save Changes",
     "yes": "Yes",
     "no": "No"
+  },
+  "breadcrumb": {
+    "dashboard": "Dashboard"
   }
-
 }
