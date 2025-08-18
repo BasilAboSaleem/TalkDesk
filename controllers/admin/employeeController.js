@@ -4,7 +4,7 @@ const {logAudit, AuditLog, User, Company, Department, Invitation, jwt, transport
 
 exports.getEmployees = async (req, res) => {
     try{
-        const employees = await User.find({ role: 'employee' , isDeleted: false })
+        const employees = await User.find({company: req.user.company, role: 'employee'  })
          .populate('department')
       .sort({ createdAt: -1 });
         res.render('pages/admin/employee/employees', { employees, showDeleted: false });

@@ -67,9 +67,6 @@
                 <input type="text" id="departmentSearch" class="form-control" placeholder="<%= t('employee.searchByDepartment') || 'Search by Department' %>" />
               </div>
 
-              <div class="col-md-3 mt-2">
-                <input type="date" id="dateSearch" class="form-control" placeholder="<%= t('employee.searchByDate') || 'Search by Date' %>" />
-              </div>
             </div>
 
             <div class="card">
@@ -90,7 +87,6 @@
                         <th><%= t('employee.tableHeaders.email') || 'Email' %></th>
                         <th><%= t('employee.tableHeaders.department') || 'Department' %></th>
                         <th><%= t('employee.tableHeaders.status') || 'Status' %></th>
-                        <th><%= t('employee.tableHeaders.createdAt') || 'Created At' %></th>
                         <th><%= t('employee.tableHeaders.actions') || 'Actions' %></th>
                       </tr>
                     </thead>
@@ -111,7 +107,6 @@
                                 <span class="badge badge-warning"><%= t('employee.status.busy') || 'Busy' %></span>
                               <% } %>
                             </td>
-                            <td><%= emp.createdAt.toLocaleDateString() %></td>
                             <td>
                               <% if (!emp.isDeleted) { %>
                                 <a href="/admin/employees/view/<%= emp._id %>" class="btn btn-primary btn-sm" title="View"><i class="fas fa-eye"></i></a>
@@ -159,7 +154,6 @@
       const nameSearch = document.getElementById('nameSearch').value.toLowerCase();
       const emailSearch = document.getElementById('emailSearch').value.toLowerCase();
       const departmentSearch = document.getElementById('departmentSearch').value.toLowerCase();
-      const dateSearch = document.getElementById('dateSearch').value;
 
       const rows = document.querySelectorAll('#employeesTable tbody tr');
 
@@ -174,7 +168,6 @@
         let nameMatch = rowName.includes(nameSearch);
         let emailMatch = rowEmail.includes(emailSearch);
         let departmentMatch = rowDepartment.includes(departmentSearch);
-        let dateMatch = !dateSearch || rowDate === dateSearch;
 
         if (statusMatch && nameMatch && emailMatch && departmentMatch && dateMatch) {
           row.style.display = '';
@@ -188,7 +181,6 @@
     document.getElementById('nameSearch').addEventListener('input', filterEmployees);
     document.getElementById('emailSearch').addEventListener('input', filterEmployees);
     document.getElementById('departmentSearch').addEventListener('input', filterEmployees);
-    document.getElementById('dateSearch').addEventListener('change', filterEmployees);
 
     filterEmployees();
   </script>
