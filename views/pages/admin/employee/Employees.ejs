@@ -66,7 +66,6 @@
               <div class="col-md-3">
                 <input type="text" id="departmentSearch" class="form-control" placeholder="<%= t('employee.searchByDepartment') || 'Search by Department' %>" />
               </div>
-
             </div>
 
             <div class="card">
@@ -111,16 +110,16 @@
                               <% if (!emp.isDeleted) { %>
                                 <a href="/admin/employees/view/<%= emp._id %>" class="btn btn-primary btn-sm" title="View"><i class="fas fa-eye"></i></a>
                                 <a href="/admin/employees/edit/<%= emp._id %>" class="btn btn-info btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
-                                <form action="/admin/employees/delete/<%= emp._id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this employee?')">
-                                  <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash"></i></button>
-                                </form>
+                                <button type="button" class="btn btn-danger btn-sm" title="Delete" data-toggle="modal" data-target="#softDeleteModal" data-url="/admin/employees/soft-delete/<%= emp._id %>">
+                                  <i class="fas fa-trash"></i>
+                                </button>
                               <% } else { %>
                                 <form action="/admin/employees/restore/<%= emp._id %>" method="POST" style="display:inline;">
                                   <button type="submit" class="btn btn-success btn-sm" title="Restore"><i class="fas fa-undo"></i></button>
                                 </form>
-                                <form action="/admin/employees/force-delete/<%= emp._id %>" method="POST" style="display:inline;" onsubmit="return confirm('This will permanently delete the employee. Are you sure?')">
-                                  <button type="submit" class="btn btn-danger btn-sm" title="Delete Permanently"><i class="fas fa-times"></i></button>
-                                </form>
+                                <button type="button" class="btn btn-danger btn-sm" title="Delete Permanently" data-toggle="modal" data-target="#forceDeleteModal" data-url="/admin/employees/force-delete/<%= emp._id %>">
+                                  <i class="fas fa-times"></i>
+                                </button>
                               <% } %>
                             </td>
                           </tr>
@@ -145,6 +144,53 @@
     </div>
   </div>
 
+  <!-- Modals -->
+  <!-- Soft Delete Modal -->
+  <div class="modal fade" id="softDeleteModal" tabindex="-1" aria-labelledby="softDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="softDeleteLabel"><%= t('employee.confirmations.delete') %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('common.close') %>">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><%= t('department.softDeleteWarningMessage') %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
+          <form id="softDeleteForm" method="POST">
+            <button type="submit" class="btn btn-danger"><%= t('common.confirmDelete') %></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Permanent Delete Modal -->
+  <div class="modal fade" id="forceDeleteModal" tabindex="-1" aria-labelledby="forceDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="forceDeleteLabel"><%= t('employee.confirmations.forceDelete') %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('common.close') %>">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><%= t('department.deleteWarningMessage') %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('common.cancel') %></button>
+          <form id="forceDeleteForm" method="POST">
+            <button type="submit" class="btn btn-danger"><%= t('common.confirmDelete') %></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JS Scripts -->
   <%- include('../../../partials/script.ejs') %>
 
@@ -162,7 +208,6 @@
         const rowName = row.getAttribute('data-name');
         const rowEmail = row.getAttribute('data-email');
         const rowDepartment = row.getAttribute('data-department');
-        const rowDate = row.getAttribute('data-date');
 
         let statusMatch = (status === 'all') || (rowStatus === status);
         let nameMatch = rowName.includes(nameSearch);
@@ -183,6 +228,19 @@
     document.getElementById('departmentSearch').addEventListener('input', filterEmployees);
 
     filterEmployees();
+
+    // Set form actions dynamically for modals
+    $('#softDeleteModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var url = button.data('url');
+      $('#softDeleteForm').attr('action', url);
+    });
+
+    $('#forceDeleteModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var url = button.data('url');
+      $('#forceDeleteForm').attr('action', url);
+    });
   </script>
 </body>
 </html>
