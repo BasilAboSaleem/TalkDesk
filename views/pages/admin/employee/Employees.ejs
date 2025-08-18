@@ -114,6 +114,8 @@
                                   <i class="fas fa-trash"></i>
                                 </button>
                               <% } else { %>
+                                <a href="/admin/employees/view/<%= emp._id %>" class="btn btn-primary btn-sm" title="View"><i class="fas fa-eye"></i></a>
+
                                 <form action="/admin/employees/restore/<%= emp._id %>?_method=PUT" method="POST" style="display:inline;">
                                   <button type="submit" class="btn btn-success btn-sm" title="Restore"><i class="fas fa-undo"></i></button>
                                 </form>

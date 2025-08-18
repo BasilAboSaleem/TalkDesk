@@ -7,7 +7,7 @@ const {getNewInvitation, createInvitation ,getInvitations,
 } = require('./invitationController');
 
 const {getEmployees, viewEmployeeDetails, getEditEmployee, EditEmployee,
-        softDeleteEmployee
+        softDeleteEmployee ,restoreEmployee
 } = require('./employeeController');
 
 
@@ -30,5 +30,6 @@ module.exports = {
   viewEmployeeDetails,
   getEditEmployee,
   EditEmployee,
-  softDeleteEmployee
+  softDeleteEmployee,
+  restoreEmployee
 };
