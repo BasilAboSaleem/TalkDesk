@@ -12,6 +12,16 @@ const conversationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Message',
     default: null
+  },
+  type: {
+    type: String,
+    enum: ['private', 'group', 'department_group', 'project_group'],
+    default: 'private'
+  },
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department',
+    default: null
   }
 
 }, { timestamps: true });
