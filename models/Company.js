@@ -5,7 +5,7 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true, // اسم الشركة لازم يكون فريد
+    unique: true, 
   },
 
   email: {
@@ -19,14 +19,14 @@ const companySchema = new mongoose.Schema({
   subdomain: {
     type: String,
     required: true,
-    unique: true,  // اسم النطاق الفرعي لازم يكون فريد
+    unique: true,
     lowercase: true,
     trim: true,
   },
 
   logo: {
     type: String,
-    default: null  //Cloudinary 
+    default: null
   },
 
   industry: {
@@ -67,6 +67,10 @@ isRejected: {
   type: Boolean,
   default: false
 },
+  deletedAt: {
+    type: Date,
+    default: null
+  },
   settings: {
     type: Object,
     default: {}
