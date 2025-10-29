@@ -1,9 +1,8 @@
 # TokDesk v1 - Early Prototype
 
-
 ## ⚠️ Important Note
 
-This repository contains an **early prototype (~20% completed) of the TokDesk project**.
+This repository contains an **early prototype (~20% completed) of the TokDesk project**, originally developed under the name **TalkDesk v1**.
 It was built as an initial version to explore the idea, test concepts, and validate architecture choices.
 The professional, full-featured version, **TokDesk v2**, is developed in a separate repository with a complete architecture and production-ready code.
 
@@ -21,6 +20,7 @@ TokDesk is a full-stack communication and ticketing system inspired by platforms
 * Early routes and controllers for testing basic CRUD
 * Conceptual Socket.io setup (not fully implemented)
 * Initial Docker setup for MongoDB and Redis (basic)
+* Multi-language support folder added (locales)
 
 ### Limitations of v1
 
@@ -33,12 +33,12 @@ TokDesk is a full-stack communication and ticketing system inspired by platforms
 
 ## ⚙️ Tech Stack Used in v1
 
-| Layer            | Technology        | Usage                                  |
-| ---------------- | ----------------- | -------------------------------------- |
-| Backend          | Node.js + Express | Basic API endpoints                    |
-| Database         | MongoDB           | Data persistence                       |
-| Realtime         | Socket.io         | Conceptual setup, not production-ready |
-| Authentication   | JWT               | Basic login/register                   |
+| Layer          | Technology        | Usage                                  |
+| -------------- | ----------------- | -------------------------------------- |
+| Backend        | Node.js + Express | Basic API endpoints                    |
+| Database       | MongoDB           | Data persistence                       |
+| Realtime       | Socket.io         | Conceptual setup, not production-ready |
+| Authentication | JWT               | Basic login/register                   |
 
 ---
 
@@ -47,7 +47,7 @@ TokDesk is a full-stack communication and ticketing system inspired by platforms
 ```
 TokDesk-v1/
 ├── app.js             # Express server setup
-├── locales/           # Multy languges
+├── locales/           # Multi-language support
 ├── constants/         # Roles
 ├── config/            # DB connection and configuration
 ├── controllers/       # Early controllers (Auth, User, Company, etc.)
@@ -56,7 +56,7 @@ TokDesk-v1/
 ├── middlewares/       # Basic middleware for auth and error handling
 ├── public/            # Static files
 ├── views/             # Test pages 
-├── scenario.md        
+├── scenario.md        # Early project scenarios
 └── .env               # Environment variables
 ```
 
@@ -80,12 +80,14 @@ TokDesk-v1/
 * Integrate front-end professionally (React + Tailwind)
 * Add Docker Compose + Nginx for production-ready deployment
 * Enhance security and role-based access control (RBAC)
+* Migrate project officially from TalkDesk to **TokDesk**
+* Expand multi-language support across all modules
 
 ---
 
 ## 📌 Summary
 
-**TokDesk v1** is an early experimental version and **should not be used in production**.
+**TokDesk v1** (formerly TalkDesk v1) is an early experimental version and **should not be used in production**.
 It exists to document the **evolution of the project** and serve as a reference for the transition to **TokDesk v2**, the fully professional version.
 
 ---
